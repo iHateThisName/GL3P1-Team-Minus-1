@@ -5,13 +5,13 @@ public class OceanScript : MonoBehaviour {
     [SerializeField] private PlayerMovement playerMovement;
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            this.playerMovement.SetWater(true);
+            this.playerMovement.isUnderWater = true;
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            this.playerMovement.SetWater(false);
+            this.playerMovement.isUnderWater = false;
         }
     }
 }

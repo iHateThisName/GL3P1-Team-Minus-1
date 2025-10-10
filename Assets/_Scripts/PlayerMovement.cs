@@ -3,34 +3,41 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
 
-    //The player's rigidbody
+    /// <summary>
+    /// The player's rigidbody
+    /// </summary>
     [SerializeField] private Rigidbody rb;
     public bool isUnderWater = false;
     [SerializeField] private PlayerInput playerInput;
 
     [Header("Walk Movement")]
     public float speed = 15f;
+    /// <summary>
+    /// LayerMask used to determine what is considered ground for the player.
+    /// </summary>
     public LayerMask ground;
     private bool isGrounded = false;
     public float groundDrag = 5;
     public float playerHeight = 1f;
 
     [Header("Swim Movement")]
-    //The speed at which the player accelerates
+    /// <summary>
+    /// The speed at which the player accelerates
+    /// </summary>
     public float acceleration = 5f;
-    //The maximum speed at which the player can travel
+    /// <summary>
+    /// The maximum speed at which the player can travel
+    /// </summary>
     public float maxSpeed = 3f;
-    //The drag which is used to slow down the player while in the water
+    /// <summary>
+    /// The drag which is used to slow down the player while in the water
+    /// </summary>
     public float drag = 2f;
 
-
-    //The input of the player
+    /// <summary>
+    /// The input of the player
+    /// </summary>
     private Vector2 input;
-
-    public void SetWater(bool newValue) {
-        Debug.Log("Setting water to " + newValue);
-        this.isUnderWater = newValue;
-    }
 
     private void Awake() {
         if (rb == null) {
@@ -51,17 +58,13 @@ public class PlayerMovement : MonoBehaviour {
         playerInput.actions["Move"].canceled -= OnMoveAction;
     }
 
-    private void OnMoveAction(InputAction.CallbackContext context) {
-        this.input = context.ReadValue<Vector2>();
-    }
-
-
-
-    // Update is called once per frame
     private void Update() {
         if (!this.isUnderWater) {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
         }
+    }
+    private void OnMoveAction(InputAction.CallbackContext context) {
+        this.input = context.ReadValue<Vector2>();
     }
 
     private void FixedUpdate() {
@@ -124,12 +127,5 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 walkSpeed = new Vector3(input.x * speed, 0f, 0f);
         //rb.AddForce(walkSpeed);
         rb.linearVelocity = new Vector3(walkSpeed.x, rb.linearVelocity.y, 0f);
-    }
-
-    //Safety mechanism to make sure the player doesn't get pushed along the z axis by other objects
-    void LateUpdate() {
-        Vector3 pos = transform.position;
-        pos.z = 0f;
-        transform.position = pos;
     }
 }
