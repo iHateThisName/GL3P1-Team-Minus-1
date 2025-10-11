@@ -1,5 +1,87 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &299438514567855419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3602007148373577771}
+  - component: {fileID: 8586396447236088616}
+  m_Layer: 0
+  m_Name: Breathing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3602007148373577771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299438514567855419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6563738191270887924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8586396447236088616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299438514567855419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7951c99825cb54aa499e465166a6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreathingScript
+  breathingBar: 0
+  breathingSpeed: 12.5
+  minBreatheValue: 50
+  maxBreatheValue: 62.5
+  breatheInAction:
+    m_Name: Breathe In
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: a6ece8e7-2e62-4dc2-ba80-3e8178951e44
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: bc43d52f-a2c4-41fa-8d6b-209b1c2ccfaa
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Breathe In
+      m_Flags: 0
+    m_Flags: 0
+  holdBreathAction:
+    m_Name: Hold Breath
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: b6713c33-b15c-4268-97e1-8c2a6dcad320
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 44445d0f-4ab2-4b56-92da-f9d01c1cdde5
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Hold Breath
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &1741856783041519145
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +261,7 @@ Transform:
   - {fileID: 3316710903343974651}
   - {fileID: 6357647197372353148}
   - {fileID: 2650256170609655448}
+  - {fileID: 3602007148373577771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1156757357209533752
