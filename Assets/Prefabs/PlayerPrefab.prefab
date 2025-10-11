@@ -48,6 +48,7 @@ MonoBehaviour:
   breathingSpeed: 12.5
   minBreatheValue: 50
   maxBreatheValue: 62.5
+  breathingSlider: {fileID: 0}
   breatheInAction:
     m_Name: Breathe In
     m_Type: 1
@@ -262,6 +263,7 @@ Transform:
   - {fileID: 6357647197372353148}
   - {fileID: 2650256170609655448}
   - {fileID: 3602007148373577771}
+  - {fileID: 8924466949601412395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1156757357209533752
@@ -378,6 +380,56 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &5876673323425444712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8924466949601412395}
+  - component: {fileID: 6347928181366017937}
+  m_Layer: 0
+  m_Name: PlayerInteract
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8924466949601412395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876673323425444712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6563738191270887924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6347928181366017937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876673323425444712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf9681124c993242b395136fc6dbe53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+  playerInput: {fileID: 7387604891326746055}
+  interactRange: 2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  DrawGizmos: 1
 --- !u!1 &7248349089034821648
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +40,9 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     private Vector2 input;
 
+    private float defaultWeight; // The player's default weight
+    private float addedWeight = 0f; // The additional weight added by collectibles
+
     private void Awake() {
         if (rb == null) {
             rb = GetComponent<Rigidbody>();
@@ -46,6 +50,9 @@ public class PlayerMovement : MonoBehaviour {
         if (this.playerInput == null) {
             this.playerInput = GetComponent<PlayerInput>();
         }
+
+        this.defaultWeight = rb.mass; // Store the default weight of the player
+        GameManager.Instance.PlayerMovement = this; // Register this instance with the GameManager
     }
 
     private void OnEnable() {
@@ -127,5 +134,23 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 walkSpeed = new Vector3(input.x * speed, 0f, 0f);
         //rb.AddForce(walkSpeed);
         rb.linearVelocity = new Vector3(walkSpeed.x, rb.linearVelocity.y, 0f);
+    }
+
+    /// <summary>
+    /// Increases the player's weight by the specified amount
+    /// </summary>
+    /// <param name="amount">How much to increase by</param>
+    public void IncreaseWeight(float amount) {
+        this.addedWeight += amount;
+        rb.mass = 1f + this.addedWeight;
+    }
+
+    /// <summary>
+    /// Decreases the player's weight by the specified amount
+    /// </summary>
+    /// <param name="amount">How much to decrease by</param>
+    public void DecreaseWeight(float amount) {
+        this.addedWeight -= amount;
+        rb.mass = 1f + this.addedWeight;
     }
 }

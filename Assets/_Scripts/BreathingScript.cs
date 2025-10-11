@@ -61,6 +61,8 @@ public class BreathingScript : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (this.breathingSlider == null) return;
+
         breathingBar = Mathf.Clamp(breathingBar, 0f, 100f);
         Breathing();
         breathingSlider.value = breathingBar / 100f;
