@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -58,11 +57,13 @@ public class PlayerMovement : MonoBehaviour {
     private void OnEnable() {
         playerInput.actions["Move"].performed += OnMoveAction;
         playerInput.actions["Move"].canceled += OnMoveAction;
+        this.playerInput.actions["Cancel"].performed += OnPauseMenuToggle;
     }
 
     private void OnDisable() {
         playerInput.actions["Move"].performed -= OnMoveAction;
         playerInput.actions["Move"].canceled -= OnMoveAction;
+        this.playerInput.actions["Cancel"].performed -= OnPauseMenuToggle;
     }
 
     private void Update() {
@@ -72,6 +73,11 @@ public class PlayerMovement : MonoBehaviour {
     }
     private void OnMoveAction(InputAction.CallbackContext context) {
         this.input = context.ReadValue<Vector2>();
+    }
+
+    // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
+    private void OnPauseMenuToggle(InputAction.CallbackContext context) {
+        GameSceneManager.Instance.TogglePauseMenu();
     }
 
     private void FixedUpdate() {
