@@ -49,6 +49,7 @@ MonoBehaviour:
   weight: 0.5
   ObjectRootTransform: {fileID: 7134439497563502573}
   rb: {fileID: 380178357453718663}
+  ModelTransform: {fileID: 2026616551815929999}
 --- !u!54 &380178357453718663
 Rigidbody:
   m_ObjectHideFlags: 0

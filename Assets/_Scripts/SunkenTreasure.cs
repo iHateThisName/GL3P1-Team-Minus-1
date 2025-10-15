@@ -9,6 +9,8 @@ public class SunkenTreasure : Interactable {
 
     [SerializeField] private Rigidbody rb; // The Rigidbody of the treasure object
 
+    [SerializeField] private Transform ModelTransform; // The model of the treasure object
+
     private bool isCollected = false; // Whether the treasure has been collected
     private bool isPickedUp = false; // Whether the treasure is currently picked up by the player
     private void Awake() {
@@ -23,43 +25,59 @@ public class SunkenTreasure : Interactable {
     // Will be called when the player interacts with this object
     public override void Interact() {
         if (!this.isCollected) {
-            // Collects the treasure and also instantly picks it up
-            this.isCollected = true;
-            this.isPickedUp = true;
-            this.rb.isKinematic = true; // Disable physics on the treasure
-
-            GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
-            Debug.Log("Treasure collected! Player weight increased by " + this.weight);
+            CollectTreasure();
         } else if (this.isPickedUp) {
-            // Drops the treasure
-            this.isPickedUp = false;
-            this.rb.isKinematic = false; // Enable physics on the treasure
-
-            GameManager.Instance.PlayerMovement.DecreaseWeight(this.weight);
-            Debug.Log("Dropping Treasure");
+            DropTreasure();
         } else {
-            // If the treasure is collected but not picked up, pick it up again
-            // Or if the player drops it and wants to pick it up again
-            this.isPickedUp = true;
-            this.rb.isKinematic = true; // Disable physics on the treasure
-
-            GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
-            Debug.Log("Picking up Treasure");
+            PickUpTreasure();
         }
 
         if (this.isPickedUp) {
             AttachToPlayer();
+            this.ModelTransform.gameObject.SetActive(false);
         } else {
+            this.ModelTransform.gameObject.SetActive(true);
             DetachFromPlayer();
         }
     }
 
+    private void PickUpTreasure() {
+        // If the treasure is collected but not picked up, pick it up again
+        // Or if the player drops it and wants to pick it up again
+        this.isPickedUp = true;
+        //this.rb.isKinematic = true; // Disable physics on the treasure
+
+        GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
+        Debug.Log("Picking up Treasure");
+    }
+
+    private void DropTreasure() {
+        // Drops the treasure
+        this.isPickedUp = false;
+        //this.rb.isKinematic = false; // Enable physics on the treasure
+
+        GameManager.Instance.PlayerMovement.DecreaseWeight(this.weight);
+        Debug.Log("Dropping Treasure");
+    }
+
+    private void CollectTreasure() {
+        // Collects the treasure and also instantly picks it up
+        this.isCollected = true;
+        this.isPickedUp = true;
+        this.rb.isKinematic = true; // Disable physics on the treasure
+
+        GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
+        Debug.Log("Treasure collected! Player weight increased by " + this.weight);
+    }
+
     private void AttachToPlayer() {
+        this.rb.isKinematic = true;
         Transform playerTransform = GameManager.Instance.PlayerInteractTransform;
         this.ObjectRootTransform.SetParent(playerTransform);
     }
 
     private void DetachFromPlayer() {
         this.ObjectRootTransform.SetParent(null);
+        this.rb.isKinematic = false; // Enable physics on the treasure
     }
 }
