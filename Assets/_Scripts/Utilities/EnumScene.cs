@@ -6,5 +6,6 @@ namespace Assets.Scripts.Enums {
     public enum EnumScene {
         MainMenu,
         PauseMenu,
+        ShopMenu,
     }
 }

@@ -1,6 +1,7 @@
 using Assets.Scripts.Enums;
 using Assets.Scripts.Singleton;
 using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
     /// <summary>
     /// Indicates if the pause menu is currently loaded.
     /// </summary>
-    public bool isPauseMenuLoaded {
+    public bool IsPauseMenuLoaded {
         get {
             EnumScene[] activeScenes = GetCurrentActiveScenes();
             foreach (EnumScene scene in activeScenes) {
@@ -21,11 +22,30 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         }
     }
 
+    public bool IsShopMenuLoaded {
+        get {
+            EnumScene[] activeScenes = GetCurrentActiveScenes();
+            foreach (EnumScene scene in activeScenes) {
+                if (scene == EnumScene.ShopMenu)
+                    return true;
+            }
+            return false;
+        }
+    }
+
     public void TogglePauseMenu() {
-        if (isPauseMenuLoaded) {
+        if (this.IsPauseMenuLoaded) {
             UnLoadPauseMenu();
         } else {
             LoadScene(EnumScene.PauseMenu, LoadSceneMode.Additive);
+        }
+    }
+
+    public void ToggleShopMenu() {
+        if (this.IsShopMenuLoaded) {
+            StartCoroutine(UnLoadShopMenuCorutine());
+        } else {
+            LoadScene(EnumScene.ShopMenu, LoadSceneMode.Additive);
         }
     }
 
@@ -70,6 +90,12 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         }
     }
 
+    public void UnLoadShopMenu() => StartCoroutine(UnLoadShopMenuCorutine());
+
+    private IEnumerator UnLoadShopMenuCorutine() {
+        yield return SceneManager.UnloadSceneAsync(EnumScene.ShopMenu.ToString());
+    }
+
     /// <summary>
     /// Gets the build index of a scene by its enum value.
     /// </summary>
@@ -84,7 +110,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
             if (name == sceneName)
                 return i;
         }
-        Debug.LogError($"EnumScene {sceneName} NOT found in build settings.");
+        UnityEngine.Debug.LogError($"EnumScene {sceneName} NOT found in build settings.");
         return -1;
     }
 
@@ -102,6 +128,10 @@ public class GameSceneManager : Singleton<GameSceneManager> {
             }
         }
         return scenes;
+    }
+
+    public void LaunchGame() {
+        Process.Start("steam://run/2379780");
     }
 }
 
