@@ -8,4 +8,6 @@ public abstract class Interactable : MonoBehaviour {
     /// Called when the player interacts with this object.
     /// </summary>
     public abstract void Interact();
+
+    public abstract int GetValueAmount();
 }

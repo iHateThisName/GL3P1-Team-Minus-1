@@ -9,4 +9,13 @@ public class GameManager : Singleton<GameManager> {
     // Game state variables
     public bool IsPlayerMovmentEnabled = true;
     public int Money = 0;
+
+    public int GetHeldItemsValue() {
+        Interactable[] heldItems = PlayerInteractTransform.GetComponentsInChildren<Interactable>();
+        int totalValue = 0;
+        foreach (Interactable item in heldItems) {
+            totalValue += item.GetValueAmount();
+        }
+        return totalValue;
+    }
 }

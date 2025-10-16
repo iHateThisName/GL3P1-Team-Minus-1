@@ -43,6 +43,10 @@ public class SunkenTreasure : Interactable {
         }
     }
 
+    public override int GetValueAmount() {
+        return this.value;
+    }
+
     private void PickUpTreasure() {
         // If the treasure is collected but not picked up, pick it up again
         // Or if the player drops it and wants to pick it up again

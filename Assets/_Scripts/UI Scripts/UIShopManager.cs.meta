@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e5c7016b824772f40b60dec8f4bba956
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sellButton: {instanceID: 0}
+  - ShopItemsContainer: {instanceID: 0}
+  - ShopItemPrefab: {fileID: 1664794297450789786, guid: 3b243fe257570f54fa62f84daa9a357c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

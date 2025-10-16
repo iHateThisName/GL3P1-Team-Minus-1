@@ -6,7 +6,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSceneManager : Singleton<GameSceneManager> {
+public class GameSceneManager : PersistenSingleton<GameSceneManager> {
 
     /// <summary>
     /// Indicates if the pause menu is currently loaded.
