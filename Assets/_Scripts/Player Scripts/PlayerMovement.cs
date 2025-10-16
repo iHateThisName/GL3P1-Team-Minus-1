@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private PlayerInput playerInput;
 
     [Header("Walk Movement")]
-    public float speed = 15f;
+    public float walkSpeed = 7f;
+    public float sprintSpeed = 12f;
+    private float moveSpeed;
     /// <summary>
     /// LayerMask used to determine what is considered ground for the player.
     /// </summary>
@@ -24,11 +26,15 @@ public class PlayerMovement : MonoBehaviour {
     /// <summary>
     /// The speed at which the player accelerates
     /// </summary>
-    public float acceleration = 5f;
+    public float smallAcceleration = 5f;
+    public float fastAcceleration = 10f;
+    private float acceleration;
     /// <summary>
     /// The maximum speed at which the player can travel
     /// </summary>
-    public float maxSpeed = 3f;
+    public float normalSpeed = 3;
+    public float fastSpeed = 6;
+    private float maxSpeed;
     /// <summary>
     /// The drag which is used to slow down the player while in the water
     /// </summary>
@@ -50,6 +56,8 @@ public class PlayerMovement : MonoBehaviour {
             this.playerInput = GetComponent<PlayerInput>();
         }
 
+        moveSpeed = walkSpeed;
+
         this.defaultWeight = rb.mass; // Store the default weight of the player
         GameManager.Instance.PlayerMovement = this; // Register this instance with the GameManager
     }
@@ -58,12 +66,16 @@ public class PlayerMovement : MonoBehaviour {
         playerInput.actions["Move"].performed += OnMoveAction;
         playerInput.actions["Move"].canceled += OnMoveAction;
         this.playerInput.actions["Cancel"].performed += OnPauseMenuToggle;
+        this.playerInput.actions["Sprint"].performed += OnSprintAction;
+        this.playerInput.actions["Sprint"].canceled += OnSprintCancel;
     }
 
     private void OnDisable() {
         playerInput.actions["Move"].performed -= OnMoveAction;
         playerInput.actions["Move"].canceled -= OnMoveAction;
         this.playerInput.actions["Cancel"].performed -= OnPauseMenuToggle;
+        this.playerInput.actions["Sprint"].performed -= OnSprintAction;
+        this.playerInput.actions["Sprint"].canceled -= OnSprintCancel;
     }
 
     private void Update() {
@@ -73,6 +85,19 @@ public class PlayerMovement : MonoBehaviour {
     }
     private void OnMoveAction(InputAction.CallbackContext context) {
         this.input = context.ReadValue<Vector2>();
+    }
+
+    private void OnSprintAction(InputAction.CallbackContext context) {
+        moveSpeed = sprintSpeed;
+        maxSpeed = fastSpeed;
+        acceleration = fastAcceleration;
+    }
+
+    private void OnSprintCancel(InputAction.CallbackContext context)
+    {
+        moveSpeed = walkSpeed;
+        maxSpeed = normalSpeed;
+        acceleration = smallAcceleration;
     }
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
@@ -137,9 +162,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private void MovePlayer() {
         //rb.linearVelocity = new Vector3((input.x * speed) * Time.fixedDeltaTime, 0f, 0f);
-        Vector3 walkSpeed = new Vector3(input.x * speed, 0f, 0f);
+        Vector3 finalSpeed = new Vector3(input.x * moveSpeed, 0f, 0f);
         //rb.AddForce(walkSpeed);
-        rb.linearVelocity = new Vector3(walkSpeed.x, rb.linearVelocity.y, 0f);
+        rb.linearVelocity = new Vector3(finalSpeed.x, rb.linearVelocity.y, 0f);
     }
 
     /// <summary>
