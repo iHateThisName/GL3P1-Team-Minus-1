@@ -109,6 +109,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        // Check if the movment is disabled
+        if (!GameManager.Instance.IsPlayerMovmentEnabled) return;
+
         if (isGrounded) {
             rb.linearDamping = groundDrag;
         } else {

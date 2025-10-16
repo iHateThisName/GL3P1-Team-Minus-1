@@ -45,6 +45,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
         if (this.IsShopMenuLoaded) {
             StartCoroutine(UnLoadShopMenuCorutine());
         } else {
+            GameManager.Instance.IsPlayerMovmentEnabled = false;
             LoadScene(EnumScene.ShopMenu, LoadSceneMode.Additive);
         }
     }
@@ -94,6 +95,7 @@ public class GameSceneManager : Singleton<GameSceneManager> {
 
     private IEnumerator UnLoadShopMenuCorutine() {
         yield return SceneManager.UnloadSceneAsync(EnumScene.ShopMenu.ToString());
+        GameManager.Instance.IsPlayerMovmentEnabled = true;
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShopController : Interactable {
+public class ShopInteractable : Interactable {
 
     public override void Interact() {
         Debug.Log("Interacting with Shop");

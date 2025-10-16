@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class SunkenTreasure : Interactable {
+    [SerializeField] private int value = 100; // The value of the treasure
+
     [Tooltip("How much heavier the player becomes when picking this up")]
     [SerializeField] private float weight = 0.5f;
 
