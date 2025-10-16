@@ -94,8 +94,8 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
     public void UnLoadShopMenu() => StartCoroutine(UnLoadShopMenuCorutine());
 
     private IEnumerator UnLoadShopMenuCorutine() {
-        yield return SceneManager.UnloadSceneAsync(EnumScene.ShopMenu.ToString());
         GameManager.Instance.IsPlayerMovmentEnabled = true;
+        yield return SceneManager.UnloadSceneAsync(EnumScene.ShopMenu.ToString());
     }
 
     /// <summary>

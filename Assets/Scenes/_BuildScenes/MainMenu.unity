@@ -179,7 +179,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 725.4
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -1313,6 +1313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4326153495540429230, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
+      propertyPath: moveActionRef
+      value: 
+      objectReference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 4684028439871841879, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab

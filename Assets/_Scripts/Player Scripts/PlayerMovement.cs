@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour {
     private float defaultWeight; // The player's default weight
     private float addedWeight = 0f; // The additional weight added by collectibles
 
+    //[SerializeField] private InputActionReference moveActionRef; <-- This seems to be a cool way to do it for the new input system.
+
     private void Awake() {
         if (rb == null) {
             rb = GetComponent<Rigidbody>();
