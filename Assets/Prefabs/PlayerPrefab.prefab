@@ -341,14 +341,17 @@ MonoBehaviour:
   rb: {fileID: 1156757357209533752}
   isUnderWater: 0
   playerInput: {fileID: 7387604891326746055}
-  speed: 7
+  walkSpeed: 7
+  sprintSpeed: 12
   ground:
     serializedVersion: 2
     m_Bits: 64
   groundDrag: 5
   playerHeight: 1
-  acceleration: 5
-  maxSpeed: 3
+  smallAcceleration: 5
+  fastAcceleration: 10
+  normalSpeed: 3
+  fastSpeed: 6
   drag: 2
 --- !u!114 &7387604891326746055
 MonoBehaviour:
@@ -429,7 +432,6 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 128
-  DrawGizmos: 1
 --- !u!1 &7248349089034821648
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +635,7 @@ MonoBehaviour:
     FieldOfView: 60.000004
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 725.4
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
