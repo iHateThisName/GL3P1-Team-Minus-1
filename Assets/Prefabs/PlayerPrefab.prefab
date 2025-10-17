@@ -49,9 +49,8 @@ MonoBehaviour:
   minBreatheValue: 50
   maxBreatheValue: 62.5
   breathingSlider: {fileID: 0}
-  oxygenAmount: 1000
-  oxygenLoss: 3.333
-  oxygenPunishment: 20
+  oxygenAmount: 500
+  oxygenLoss: 10
   breatheInAction:
     m_Name: Breathe In
     m_Type: 1

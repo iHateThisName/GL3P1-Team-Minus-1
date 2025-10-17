@@ -31,14 +31,15 @@ public class BreathingScript : MonoBehaviour
 
     private bool isBreathingOut => !isBreathingIn && !isHoldingBreath;
 
+
+    [Header("Oxygen Values")]
     [SerializeField]
     private float oxygenAmount = 1000f;
 
     [SerializeField]
-    private float oxygenLoss = 3.333f;
+    private float oxygenLoss = 10f;
 
-    [SerializeField]
-    private float oxygenPunishment = 20f;
+    private float oxygenPunishment = 0f;
 
     [Header("Input Actions")]
     [SerializeField]
@@ -79,7 +80,6 @@ public class BreathingScript : MonoBehaviour
 
     //Function used for the breathing logic
     private void Breathing() {
-        oxygenAmount -= oxygenLoss * Time.deltaTime;
         if (isBreathingIn && !isHoldingBreath) {
             breathingBar += breathingSpeed * Time.deltaTime;
         }
@@ -103,6 +103,7 @@ public class BreathingScript : MonoBehaviour
         }
         else {
             Debug.Log("Started breathing too early or too late");
+            oxygenPunishment += 5f;
         }
         noAirTimer = 0f;
     }
@@ -116,6 +117,7 @@ public class BreathingScript : MonoBehaviour
         }
         else {
             Debug.Log("Started holding too early or too late");
+            oxygenPunishment += 5f;
         }
     }
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
@@ -125,7 +127,10 @@ public class BreathingScript : MonoBehaviour
         }
         else {
             Debug.Log("Held breath for too long or not long enough");
+            oxygenPunishment += 5f;
         }
+        oxygenAmount -= oxygenLoss + oxygenPunishment;
+        oxygenPunishment = 0f;
         holdingTimer = 0;
     }
 
