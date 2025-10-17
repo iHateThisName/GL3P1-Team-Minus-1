@@ -42,22 +42,52 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
         Debug.Log("ShopItemLookUp OnDestroy called.");
         if (this.playersShopItems.Count > 0 && ShopItemLookUp.Instance == this) { // Make sure this is the active instance
             // TODO Not working properly because cant serialize Sprite
-            Debug.Log("TODO Not working properly because cant serialize Sprite to json");
-            return;
+            List<ShopItemDataDTO> playerShopItemsDTO = new List<ShopItemDataDTO>();
 
-            //string jsonPlayerItems = JsonConvert.SerializeObject(this.playersShopItems, formatting: Formatting.Indented);
-            //Debug.Log($"Saving player shop items: {jsonPlayerItems}");
-            //PlayerPrefs.SetString(PlayerShopItemsKey, jsonPlayerItems);
+            this.playersShopItems.ForEach(item => {
+                playerShopItemsDTO.Add(item.SeriliazeToDTO());
+            });
+
+            string jsonPlayerItems = JsonUtility.ToJson(new PlayerItemsWrapper(playerShopItemsDTO), prettyPrint: true);
+            PlayerPrefs.SetString(PlayerShopItemsKey, jsonPlayerItems);
+        }
+    }
+
+    private void OnEnable() {
+        if (ShopItemLookUp.Instance == this) {
+            this.playersShopItems = LoadPlayerShopItems();
         }
     }
 
     private List<ShopItemData> LoadPlayerShopItems() {
         if (PlayerPrefs.HasKey(PlayerShopItemsKey)) {
             string jsonPlayerItems = PlayerPrefs.GetString(PlayerShopItemsKey);
-            return new List<ShopItemData>(); // TODO Not working properly because cant serialize Sprite to json
             //List<ShopItemData> storedItems = JsonConvert.DeserializeObject<List<ShopItemData>>(jsonPlayerItems);
-            //Debug.Log($"Loaded player shop items: {jsonPlayerItems}");
-            //return storedItems ?? new List<ShopItemData>(); // Return empty list if deserialization fails
+            PlayerItemsWrapper wrapper = JsonUtility.FromJson<PlayerItemsWrapper>(jsonPlayerItems);
+
+            List<ShopItemData> storedItems = new List<ShopItemData>();
+
+            wrapper.PlayerItems.ForEach(dto => {
+                // Find the corresponding sprite from allShopItems
+                Sprite itemSprite = null;
+
+                // Search for the sprite in allShopItems
+                for (int i = 0; i < this.allShopItems.Count; i++) {
+                    if (this.allShopItems[i].ItemType == dto.ItemType && this.allShopItems[i].Sprite != null) {
+                        itemSprite = this.allShopItems[i].Sprite;
+                        break;
+                    }
+                }
+
+                // I am allowing the sprite to be null on purpose.
+                storedItems.Add(dto.DeSeriliazeFromDTO(itemSprite));
+
+                if (itemSprite == null) {
+                    Debug.LogWarning($"Sprite for item type {dto.ItemType} not found in allShopItems.");
+                }
+            });
+
+            return storedItems;
 
         } else {
             return new List<ShopItemData>();
@@ -97,8 +127,34 @@ public class ShopItemData {
         Sprite = sprite ?? throw new ArgumentNullException(nameof(sprite));
         Price = price;
     }
+
+    public ShopItemDataDTO SeriliazeToDTO() {
+        return new ShopItemDataDTO(this.ItemType, this.Price);
+    }
     public override string ToString() {
         return $"ItemType: {ItemType}, Price: {Price}";
+    }
+}
+
+[System.Serializable]
+public class ShopItemDataDTO {
+    public EnumItemSprite ItemType;
+    public int Price;
+
+    public ShopItemDataDTO(EnumItemSprite itemType, int price) {
+        ItemType = itemType;
+        Price = price;
+    }
+
+    public ShopItemData DeSeriliazeFromDTO(Sprite sprite) {
+        return new ShopItemData(this.ItemType, sprite, this.Price);
+    }
+}
+[System.Serializable]
+public class PlayerItemsWrapper {
+    public List<ShopItemDataDTO> PlayerItems;
+    public PlayerItemsWrapper(List<ShopItemDataDTO> items) {
+        PlayerItems = items;
     }
 }
 
