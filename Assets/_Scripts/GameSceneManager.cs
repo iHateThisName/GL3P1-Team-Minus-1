@@ -1,4 +1,3 @@
-using Assets.Scripts.Enums;
 using Assets.Scripts.Singleton;
 using System.Collections;
 using System.Diagnostics;
