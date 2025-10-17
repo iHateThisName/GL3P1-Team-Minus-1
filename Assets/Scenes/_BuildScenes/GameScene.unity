@@ -2969,10 +2969,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8586396447236088616, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
-      propertyPath: oxygenLoss
-      value: 3.333
-      objectReference: {fileID: 0}
-    - target: {fileID: 8586396447236088616, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
       propertyPath: breathingSlider
       value: 
       objectReference: {fileID: 1964552330}
