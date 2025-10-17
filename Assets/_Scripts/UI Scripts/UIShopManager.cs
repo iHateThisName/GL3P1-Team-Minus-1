@@ -48,6 +48,7 @@ public class UIShopManager : MonoBehaviour {
         if (itemData.Sprite != null) {
             //shopItem.GetComponentInChildren<Image>().sprite = sprite; There are multiple images, so we need to be specific
             shopItem.transform.Find("Model/ItemImage").GetComponent<Image>().sprite = itemData.Sprite;
+            Debug.Log(itemData.Sprite.name);
         }
         Transform textTransfrom = shopItem.transform.Find("Model/TopInfoContainer/PriceText");
         textTransfrom.GetComponent<TMP_Text>().text = $"{itemData.Price}$";

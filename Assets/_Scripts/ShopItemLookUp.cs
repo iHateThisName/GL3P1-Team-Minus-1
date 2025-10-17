@@ -103,5 +103,5 @@ public class ShopItemData {
 }
 
 public enum EnumItemSprite {
-    None, star, cross
+    None, star, cross, suitUppgradeTier1
 }
