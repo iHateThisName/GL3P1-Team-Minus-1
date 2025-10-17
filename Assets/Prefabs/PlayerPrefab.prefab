@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3602007148373577771}
   - component: {fileID: 8586396447236088616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Breathing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2650256170609655448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 3183143049366048356}
   - component: {fileID: 1828744960193057193}
   - component: {fileID: 7182262932008530090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6563738191270887924}
   - component: {fileID: 1156757357209533752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 6357647197372353148}
   - component: {fileID: 4326153495540429230}
   - component: {fileID: 7387604891326746055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Movment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8924466949601412395}
   - component: {fileID: 6347928181366017937}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerInteract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3316710903343974651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 2610057478464706585}
   - component: {fileID: 8917103064666128885}
   - component: {fileID: 8100262148079835845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 5089470116273128745}
   - component: {fileID: 7752012410911815607}
   - component: {fileID: 8344351800620875997}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
