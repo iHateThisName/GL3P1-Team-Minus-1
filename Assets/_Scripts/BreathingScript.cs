@@ -31,6 +31,15 @@ public class BreathingScript : MonoBehaviour
 
     private bool isBreathingOut => !isBreathingIn && !isHoldingBreath;
 
+    [SerializeField]
+    private float oxygenAmount = 1000f;
+
+    [SerializeField]
+    private float oxygenLoss = 3.333f;
+
+    [SerializeField]
+    private float oxygenPunishment = 20f;
+
     [Header("Input Actions")]
     [SerializeField]
     private InputAction breatheInAction;
@@ -70,6 +79,7 @@ public class BreathingScript : MonoBehaviour
 
     //Function used for the breathing logic
     private void Breathing() {
+        oxygenAmount -= oxygenLoss * Time.deltaTime;
         if (isBreathingIn && !isHoldingBreath) {
             breathingBar += breathingSpeed * Time.deltaTime;
         }

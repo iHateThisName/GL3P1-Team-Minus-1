@@ -2588,6 +2588,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab (1)
@@ -2965,6 +2969,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8586396447236088616, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
+      propertyPath: oxygenLoss
+      value: 3.333
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586396447236088616, guid: 0187ffed42990d944aa9b334af9813d2, type: 3}
       propertyPath: breathingSlider
       value: 
       objectReference: {fileID: 1964552330}
@@ -3330,6 +3338,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab (2)
@@ -3742,6 +3754,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab
@@ -3901,6 +3917,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab (3)
@@ -4069,6 +4089,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab (4)
@@ -4126,6 +4150,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008561264492887517, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
+      propertyPath: value
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3192978488015254045, guid: 3f69e89cc37ebe3459605f04814dd335, type: 3}
       propertyPath: m_Name
       value: TreasurePrefab (5)
