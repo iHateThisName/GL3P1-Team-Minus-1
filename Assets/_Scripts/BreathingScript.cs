@@ -53,6 +53,9 @@ public class BreathingScript : MonoBehaviour
 
     private float oxygenPunishment = 0f;
 
+    [SerializeField]
+    private Slider oxygenSlider;
+
     [Header("Input Actions")]
     [SerializeField]
     private InputAction breatheInAction;
@@ -88,6 +91,8 @@ public class BreathingScript : MonoBehaviour
         breathingBar = Mathf.Clamp(breathingBar, 0f, 100f);
         Breathing();
         breathingSlider.value = breathingBar / 100f;
+
+        oxygenSlider.value = oxygenAmount;
     }
 
     //Function used for the breathing logic
