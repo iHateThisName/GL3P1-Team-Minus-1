@@ -59,6 +59,8 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
         }
     }
 
+    public List<ShopItemData> GetAllPlayerItems() => this.playersShopItems;
+
     private List<ShopItemData> LoadPlayerShopItems() {
         if (PlayerPrefs.HasKey(PlayerShopItemsKey)) {
             string jsonPlayerItems = PlayerPrefs.GetString(PlayerShopItemsKey);
@@ -113,7 +115,21 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
         }
     }
 
+    public List<ShopItemData> GetAllPlayerUppgrades() {
+        List<ShopItemData> uppgrades = new List<ShopItemData>();
 
+        foreach (var item in this.playersShopItems) {
+            if (item.ItemType.ToString().Contains("Uppgrade")) {
+                uppgrades.Add(item);
+            }
+        }
+
+        return uppgrades;
+    }
+
+    public void ResetPlayerItems() {
+        this.playersShopItems.Clear();
+    }
 }
 
 [System.Serializable]

@@ -44,7 +44,7 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         if (this.IsShopMenuLoaded) {
             StartCoroutine(UnLoadShopMenuCorutine());
         } else {
-            GameManager.Instance.IsPlayerMovmentEnabled = false;
+            GameManager.Instance.IsPlayerMovementEnabled = false;
             LoadScene(EnumScene.ShopMenu, LoadSceneMode.Additive);
         }
     }
@@ -93,7 +93,7 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
     public void UnLoadShopMenu() => StartCoroutine(UnLoadShopMenuCorutine());
 
     private IEnumerator UnLoadShopMenuCorutine() {
-        GameManager.Instance.IsPlayerMovmentEnabled = true;
+        GameManager.Instance.IsPlayerMovementEnabled = true;
         yield return SceneManager.UnloadSceneAsync(EnumScene.ShopMenu.ToString());
     }
 

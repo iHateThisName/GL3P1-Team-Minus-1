@@ -1,4 +1,5 @@
 using Assets.Scripts.Singleton;
+using System;
 using UnityEngine;
 
 public class GameManager : PersistenSingleton<GameManager> {
@@ -7,7 +8,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public Transform PlayerInteractTransform;
 
     // Game state variables
-    public bool IsPlayerMovmentEnabled = true;
+    public bool IsPlayerMovementEnabled = true;
     public int Money = 0;
 
     public int GetHeldItemsValue() {
@@ -27,5 +28,11 @@ public class GameManager : PersistenSingleton<GameManager> {
 
     public void OnTestCall() {
         Debug.Log("Test call from GameManager");
+    }
+
+    // Deletes the saved game state
+    public void DeleteGameState() {
+        PlayerPrefs.DeleteKey(ShopItemLookUp.PlayerShopItemsKey);
+        ShopItemLookUp.Instance.ResetPlayerItems();
     }
 }
