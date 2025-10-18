@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class BreathingScript : MonoBehaviour
 {
@@ -31,10 +32,21 @@ public class BreathingScript : MonoBehaviour
 
     private bool isBreathingOut => !isBreathingIn && !isHoldingBreath;
 
+    [SerializeField]
+    private TMP_Text holdingText;
+
+    [SerializeField]
+    private TMP_Text noAirText;
+
+    [SerializeField]
+    private RawImage correctImage;
+
 
     [Header("Oxygen Values")]
     [SerializeField]
     private float oxygenAmount = 1000f;
+
+    private float intendedOxygen = 1000f;
 
     [SerializeField]
     private float oxygenLoss = 10f;
@@ -85,10 +97,12 @@ public class BreathingScript : MonoBehaviour
         }
         else if (isHoldingBreath) {
             holdingTimer += Time.deltaTime;
+            holdingText.text = holdingTimer.ToString("F2");
         }
         else if (isBreathingOut) {
             if(breathingBar <= 0f) {
                 noAirTimer += Time.deltaTime;
+                noAirText.text = noAirTimer.ToString("F2");
             }
             else {
                 breathingBar -= breathingSpeed * Time.deltaTime;
@@ -100,12 +114,16 @@ public class BreathingScript : MonoBehaviour
         isBreathingIn = true;
         if(breathingBar <= 4f && noAirTimer < 3f) {
             Debug.Log("Started breathing at correct time");
+            correctImage.color = Color.green;
         }
         else {
             Debug.Log("Started breathing too early or too late");
             oxygenPunishment += 5f;
+            correctImage.color = Color.red;
         }
         noAirTimer = 0f;
+        holdingText.text = "";
+        noAirText.text = "";
     }
     private void OnBreatheInStopped(InputAction.CallbackContext context) {
         isBreathingIn = false;
@@ -113,38 +131,47 @@ public class BreathingScript : MonoBehaviour
         {
             Debug.Log("Inhaled for too long");
             oxygenPunishment += 5f;
+            correctImage.color = Color.red;
         }
     }
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
         if(breathingBar >= minBreatheValue && breathingBar <= maxBreatheValue) {
             Debug.Log("Started holding at correct time");
+            correctImage.color = Color.green;
         }
         else {
             Debug.Log("Started holding too early or too late");
             oxygenPunishment += 5f;
+            correctImage.color = Color.red;
         }
     }
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
         isHoldingBreath = false;
         if(holdingTimer >= 4f && holdingTimer <= 7f) {
             Debug.Log("Held breath for the correct amount of time");
+            correctImage.color = Color.green;
         }
         else {
             Debug.Log("Held breath for too long or not long enough");
             oxygenPunishment += 5f;
+            correctImage.color = Color.red;
         }
         oxygenAmount -= oxygenLoss + oxygenPunishment;
         oxygenPunishment = 0f;
         holdingTimer = 0;
+        holdingText.text = "";
     }
 
     public void DisableBreathing()
     {
+        oxygenAmount = intendedOxygen;
+        oxygenPunishment = 0f;
         breathingBar = 0f;
         holdingTimer = 0f;
         noAirTimer = 0f;
         breathingSlider.value = 0f;
-        breathingSlider.gameObject.SetActive(false);
+        holdingText.text = "";
+        noAirText.text = "";
     }
 }

@@ -18,6 +18,7 @@ public class OceanScript : MonoBehaviour {
             this.playerMovement.isUnderWater = false;
             this.breatheScript.DisableBreathing();
             this.breatheScript.enabled = false;
+            breatheSlider.SetActive(false);
         }
     }
 }
