@@ -109,6 +109,11 @@ public class BreathingScript : MonoBehaviour
     }
     private void OnBreatheInStopped(InputAction.CallbackContext context) {
         isBreathingIn = false;
+        if (breathingBar > maxBreatheValue)
+        {
+            Debug.Log("Inhaled for too long");
+            oxygenPunishment += 5f;
+        }
     }
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
