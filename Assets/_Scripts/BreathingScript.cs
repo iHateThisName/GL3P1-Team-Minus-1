@@ -132,9 +132,9 @@ public class BreathingScript : MonoBehaviour
     }
     private void OnBreatheInStopped(InputAction.CallbackContext context) {
         isBreathingIn = false;
-        if (breathingBar > maxBreatheValue)
+        if (breathingBar > maxBreatheValue || breathingBar < minBreatheValue)
         {
-            Debug.Log("Inhaled for too long");
+            Debug.Log("Inhaled for too long or too short");
             oxygenPunishment += 5f;
             correctImage.color = Color.red;
         }
