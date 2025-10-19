@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_BuildScenes/GameScene.unity
     guid: ab9174561450f564983369a0177dbf58
+  - enabled: 1
+    path: Assets/Scenes/Halldor/Tutorial.unity
+    guid: 852683fd1cdeb924da7650bb5a1daf31
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
