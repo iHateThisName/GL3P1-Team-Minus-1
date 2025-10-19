@@ -7,10 +7,12 @@ public class UIMainMenuController : MonoBehaviour {
 
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button howToPlayButton;
 
     private void Awake() {
         this.newGameButton.gameObject.SetActive(false);
         this.continueButton.gameObject.SetActive(false);
+        this.howToPlayButton.gameObject.SetActive(false);
     }
 
     private IEnumerator Start() {
@@ -30,11 +32,14 @@ public class UIMainMenuController : MonoBehaviour {
             this.newGameButton.onClick.AddListener(() => OnStartNewGamePressed(button: this.newGameButton, deleteSaveFile: false));
         }
         this.newGameButton.gameObject.SetActive(true);
+        this.howToPlayButton.gameObject.SetActive(true);
 
+        this.howToPlayButton.onClick.AddListener(() => OnHowToPlayPressed());
     }
     private void OnDisable() {
         this.newGameButton.onClick.RemoveAllListeners();
         this.continueButton.onClick.RemoveAllListeners();
+        this.howToPlayButton.onClick.RemoveAllListeners();
     }
 
     public void OnStartNewGamePressed(Button button, bool deleteSaveFile) {
@@ -45,5 +50,9 @@ public class UIMainMenuController : MonoBehaviour {
             GameManager.Instance.DeleteGameState();
         }
         GameSceneManager.Instance.LoadScene(EnumScene.GameScene);
+    }
+
+    public void OnHowToPlayPressed() {
+        GameSceneManager.Instance.LoadScene(EnumScene.Tutorial);
     }
 }
