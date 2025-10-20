@@ -49,6 +49,14 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         }
     }
 
+    public void LoadScene(string sceneName) {
+        if (System.Enum.TryParse(sceneName, out EnumScene sceneEnum)) {
+            LoadScene(sceneEnum);
+        } else {
+            UnityEngine.Debug.LogError($"Scene '{sceneName}' is not a valid EnumScene value.");
+        }
+    }
+
     /// <summary>
     /// EnumScene loading call that is publicly accessible.
     /// </summary>
