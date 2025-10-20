@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BreathingScript : MonoBehaviour
 {
@@ -89,10 +90,16 @@ public class BreathingScript : MonoBehaviour
         if (this.breathingSlider == null) return;
 
         breathingBar = Mathf.Clamp(breathingBar, 0f, 100f);
+        oxygenAmount = Mathf.Clamp(oxygenAmount, 0f, intendedOxygen);
         Breathing();
         breathingSlider.value = breathingBar / 100f;
 
         oxygenSlider.value = oxygenAmount;
+
+        if(oxygenAmount <= 0f)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     //Function used for the breathing logic
@@ -137,6 +144,12 @@ public class BreathingScript : MonoBehaviour
             Debug.Log("Inhaled for too long or too short");
             oxygenPunishment += 5f;
             correctImage.color = Color.red;
+
+            if(!isHoldingBreath)
+            {
+                oxygenAmount -= oxygenLoss + oxygenPunishment;
+                oxygenPunishment = 0f;
+            }
         }
     }
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
