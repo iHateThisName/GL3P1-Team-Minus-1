@@ -42,6 +42,8 @@ public class BreathingScript : MonoBehaviour
     [SerializeField]
     private RawImage correctImage;
 
+    private float inhaleTimer;
+
 
     [Header("Oxygen Values")]
     [SerializeField]
@@ -98,7 +100,7 @@ public class BreathingScript : MonoBehaviour
 
         if(oxygenAmount <= 0f)
         {
-            SceneManager.LoadScene("GameOver");
+            Die();
         }
     }
 
@@ -106,15 +108,28 @@ public class BreathingScript : MonoBehaviour
     private void Breathing() {
         if (isBreathingIn && !isHoldingBreath) {
             breathingBar += breathingSpeed * Time.deltaTime;
+            inhaleTimer += Time.deltaTime;
+            if(inhaleTimer >= 10f)
+            {
+                Die();
+            }
         }
         else if (isHoldingBreath) {
             holdingTimer += Time.deltaTime;
             holdingText.text = holdingTimer.ToString("F2");
+            if(holdingTimer >= 10f)
+            {
+                Die();
+            }
         }
         else if (isBreathingOut) {
             if(breathingBar <= 0f) {
                 noAirTimer += Time.deltaTime;
                 noAirText.text = noAirTimer.ToString("F2");
+                if(noAirTimer >= 10f)
+                {
+                    Die();
+                }
             }
             else {
                 breathingBar -= breathingSpeed * Time.deltaTime;
@@ -151,6 +166,7 @@ public class BreathingScript : MonoBehaviour
                 oxygenPunishment = 0f;
             }
         }
+        inhaleTimer = 0f;
     }
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
@@ -191,5 +207,10 @@ public class BreathingScript : MonoBehaviour
         breathingSlider.value = 0f;
         holdingText.text = "";
         noAirText.text = "";
+    }
+
+    private void Die()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
