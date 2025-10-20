@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OceanScript : MonoBehaviour {
@@ -10,6 +11,18 @@ public class OceanScript : MonoBehaviour {
             this.playerMovement.isUnderWater = true;
             this.breatheScript.enabled = true;
             breatheSlider.SetActive(true);
+
+            List<ShopItemData> upgrades = ShopItemLookUp.Instance.GetAllPlayerUppgrades();
+
+            foreach (ShopItemData item in upgrades)
+            {
+                if(item.ItemType == EnumItemSprite.suitUppgradeTier1)
+                {
+                    breatheScript.intendedOxygen = 1000f;
+                    breatheScript.oxygenAmount = breatheScript.intendedOxygen;
+                    breatheScript.oxygenSlider.maxValue = breatheScript.intendedOxygen;
+                }
+            }
         }
     }
 

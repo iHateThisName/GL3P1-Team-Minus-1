@@ -46,18 +46,16 @@ public class BreathingScript : MonoBehaviour
 
 
     [Header("Oxygen Values")]
-    [SerializeField]
-    private float oxygenAmount = 1000f;
+    public float oxygenAmount = 1000f;
 
-    private float intendedOxygen = 1000f;
+    public float intendedOxygen = 1000f;
 
     [SerializeField]
     private float oxygenLoss = 10f;
 
     private float oxygenPunishment = 0f;
 
-    [SerializeField]
-    private Slider oxygenSlider;
+    public Slider oxygenSlider;
 
     [Header("Input Actions")]
     [SerializeField]

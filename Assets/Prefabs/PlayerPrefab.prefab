@@ -49,8 +49,13 @@ MonoBehaviour:
   minBreatheValue: 50
   maxBreatheValue: 62.5
   breathingSlider: {fileID: 0}
+  holdingText: {fileID: 0}
+  noAirText: {fileID: 0}
+  correctImage: {fileID: 0}
   oxygenAmount: 500
+  intendedOxygen: 500
   oxygenLoss: 10
+  oxygenSlider: {fileID: 0}
   breatheInAction:
     m_Name: Breathe In
     m_Type: 1
