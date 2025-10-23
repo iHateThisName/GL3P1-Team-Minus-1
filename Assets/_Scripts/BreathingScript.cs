@@ -21,6 +21,9 @@ public class BreathingScript : MonoBehaviour
     [SerializeField]
     private float maxBreatheValue = 62.5f;
 
+    [SerializeField]
+    private float breathValueDiffrence;
+
     private float holdingTimer = 0f;
 
     private float noAirTimer = 0f;
@@ -108,7 +111,7 @@ public class BreathingScript : MonoBehaviour
         if (isBreathingIn && !isHoldingBreath) {
             breathingBar += breathingSpeed * Time.deltaTime;
             inhaleTimer += Time.deltaTime;
-            if(inhaleTimer >= 10f)
+            if(inhaleTimer >= 12f)
             {
                 Die();
             }
@@ -116,7 +119,7 @@ public class BreathingScript : MonoBehaviour
         else if (isHoldingBreath) {
             holdingTimer += Time.deltaTime;
             holdingText.text = holdingTimer.ToString("F2");
-            if(holdingTimer >= 10f)
+            if(holdingTimer >= 15f)
             {
                 Die();
             }
@@ -148,10 +151,16 @@ public class BreathingScript : MonoBehaviour
             oxygenPunishment = 0f;
             hasHeldBreath = false;
         }
-        if (breathingBar <= 4f && noAirTimer < 3f)
+        if(breathingBar <= 4f && noAirTimer <= 0f)
+        {
+            Debug.Log("Started breathing at perfect time");
+            correctImage.color = Color.green;
+        }
+        else if (breathingBar <= 4f && noAirTimer <= 3f && noAirTimer > 0f)
         {
             Debug.Log("Started breathing at correct time");
             correctImage.color = Color.green;
+            oxygenPunishment += 2f;
         }
         else
         {
@@ -168,7 +177,7 @@ public class BreathingScript : MonoBehaviour
         if (breathingBar > maxBreatheValue || breathingBar < minBreatheValue)
         {
             Debug.Log("Inhaled for too long or too short");
-            oxygenPunishment += 5f;
+            oxygenPunishment += 10f;
             correctImage.color = Color.red;
 
             if(!isHoldingBreath)
@@ -181,8 +190,15 @@ public class BreathingScript : MonoBehaviour
     }
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
-        if(breathingBar >= minBreatheValue && breathingBar <= maxBreatheValue) {
+        breathValueDiffrence = (maxBreatheValue - minBreatheValue) * 0.5f;
+        if (breathingBar >= minBreatheValue && breathingBar <= minBreatheValue + breathValueDiffrence)
+        {
+            Debug.Log("Started holding at perfect time");
+            correctImage.color = Color.green;
+        }
+        else if(breathingBar > minBreatheValue + breathValueDiffrence && breathingBar <= maxBreatheValue) {
             Debug.Log("Started holding at correct time");
+            oxygenPunishment += 2f;
             correctImage.color = Color.green;
         }
         else {
@@ -194,8 +210,14 @@ public class BreathingScript : MonoBehaviour
     }
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
         isHoldingBreath = false;
-        if(holdingTimer >= 4f && holdingTimer <= 7f) {
+        if(holdingTimer >= 4f && holdingTimer < 5f)
+        {
+            Debug.Log("Held breath for the perfect amount of time");
+            correctImage.color = Color.green;
+        }
+        else if(holdingTimer >= 5f && holdingTimer <= 7f) {
             Debug.Log("Held breath for the correct amount of time");
+            oxygenPunishment += 2f;
             correctImage.color = Color.green;
         }
         else {
@@ -217,6 +239,9 @@ public class BreathingScript : MonoBehaviour
         holdingTimer = 0f;
         noAirTimer = 0f;
         breathingSlider.value = 0f;
+        isBreathingIn = false;
+        isHoldingBreath = false;
+        hasHeldBreath = false;
         holdingText.text = "";
         noAirText.text = "";
     }
