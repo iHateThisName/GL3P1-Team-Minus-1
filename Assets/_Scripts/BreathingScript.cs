@@ -27,6 +27,7 @@ public class BreathingScript : MonoBehaviour
 
     private bool isBreathingIn = false;
     private bool isHoldingBreath = false;
+    private bool hasHeldBreath = true;
 
     [SerializeField]
     private Scrollbar breathingSlider;
@@ -137,11 +138,23 @@ public class BreathingScript : MonoBehaviour
 
     private void OnBreatheInStarted(InputAction.CallbackContext context) {
         isBreathingIn = true;
-        if(breathingBar <= 4f && noAirTimer < 3f) {
+        if(hasHeldBreath)
+        {
+            hasHeldBreath = false;
+        }
+        else
+        {
+            oxygenAmount -= oxygenLoss + oxygenPunishment + 20f;
+            oxygenPunishment = 0f;
+            hasHeldBreath = false;
+        }
+        if (breathingBar <= 4f && noAirTimer < 3f)
+        {
             Debug.Log("Started breathing at correct time");
             correctImage.color = Color.green;
         }
-        else {
+        else
+        {
             Debug.Log("Started breathing too early or too late");
             oxygenPunishment += 5f;
             correctImage.color = Color.red;
@@ -177,6 +190,7 @@ public class BreathingScript : MonoBehaviour
             oxygenPunishment += 5f;
             correctImage.color = Color.red;
         }
+        hasHeldBreath = true;
     }
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
         isHoldingBreath = false;
