@@ -241,7 +241,7 @@ public class BreathingScript : MonoBehaviour
         breathingSlider.value = 0f;
         isBreathingIn = false;
         isHoldingBreath = false;
-        hasHeldBreath = false;
+        hasHeldBreath = true;
         holdingText.text = "";
         noAirText.text = "";
     }
