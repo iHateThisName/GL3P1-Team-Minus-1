@@ -3980,8 +3980,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.0159081, z: 0.9999999}
-  m_Center: {x: 0, y: -0.009441569, z: 0}
+  m_Size: {x: 1, y: 0.998, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &363924945
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -48854,9 +48854,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1062489714}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 500
+  m_MaxValue: 250
   m_WholeNumbers: 0
-  m_Value: 500
+  m_Value: 250
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
