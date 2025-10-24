@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class OceanScript : MonoBehaviour {
 
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private BreathingScript breatheScript;
     [SerializeField] private GameObject breatheSlider;
+
+    [SerializeField] private BreathingScript breathingScript;
+
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            this.playerMovement.isUnderWater = true;
-            this.breatheScript.enabled = true;
+            GameManager.Instance.PlayerMovement.isUnderWater = true;
+            breathingScript.enabled = true;
             breatheSlider.SetActive(true);
 
             List<ShopItemData> upgrades = ShopItemLookUp.Instance.GetAllPlayerUppgrades();
@@ -18,9 +19,9 @@ public class OceanScript : MonoBehaviour {
             {
                 if(item.ItemType == EnumItemSprite.suitUppgradeTier1)
                 {
-                    breatheScript.intendedOxygen = 1000f;
-                    breatheScript.oxygenAmount = breatheScript.intendedOxygen;
-                    breatheScript.oxygenSlider.maxValue = breatheScript.intendedOxygen;
+                    breathingScript.intendedOxygen = 1000f;
+                    breathingScript.oxygenAmount = breathingScript.intendedOxygen;
+                    breathingScript.oxygenSlider.maxValue = breathingScript.intendedOxygen;
                 }
             }
         }
@@ -28,9 +29,9 @@ public class OceanScript : MonoBehaviour {
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            this.playerMovement.isUnderWater = false;
-            this.breatheScript.DisableBreathing();
-            this.breatheScript.enabled = false;
+            GameManager.Instance.PlayerMovement.isUnderWater = false;
+            breathingScript.DisableBreathing();
+            breathingScript.enabled = false;
             breatheSlider.SetActive(false);
         }
     }

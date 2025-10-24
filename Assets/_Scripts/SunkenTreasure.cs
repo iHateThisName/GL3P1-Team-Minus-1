@@ -15,6 +15,17 @@ public class SunkenTreasure : Interactable {
 
     private bool isCollected = false; // Whether the treasure has been collected
     private bool isPickedUp = false; // Whether the treasure is currently picked up by the player
+
+    [SerializeField] private bool isStoryTreasure = false; // Whether the treasure is a story treasure
+    [SerializeField] private bool isArtefact = false;
+
+    [SerializeField] private StoryTreasureScript storyTreasureScript;
+    [SerializeField] private BreathingScript breathingScript;
+
+    [SerializeField] private string treasureMessage;
+
+    [SerializeField] private int treasureNum = 0;
+
     private void Awake() {
         if (this.ObjectRootTransform == null) {
             this.ObjectRootTransform = this.transform;
@@ -74,6 +85,13 @@ public class SunkenTreasure : Interactable {
 
         GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
         Debug.Log("Treasure collected! Player weight increased by " + this.weight);
+
+        if(isStoryTreasure || isArtefact)
+        {
+            GameManager.Instance.PlayerMovement.enabled = false;
+            breathingScript.enabled = false;
+            storyTreasureScript.DisplayTreasureScreen(treasureNum, treasureMessage, isStoryTreasure);
+        }
     }
 
     private void AttachToPlayer() {
