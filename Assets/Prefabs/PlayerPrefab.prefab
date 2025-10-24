@@ -53,8 +53,8 @@ MonoBehaviour:
   holdingText: {fileID: 0}
   noAirText: {fileID: 0}
   correctImage: {fileID: 0}
-  oxygenAmount: 500
-  intendedOxygen: 500
+  oxygenAmount: 250
+  intendedOxygen: 250
   oxygenLoss: 10
   oxygenSlider: {fileID: 0}
   breatheInAction:
