@@ -306,8 +306,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660575340}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
+      - m_Target: {fileID: 1203019880}
+        m_TargetAssemblyTypeName: UIGameOverScene, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -439,8 +439,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660575340}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
+      - m_Target: {fileID: 1203019880}
+        m_TargetAssemblyTypeName: UIGameOverScene, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -489,74 +489,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565162344}
   m_CullTransparentMesh: 1
---- !u!1001 &660575339
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3060841651860306991, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_Name
-      value: GameSceneManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 575.4514
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 396.7272
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159808976866765638, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
---- !u!114 &660575340 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2792094991872931942, guid: 85c451b14ad94184fb3cd6203718e8d2, type: 3}
-  m_PrefabInstance: {fileID: 660575339}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7831bf176562cd40b9aac01a2dc6e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameSceneManager
 --- !u!1 &738533784
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +637,7 @@ GameObject:
   - component: {fileID: 1203019877}
   - component: {fileID: 1203019876}
   - component: {fileID: 1203019879}
+  - component: {fileID: 1203019880}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -830,6 +763,18 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1203019880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203019875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a627eb9031e42643808346982b812a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIGameOverScene
 --- !u!1 &1470576006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,4 +1261,3 @@ SceneRoots:
   - {fileID: 1470576008}
   - {fileID: 194698424}
   - {fileID: 1491830064}
-  - {fileID: 660575339}
