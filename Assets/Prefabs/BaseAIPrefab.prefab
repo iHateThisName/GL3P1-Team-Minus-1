@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 14357583179561922}
   - component: {fileID: 3195001805992608645}
   m_Layer: 0
-  m_Name: EnemyPrefab
+  m_Name: BaseAIPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

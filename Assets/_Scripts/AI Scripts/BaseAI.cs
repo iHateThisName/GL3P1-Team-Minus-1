@@ -1,8 +1,8 @@
 ﻿using Pathfinding;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour {
-    [SerializeField] Transform target;
+public class BaseAI : MonoBehaviour {
+    [SerializeField] private Transform target;
 
     [SerializeField] private float speed = 200f;
     [SerializeField] private float nextWayointDistance = 3f;
@@ -35,6 +35,11 @@ public class EnemyAI : MonoBehaviour {
             this.path = path;
             this.currentWaypoint = 0;
         }
+    }
+
+    internal void SetTarget(Transform newTarget) {
+        this.target = newTarget;
+        UpdatePath();
     }
 
     private void FixedUpdate() {
