@@ -70,7 +70,7 @@ public class UIShopManager : MonoBehaviour {
             // TODO Give an effect to the player
 
             // Store the purchased item in the ShopItemLookUp
-            if (itemData != null) {
+            if (itemData.IsValide) {
                 ShopItemLookUp.Instance.RegisterShopItem(itemData);
             }
 
@@ -81,7 +81,11 @@ public class UIShopManager : MonoBehaviour {
         }
     }
 
-    public void OnShopItemClicked(GameObject shopItem) => OnShopItemClicked(null, shopItem);
+    public void OnShopItemClicked(GameObject shopItem) {
+        // Create an invalid ShopItemData and forward to the main handler
+        ShopItemData invalidItem = new ShopItemData { };
+        OnShopItemClicked(invalidItem, shopItem);
+    }
 
     private void UpdateSellButtonText() {
         this.sellButtonText.text = $"Sell {GameManager.Instance.GetHeldItemsValue()}$";

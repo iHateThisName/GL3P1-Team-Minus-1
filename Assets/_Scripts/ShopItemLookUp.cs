@@ -12,20 +12,8 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
     public static readonly string PlayerShopItemsKey = "PlayerShopItems";
     //public Dictionary<EnumItemSprite, ShopItemData> ShopItemDictionary { get; private set; } = new Dictionary<EnumItemSprite, ShopItemData>();
     public bool IsInitialized { get; private set; } = false;
-
-    protected override void Awake() {
-        base.Awake();
+    private void Start() {
         this.allShopItems = this.allShopItems.OrderBy(item => item.Price).ToList();
-
-        // Initialize the shop item dictionary based on inspector data from the list
-        //this.allShopItems.ForEach(listItem => {
-        //    if (!ShopItemDictionary.ContainsKey(listItem.ItemType)) {
-        //        ShopItemDictionary.Add(listItem.ItemType, listItem);
-        //    } else {
-        //        Debug.LogWarning($"Duplicate listItem type {listItem.ItemType} in shop items list.");
-        //    }
-        //});
-
 
         // Use player prefs to load previously bought items
         this.playersShopItems = LoadPlayerShopItems();
@@ -35,7 +23,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
         }
 
         // Mark as initialized
-        this.IsInitialized = true; // Might be redundant since its happening in Awake()
+        this.IsInitialized = true; // Might be redundant
     }
 
     private void OnDestroy() {
@@ -108,7 +96,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
     }
     public List<ShopItemData> GetBoughtShopItems() => this.playersShopItems;
     public void RegisterShopItem(ShopItemData item) {
-        if (item == null) {
+        if (item.IsValide) {
             Debug.LogWarning("Attempted to add null item to bought shop items.");
         } else {
             this.playersShopItems.Add(item);
@@ -133,10 +121,11 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
 }
 
 [System.Serializable]
-public class ShopItemData {
+public struct ShopItemData {
     public EnumItemSprite ItemType;
     public Sprite Sprite;
     public int Price;
+    public bool IsValide => ItemType != EnumItemSprite.None && Sprite != null && Price >= 0;
 
     public ShopItemData(EnumItemSprite itemType, Sprite sprite, int price) {
         ItemType = itemType;
