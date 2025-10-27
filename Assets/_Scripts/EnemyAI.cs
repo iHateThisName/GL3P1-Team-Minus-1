@@ -54,11 +54,11 @@ public class EnemyAI : MonoBehaviour {
 
         this.rb.AddForce(force);
 
-        // ✅ ROTATION SECTION
         if (rb.linearVelocity.sqrMagnitude > 0.01f) {
             // Convert velocity direction (XY plane) to 3D
             Vector3 lookDir = new Vector3(rb.linearVelocity.y, -rb.linearVelocity.x, 0f);
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDir);
+
             // Smoothly rotate toward direction of movement
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
