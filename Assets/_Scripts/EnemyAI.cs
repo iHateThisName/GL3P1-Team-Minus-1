@@ -1,11 +1,12 @@
-using Pathfinding;
+﻿using Pathfinding;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour {
     [SerializeField] Transform target;
 
     [SerializeField] private float speed = 200f;
-    public float nextWayointDistance = 3f;
+    [SerializeField] private float nextWayointDistance = 3f;
+    [SerializeField] private float rotationSpeed = 10f;
 
     [SerializeField] Path path;
     private int currentWaypoint = 0;
@@ -52,6 +53,15 @@ public class EnemyAI : MonoBehaviour {
         Vector2 force = this.speed * Time.fixedDeltaTime * direction;
 
         this.rb.AddForce(force);
+
+        // ✅ ROTATION SECTION
+        if (rb.linearVelocity.sqrMagnitude > 0.01f) {
+            // Convert velocity direction (XY plane) to 3D
+            Vector3 lookDir = new Vector3(rb.linearVelocity.y, -rb.linearVelocity.x, 0f);
+            Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDir);
+            // Smoothly rotate toward direction of movement
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
 
         float distance = Vector2.Distance(this.rb.position, this.path.vectorPath[this.currentWaypoint]);
 
