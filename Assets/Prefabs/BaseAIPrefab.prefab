@@ -78,6 +78,7 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 200
   nextWayointDistance: 2
+  rotationSpeed: 10
   seeker: {fileID: 9165049473305732213}
   rb: {fileID: 3195001805992608645}
 --- !u!54 &3195001805992608645
@@ -323,6 +324,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 25900245222749068, guid: e70c2fea88aaa1d4e8768c86765136dd, type: 3}

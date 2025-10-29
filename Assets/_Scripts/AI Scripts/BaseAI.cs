@@ -1,8 +1,8 @@
-﻿using Pathfinding;
+using Pathfinding;
 using UnityEngine;
 
 public class BaseAI : MonoBehaviour {
-    [SerializeField] private Transform target;
+    [SerializeField] private Vector3 target;
 
     [SerializeField] private float speed = 200f;
     [SerializeField] private float nextWayointDistance = 3f;
@@ -15,18 +15,30 @@ public class BaseAI : MonoBehaviour {
     [SerializeField] private Seeker seeker;
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private bool isMovingTarget = false;
+
     private void Start() {
         this.seeker = GetComponent<Seeker>();
         this.rb = GetComponent<Rigidbody>();
-        this.target = GameManager.Instance.PlayerMovement.gameObject.transform;
+        this.target = GameManager.Instance.PlayerMovement.gameObject.transform.position;
 
-        InvokeRepeating(nameof(UpdatePath), 0f, 2f); // dynamic path update every 2 seconds
+        if (!isMovingTarget) {
+            UpdatePath();
+        } else {
+            InvokeRepeating(nameof(UpdatePlayerPath), 0f, 2f); // dynamic path update every 2 seconds
+        }
     }
 
     private void UpdatePath() {
         if (seeker.IsDone()) {
             // StartPath will invoke OnPathComplete when the path calculation finishes.
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, target, OnPathComplete);
+        }
+    }
+
+    private void UpdatePlayerPath() {
+        if (seeker.IsDone()) {
+            seeker.StartPath(rb.position, GameManager.Instance.PlayerMovement.gameObject.transform.position, OnPathComplete);
         }
     }
 
@@ -37,7 +49,7 @@ public class BaseAI : MonoBehaviour {
         }
     }
 
-    internal void SetTarget(Transform newTarget) {
+    internal void SetTarget(Vector3 newTarget) {
         this.target = newTarget;
         UpdatePath();
     }

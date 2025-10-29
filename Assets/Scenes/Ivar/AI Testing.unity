@@ -4627,6 +4627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 976707973303182115, guid: 1657c41efd3a5fa4d99958fdf4b5e60c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3525560807592905335, guid: 1657c41efd3a5fa4d99958fdf4b5e60c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 274.64
@@ -6190,8 +6194,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 14357583179561922, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: isMovingTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3195001805992608645, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156371342057596145, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6138990481725953594, guid: 486ebfaa69be84843b1b26378527c186, type: 3}

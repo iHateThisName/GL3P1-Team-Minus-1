@@ -83,6 +83,18 @@ PrefabInstance:
       value: FishPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -135,6 +147,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6138990481725953594, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       insertIndex: 2
       addedObject: {fileID: 4464844873747876663}
+    - targetCorrespondingSourceObject: {fileID: 6138990481725953594, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5325360203188759168}
   m_SourcePrefab: {fileID: 100100000, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
 --- !u!1 &976707973303182115 stripped
 GameObject:
@@ -160,6 +175,27 @@ MonoBehaviour:
   seeker: {fileID: 2850547687445778796}
   rb: {fileID: 8424274326981408412}
   potentialTargets: []
+--- !u!135 &5325360203188759168
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976707973303182115}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2850547687445778796 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9165049473305732213, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
