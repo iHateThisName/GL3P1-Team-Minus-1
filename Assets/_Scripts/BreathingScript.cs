@@ -11,6 +11,8 @@ public class BreathingScript : MonoBehaviour
     [SerializeField]
     private float breathingBar = 0f;
 
+    public float sprintMultiplier = 0f;
+
     //The speed at which the breathing bar rises up
     [SerializeField]
     private float breathingSpeed = 12.5f;
@@ -87,6 +89,11 @@ public class BreathingScript : MonoBehaviour
     [SerializeField]
     private InputAction holdBreathAction;
 
+    private void Start()
+    {
+        GameManager.Instance.BreathingScript = this;
+    }
+
     //Enables and subscribes input actions when this script is enabled
     private void OnEnable() {
         breatheInAction.Enable();
@@ -138,7 +145,7 @@ public class BreathingScript : MonoBehaviour
     private void Breathing() {
         //If you're breathing in, the breathing bar goes up
         if (isBreathingIn && !isHoldingBreath) {
-            breathingBar += breathingSpeed * Time.deltaTime;
+            breathingBar += (breathingSpeed + sprintMultiplier) * Time.deltaTime;
             inhaleTimer += Time.deltaTime;
             //If you breathe in for too long, you die
             if(inhaleTimer >= 12f)
@@ -170,7 +177,7 @@ public class BreathingScript : MonoBehaviour
             }
             //If the bar hasn't reached the bottom, the bar goes down
             else {
-                breathingBar -= breathingSpeed * Time.deltaTime;
+                breathingBar -= (breathingSpeed + sprintMultiplier) * Time.deltaTime;
             }
         }
     }
@@ -295,6 +302,7 @@ public class BreathingScript : MonoBehaviour
         holdingTimer = 0f;
         noAirTimer = 0f;
         breathingSlider.value = 0f;
+        sprintMultiplier = 0f;
         isBreathingIn = false;
         isHoldingBreath = false;
         hasHeldBreath = true;

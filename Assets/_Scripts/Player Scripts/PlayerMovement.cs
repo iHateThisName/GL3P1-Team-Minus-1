@@ -93,12 +93,20 @@ public class PlayerMovement : MonoBehaviour {
         moveSpeed = sprintSpeed;
         maxSpeed = fastSpeed;
         acceleration = fastAcceleration;
+        if (isUnderWater)
+        {
+            GameManager.Instance.BreathingScript.sprintMultiplier = 5f;
+        }
     }
 
     private void OnSprintCancel(InputAction.CallbackContext context) {
         moveSpeed = walkSpeed;
         maxSpeed = normalSpeed;
         acceleration = smallAcceleration;
+        if(isUnderWater)
+        {
+            GameManager.Instance.BreathingScript.sprintMultiplier = 0f;
+        }
     }
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player

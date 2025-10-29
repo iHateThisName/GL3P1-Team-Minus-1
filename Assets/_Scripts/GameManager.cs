@@ -6,6 +6,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     // References for easy access
     public PlayerMovement PlayerMovement;
     public Transform PlayerInteractTransform;
+    public BreathingScript BreathingScript;
 
     // Game state variables
     public bool IsPlayerMovementEnabled = true;
