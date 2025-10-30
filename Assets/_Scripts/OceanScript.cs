@@ -19,7 +19,7 @@ public class OceanScript : MonoBehaviour {
             {
                 if(item.ItemType == EnumItemSprite.suitUppgradeTier1)
                 {
-                    breathingScript.intendedOxygen = 500f;
+                    breathingScript.intendedOxygen = 300f;
                     breathingScript.oxygenAmount = breathingScript.intendedOxygen;
                     breathingScript.oxygenSlider.maxValue = breathingScript.intendedOxygen;
                 }

@@ -41,6 +41,7 @@ public class UIShopManager : MonoBehaviour {
             Destroy(item.gameObject);
         }
         this.sellButtonText.text = $"Sell 0$";
+        GameManager.Instance.BreathingScript.weightValue = 0f;
     }
 
     private void SpawnShopItem(ShopItemData itemData) {

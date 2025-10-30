@@ -64,7 +64,7 @@ public class SunkenTreasure : Interactable {
         this.isPickedUp = true;
         //this.rb.isKinematic = true; // Disable physics on the treasure
 
-        GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
+        GameManager.Instance.BreathingScript.IncreaseWeight(this.weight);
         Debug.Log("Picking up Treasure");
     }
 
@@ -73,7 +73,7 @@ public class SunkenTreasure : Interactable {
         this.isPickedUp = false;
         //this.rb.isKinematic = false; // Enable physics on the treasure
 
-        GameManager.Instance.PlayerMovement.DecreaseWeight(this.weight);
+        GameManager.Instance.BreathingScript.DecreaseWeight(this.weight);
         Debug.Log("Dropping Treasure");
     }
 
@@ -83,7 +83,7 @@ public class SunkenTreasure : Interactable {
         this.isPickedUp = true;
         this.rb.isKinematic = true; // Disable physics on the treasure
 
-        GameManager.Instance.PlayerMovement.IncreaseWeight(this.weight);
+        GameManager.Instance.BreathingScript.IncreaseWeight(this.weight);
         Debug.Log("Treasure collected! Player weight increased by " + this.weight);
 
         if(isStoryTreasure || isArtefact)

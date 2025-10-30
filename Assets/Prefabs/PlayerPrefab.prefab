@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreathingScript
   breathingBar: 0
+  sprintMultiplier: 5
+  weightValue: 0
   breathingSpeed: 12.5
   minBreatheValue: 50
   maxBreatheValue: 62.5
@@ -53,9 +55,9 @@ MonoBehaviour:
   holdingText: {fileID: 0}
   noAirText: {fileID: 0}
   correctImage: {fileID: 0}
-  oxygenAmount: 250
-  intendedOxygen: 250
-  oxygenLoss: 10
+  oxygenAmount: 150
+  intendedOxygen: 150
+  oxygenLoss: 5
   oxygenSlider: {fileID: 0}
   breatheInAction:
     m_Name: Breathe In

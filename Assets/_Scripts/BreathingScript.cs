@@ -13,6 +13,8 @@ public class BreathingScript : MonoBehaviour
 
     public float sprintMultiplier = 0f;
 
+    public float weightValue;
+
     //The speed at which the breathing bar rises up
     [SerializeField]
     private float breathingSpeed = 12.5f;
@@ -145,7 +147,7 @@ public class BreathingScript : MonoBehaviour
     private void Breathing() {
         //If you're breathing in, the breathing bar goes up
         if (isBreathingIn && !isHoldingBreath) {
-            breathingBar += (breathingSpeed + sprintMultiplier) * Time.deltaTime;
+            breathingBar += (breathingSpeed + sprintMultiplier + weightValue) * Time.deltaTime;
             inhaleTimer += Time.deltaTime;
             //If you breathe in for too long, you die
             if(inhaleTimer >= 12f)
@@ -177,7 +179,7 @@ public class BreathingScript : MonoBehaviour
             }
             //If the bar hasn't reached the bottom, the bar goes down
             else {
-                breathingBar -= (breathingSpeed + sprintMultiplier) * Time.deltaTime;
+                breathingBar -= (breathingSpeed + sprintMultiplier + weightValue) * Time.deltaTime;
             }
         }
     }
@@ -192,7 +194,7 @@ public class BreathingScript : MonoBehaviour
         }
         else
         {
-            oxygenAmount -= oxygenLoss + oxygenPunishment + 20f;
+            oxygenAmount -= oxygenLoss + oxygenPunishment + 10f;
             oxygenPunishment = 0f;
             hasHeldBreath = false;
         }
@@ -207,13 +209,13 @@ public class BreathingScript : MonoBehaviour
         {
             Debug.Log("Started breathing at correct time");
             correctImage.color = Color.green;
-            oxygenPunishment += 3f;
+            oxygenPunishment += 1f;
         }
         //If you start breathing at the wrong time, you lose quite a bit of air
         else
         {
             Debug.Log("Started breathing too early or too late");
-            oxygenPunishment += 10f;
+            oxygenPunishment += 5f;
             correctImage.color = Color.red;
         }
         //Resets the no air timers
@@ -228,7 +230,7 @@ public class BreathingScript : MonoBehaviour
         if (breathingBar > maxBreatheValue || breathingBar < minBreatheValue)
         {
             Debug.Log("Inhaled for too long or too short");
-            oxygenPunishment += 15f;
+            oxygenPunishment += 5f;
             correctImage.color = Color.red;
 
             //If you aren't holding your breath, you lose the oxygen you were meant to losse
@@ -254,13 +256,13 @@ public class BreathingScript : MonoBehaviour
         //If you start holding your breath at imperfect time, you gain a small punishment
         else if(breathingBar > minBreatheValue + breathValueDiffrence && breathingBar <= maxBreatheValue) {
             Debug.Log("Started holding at correct time");
-            oxygenPunishment += 3f;
+            oxygenPunishment += 1f;
             correctImage.color = Color.green;
         }
         //If you start holding at incorrect time, you gain a big punishment
         else {
             Debug.Log("Started holding too early or too late");
-            oxygenPunishment += 10f;
+            oxygenPunishment += 5f;
             correctImage.color = Color.red;
         }
         //Makes sure the game knows that the player held their breath
@@ -278,13 +280,13 @@ public class BreathingScript : MonoBehaviour
         //If you stop holding your breath at imperfect time, you gain a small punishment
         else if(holdingTimer >= 5f && holdingTimer <= 7f) {
             Debug.Log("Held breath for the correct amount of time");
-            oxygenPunishment += 3f;
+            oxygenPunishment += 1f;
             correctImage.color = Color.green;
         }
         //If you stop holding at incorrect times, you gain a big punishment
         else {
             Debug.Log("Held breath for too long or not long enough");
-            oxygenPunishment += 10f;
+            oxygenPunishment += 5f;
             correctImage.color = Color.red;
         }
         oxygenAmount -= oxygenLoss + oxygenPunishment;
@@ -314,5 +316,23 @@ public class BreathingScript : MonoBehaviour
     private void Die()
     {
         SceneManager.LoadScene("GameOver");
+    }
+
+    /// <summary>
+    /// Increases the player's weight by the specified amount
+    /// </summary>
+    /// <param name="amount">How much to increase by</param>
+    public void IncreaseWeight(float amount)
+    {
+        this.weightValue += amount;
+    }
+
+    /// <summary>
+    /// Decreases the player's weight by the specified amount
+    /// </summary>
+    /// <param name="amount">How much to decrease by</param>
+    public void DecreaseWeight(float amount)
+    {
+        this.weightValue -= amount;
     }
 }
