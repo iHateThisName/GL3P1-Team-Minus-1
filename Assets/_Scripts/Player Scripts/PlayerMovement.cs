@@ -93,8 +93,7 @@ public class PlayerMovement : MonoBehaviour {
         moveSpeed = sprintSpeed;
         maxSpeed = fastSpeed;
         acceleration = fastAcceleration;
-        if (isUnderWater)
-        {
+        if (isUnderWater) {
             GameManager.Instance.BreathingScript.sprintMultiplier = 5f;
         }
     }
@@ -103,8 +102,7 @@ public class PlayerMovement : MonoBehaviour {
         moveSpeed = walkSpeed;
         maxSpeed = normalSpeed;
         acceleration = smallAcceleration;
-        if(isUnderWater)
-        {
+        if (isUnderWater) {
             GameManager.Instance.BreathingScript.sprintMultiplier = 0f;
         }
     }
@@ -199,5 +197,10 @@ public class PlayerMovement : MonoBehaviour {
     public void DecreaseWeight(float amount) {
         this.addedWeight -= amount;
         rb.mass = 1f + this.addedWeight;
+    }
+
+    public void ResetMomentum() {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }
