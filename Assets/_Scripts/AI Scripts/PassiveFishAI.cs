@@ -96,6 +96,26 @@ public class PassiveFishAI : BaseAI {
         return i;
     }
 
+    private void MoveAwayFromPlayer(Vector3 player) {
+        Vector3 directionAwayFromPlayer = (transform.position - player).normalized;
+        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 10f; // Move 10 units away
+        SetTarget(fleeTarget);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            // When player enters trigger, move away from player
+            MoveAwayFromPlayer(other.transform.position);
+            this.isPlayerClose = true;
+            this.CurrentState = State.Fleeing;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            this.isPlayerClose = false;
+        }
+    }
     private IEnumerator OldChangeTarget() {
         int i = 0;
 
@@ -126,27 +146,6 @@ public class PassiveFishAI : BaseAI {
 
             // Wait until target is reached
             yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            // When player enters trigger, move away from player
-            MoveAwayFromPlayer(other.transform.position);
-            this.isPlayerClose = true;
-            this.CurrentState = State.Fleeing;
-        }
-    }
-
-    private void MoveAwayFromPlayer(Vector3 player) {
-        Vector3 directionAwayFromPlayer = (transform.position - player).normalized;
-        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 10f; // Move 10 units away
-        SetTarget(fleeTarget);
-    }
-
-    private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Player")) {
-            this.isPlayerClose = false;
         }
     }
 }
