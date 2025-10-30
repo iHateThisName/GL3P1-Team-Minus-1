@@ -9,11 +9,13 @@ public class PassiveFishAI : BaseAI {
 
     private bool isPlayerClose = false;
     private State CurrentState = State.Wandering;
+    [SerializeField] private EnumFishType fishType = EnumFishType.Cod;
 
     private float deafualtSpeed;
     private Coroutine speedCoroutine;
 
-    private enum State { Wandering, Fleeing }
+    [SerializeField] private enum EnumFishType { Shark, Cod }
+    private enum State { Wandering, Fleeing, Chasing }
     void Start() {
         if (this.potentialTargets.Count == 0) {
             Debug.LogWarning("No potential targets assigned to PassiveFishAI.");
@@ -49,6 +51,17 @@ public class PassiveFishAI : BaseAI {
                     // If still fleeing and path reached, move further away
                     else if (this.isPlayerClose) {
                         MoveAwayFromPlayer(GameManager.Instance.PlayerMovement.transform.position);
+                    }
+                    break;
+
+                case State.Chasing:
+                    if (this.isPlayerClose) {
+                        StartCoroutine(TriggerSmoothSpeedChange(this.deafualtSpeed * 3f, 0.5f));
+                        IsTargetMoving = true;
+                    } else {
+                        IsTargetMoving = false;
+                        this.CurrentState = State.Wandering;
+                        i = ClosestTarget();
                     }
                     break;
             }
@@ -104,48 +117,22 @@ public class PassiveFishAI : BaseAI {
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            // When player enters trigger, move away from player
-            MoveAwayFromPlayer(other.transform.position);
-            this.isPlayerClose = true;
-            this.CurrentState = State.Fleeing;
+            if (this.fishType == EnumFishType.Cod) {
+                // When player enters trigger, move away from player
+                MoveAwayFromPlayer(other.transform.position);
+                this.isPlayerClose = true;
+                this.CurrentState = State.Fleeing;
+            } else if (this.fishType == EnumFishType.Shark) {
+                // Sharks do not flee
+                this.isPlayerClose = true;
+                this.CurrentState = State.Chasing;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
             this.isPlayerClose = false;
-        }
-    }
-    private IEnumerator OldChangeTarget() {
-        int i = 0;
-
-        while (true) {
-            if (this.CurrentState == State.Fleeing && IsReachedEndOfPath && this.isPlayerClose == false) {
-                this.CurrentState = State.Wandering;
-
-                // Go to the closest target after fleeing
-                float closestDistance = float.MaxValue;
-                for (int j = 0; j < potentialTargets.Count; j++) {
-                    float distance = Vector3.Distance(transform.position, potentialTargets[j].position);
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        i = j;
-                    }
-                }
-            }
-
-            if (this.CurrentState == State.Fleeing && this.isPlayerClose && IsReachedEndOfPath) {
-                MoveAwayFromPlayer(GameManager.Instance.PlayerMovement.transform.position);
-            } else if (this.CurrentState == State.Wandering) {
-                // Set current target
-                SetTarget(potentialTargets[i].position);
-                // Move to next target (wrap around)
-                i = (i + 1) % potentialTargets.Count;
-            }
-
-
-            // Wait until target is reached
-            yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering);
         }
     }
 }

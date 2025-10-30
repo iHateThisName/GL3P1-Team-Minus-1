@@ -1,4 +1,5 @@
 using Pathfinding;
+using System.Collections;
 using UnityEngine;
 
 public class BaseAI : MonoBehaviour {
@@ -15,7 +16,25 @@ public class BaseAI : MonoBehaviour {
     [SerializeField] private Seeker seeker;
     [SerializeField] private Rigidbody rb;
 
-    [SerializeField] private bool isMovingTarget = false;
+    private bool isMovingTarget = false;
+
+    public bool IsTargetMoving {
+        get => isMovingTarget;
+        set {
+            if (isMovingTarget != value) {
+                isMovingTarget = value;
+                if (isMovingTarget) {
+                    this.dynamicUpdatePathCoroutine = StartCoroutine(DynamicUpdatePath());
+                } else {
+                    if (this.dynamicUpdatePathCoroutine != null) {
+                        StopCoroutine(this.dynamicUpdatePathCoroutine);
+                    }
+                    UpdatePath();
+                }
+            }
+        }
+    }
+    private Coroutine dynamicUpdatePathCoroutine;
 
     private void Start() {
         this.seeker = GetComponent<Seeker>();
@@ -25,7 +44,14 @@ public class BaseAI : MonoBehaviour {
         if (!isMovingTarget) {
             UpdatePath();
         } else {
-            InvokeRepeating(nameof(UpdatePlayerPath), 0f, 2f); // dynamic path update every 2 seconds
+            this.dynamicUpdatePathCoroutine = StartCoroutine(DynamicUpdatePath());
+        }
+    }
+
+    private IEnumerator DynamicUpdatePath() {
+        while (true) {
+            UpdatePlayerPath();
+            yield return new WaitForSeconds(2f);
         }
     }
 
