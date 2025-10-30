@@ -10,12 +10,17 @@ public class PassiveFishAI : BaseAI {
     private bool isPlayerClose = false;
     private State CurrentState = State.Wandering;
 
+    private float deafualtSpeed;
+    private Coroutine speedCoroutine;
+
     private enum State { Wandering, Fleeing }
     void Start() {
         if (this.potentialTargets.Count == 0) {
             Debug.LogWarning("No potential targets assigned to PassiveFishAI.");
         }
-        StartCoroutine(OldChangeTarget());
+
+        this.deafualtSpeed = this.speed;
+        StartCoroutine(ChangeTarget());
     }
 
     private IEnumerator ChangeTarget() {
@@ -24,44 +29,71 @@ public class PassiveFishAI : BaseAI {
         while (true) {
             switch (CurrentState) {
                 case State.Wandering:
+                    this.speed = this.deafualtSpeed;
                     // Set current target
-                    if (potentialTargets.Count > 0)
-                        SetTarget(potentialTargets[i].position);
-
-                    // Wait until target is reached
-                    yield return new WaitUntil(() => this.IsReachedEndOfPath);
-
+                    SetTarget(potentialTargets[i].position);
                     // Move to next target (wrap around)
-                    i = (i + 1) % this.potentialTargets.Count;
+                    i = (i + 1) % potentialTargets.Count;
                     break;
 
                 case State.Fleeing:
+                    StartCoroutine(TriggerSmoothSpeedChange(this.deafualtSpeed * 5f, 0.5f));
+
+                    yield return new WaitUntil(() => this.IsReachedEndOfPath);
                     // If done fleeing and player is no longer close, return to wandering
-                    if (this.IsReachedEndOfPath && !this.isPlayerClose) {
+                    if (!this.isPlayerClose) {
                         this.CurrentState = State.Wandering;
 
-                        // Find the closest target to return to
-                        float closestDistance = float.MaxValue;
-                        int closestIndex = 0;
-                        for (int j = 0; j < this.potentialTargets.Count; j++) {
-                            float distance = Vector3.Distance(this.transform.position, this.potentialTargets[j].position);
-                            if (distance < closestDistance) {
-                                closestDistance = distance;
-                                closestIndex = j;
-                            }
-                        }
-                        i = closestIndex;
+                        i = ClosestTarget();
                     }
                     // If still fleeing and path reached, move further away
-                    else if (this.IsReachedEndOfPath && this.isPlayerClose) {
+                    else if (this.isPlayerClose) {
                         MoveAwayFromPlayer(GameManager.Instance.PlayerMovement.transform.position);
                     }
                     break;
             }
-
-            // Small delay before next check (to avoid tight loop)
-            yield return new WaitForSecondsRealtime(2f);
+            // Wait until target is reached or the wandering state changes
+            yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering);
         }
+    }
+
+    private IEnumerator TriggerSmoothSpeedChange(float targetSpeed, float duration) {
+        if (speedCoroutine != null) {
+            StopCoroutine(this.speedCoroutine);
+        }
+
+        this.speedCoroutine = StartCoroutine(SmoothSpeedChange(targetSpeed, duration));
+        yield return new WaitUntil(() => this.speed == targetSpeed);
+        yield return new WaitForSecondsRealtime(1f); // Maintain target speed for a moment
+        StopCoroutine(this.speedCoroutine);
+        this.speedCoroutine = StartCoroutine(SmoothSpeedChange(this.deafualtSpeed, duration * 0.2f));
+    }
+
+    private IEnumerator SmoothSpeedChange(float targetSpeed, float duration) {
+        float startSpeed = this.speed;
+        float elapsed = 0f;
+        while (elapsed < duration) {
+            this.speed = Mathf.Lerp(startSpeed, targetSpeed, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        this.speed = targetSpeed;
+    }
+
+    private int ClosestTarget() {
+        int i;
+        // Find the closest target to return to
+        float closestDistance = float.MaxValue;
+        int closestIndex = 0;
+        for (int j = 0; j < this.potentialTargets.Count; j++) {
+            float distance = Vector3.Distance(this.transform.position, this.potentialTargets[j].position);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = j;
+            }
+        }
+        i = closestIndex;
+        return i;
     }
 
     private IEnumerator OldChangeTarget() {
@@ -84,21 +116,16 @@ public class PassiveFishAI : BaseAI {
 
             if (this.CurrentState == State.Fleeing && this.isPlayerClose && IsReachedEndOfPath) {
                 MoveAwayFromPlayer(GameManager.Instance.PlayerMovement.transform.position);
-            } else {
+            } else if (this.CurrentState == State.Wandering) {
                 // Set current target
                 SetTarget(potentialTargets[i].position);
-
-            }
-
-            yield return new WaitForSecondsRealtime(3f);
-            // Wait until the fish reaches this target
-            while (!IsReachedEndOfPath) {
-                yield return new WaitForSecondsRealtime(0.5f); // check every half second
+                // Move to next target (wrap around)
+                i = (i + 1) % potentialTargets.Count;
             }
 
 
-            // Move to next target (wrap around)
-            i = (i + 1) % potentialTargets.Count;
+            // Wait until target is reached
+            yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering);
         }
     }
 
@@ -113,7 +140,7 @@ public class PassiveFishAI : BaseAI {
 
     private void MoveAwayFromPlayer(Vector3 player) {
         Vector3 directionAwayFromPlayer = (transform.position - player).normalized;
-        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 5f; // Move 5 units away
+        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 10f; // Move 10 units away
         SetTarget(fleeTarget);
     }
 

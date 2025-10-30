@@ -4,7 +4,7 @@ using UnityEngine;
 public class BaseAI : MonoBehaviour {
     [SerializeField] private Vector3 target;
 
-    [SerializeField] private float speed = 200f;
+    public float speed = 200f;
     [SerializeField] private float nextWayointDistance = 3f;
     [SerializeField] private float rotationSpeed = 10f;
 
