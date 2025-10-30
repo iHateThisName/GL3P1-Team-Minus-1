@@ -1,5 +1,4 @@
 using Assets.Scripts.Singleton;
-using System;
 using UnityEngine;
 
 public class GameManager : PersistenSingleton<GameManager> {
@@ -35,5 +34,6 @@ public class GameManager : PersistenSingleton<GameManager> {
     public void DeleteGameState() {
         PlayerPrefs.DeleteKey(ShopItemLookUp.PlayerShopItemsKey);
         ShopItemLookUp.Instance.ResetPlayerItems();
+        GameManager.Instance.Money = 0;
     }
 }

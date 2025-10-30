@@ -19,7 +19,7 @@ public class UIMainMenuController : MonoBehaviour {
 
         yield return new WaitUntil(() => ShopItemLookUp.Instance.IsInitialized);
 
-        if (ShopItemLookUp.Instance.GetAllPlayerItems().Count > 0) {
+        if (ShopItemLookUp.Instance.GetAllPlayerItems().Count > 0 || GameManager.Instance.Money != 0) {
             this.continueButton.gameObject.SetActive(true);
             this.newGameButton.GetComponentInChildren<TMP_Text>().text = "New Game";
 

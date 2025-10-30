@@ -28,7 +28,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
 
     private void OnDestroy() {
         Debug.Log("ShopItemLookUp OnDestroy called.");
-        if (this.playersShopItems.Count > 0 && ShopItemLookUp.Instance == this) { // Make sure this is the active instance
+        if (ShopItemLookUp.Instance == this) { // Make sure this is the active instance
             // TODO Not working properly because cant serialize Sprite
             List<ShopItemDataDTO> playerShopItemsDTO = new List<ShopItemDataDTO>();
 
@@ -36,7 +36,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
                 playerShopItemsDTO.Add(item.SeriliazeToDTO());
             });
 
-            string jsonPlayerItems = JsonUtility.ToJson(new PlayerItemsWrapper(playerShopItemsDTO), prettyPrint: true);
+            string jsonPlayerItems = JsonUtility.ToJson(new PlayerItemsWrapper(playerShopItemsDTO, GameManager.Instance.Money), prettyPrint: true);
             PlayerPrefs.SetString(PlayerShopItemsKey, jsonPlayerItems);
         }
     }
@@ -55,8 +55,11 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
             //List<ShopItemData> storedItems = JsonConvert.DeserializeObject<List<ShopItemData>>(jsonPlayerItems);
             PlayerItemsWrapper wrapper = JsonUtility.FromJson<PlayerItemsWrapper>(jsonPlayerItems);
 
-            List<ShopItemData> storedItems = new List<ShopItemData>();
+            // Restore player's money
+            GameManager.Instance.Money = wrapper.Money;
 
+            // Restore player's items
+            List<ShopItemData> storedItems = new List<ShopItemData>();
             wrapper.PlayerItems.ForEach(dto => {
                 // Find the corresponding sprite from allShopItems
                 Sprite itemSprite = null;
@@ -158,8 +161,10 @@ public class ShopItemDataDTO {
 [System.Serializable]
 public class PlayerItemsWrapper {
     public List<ShopItemDataDTO> PlayerItems;
-    public PlayerItemsWrapper(List<ShopItemDataDTO> items) {
+    public int Money;
+    public PlayerItemsWrapper(List<ShopItemDataDTO> items, int money) {
         PlayerItems = items;
+        Money = money;
     }
 }
 
