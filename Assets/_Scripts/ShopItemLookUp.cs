@@ -99,7 +99,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
     }
     public List<ShopItemData> GetBoughtShopItems() => this.playersShopItems;
     public void RegisterShopItem(ShopItemData item) {
-        if (item.IsValide) {
+        if (!item.IsValide) {
             Debug.LogWarning("Attempted to add null item to bought shop items.");
         } else {
             this.playersShopItems.Add(item);
@@ -169,5 +169,5 @@ public class PlayerItemsWrapper {
 }
 
 public enum EnumItemSprite {
-    None, star, cross, suitUppgradeTier1
+    None, star, cross, suitUppgradeTier1, suitUppgradeTier2
 }
