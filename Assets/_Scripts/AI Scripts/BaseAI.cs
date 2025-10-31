@@ -51,7 +51,7 @@ public class BaseAI : MonoBehaviour {
     private IEnumerator DynamicUpdatePath() {
         while (true) {
             UpdatePlayerPath();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
 

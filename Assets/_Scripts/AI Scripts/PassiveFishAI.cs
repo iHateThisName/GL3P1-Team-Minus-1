@@ -27,6 +27,7 @@ public class PassiveFishAI : BaseAI {
 
     private IEnumerator ChangeTarget() {
         int i = 0;
+        bool isPlayerCloseOldValue = this.isPlayerClose;
 
         while (true) {
             switch (CurrentState) {
@@ -56,8 +57,8 @@ public class PassiveFishAI : BaseAI {
 
                 case State.Chasing:
                     if (this.isPlayerClose) {
-                        StartCoroutine(TriggerSmoothSpeedChange(this.deafualtSpeed * 3f, 0.5f));
                         IsTargetMoving = true;
+                        StartCoroutine(TriggerSmoothSpeedChange(this.deafualtSpeed * 3f, 0.5f));
                     } else {
                         IsTargetMoving = false;
                         this.CurrentState = State.Wandering;
@@ -66,7 +67,8 @@ public class PassiveFishAI : BaseAI {
                     break;
             }
             // Wait until target is reached or the wandering state changes
-            yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering);
+            yield return new WaitUntil(() => this.IsReachedEndOfPath || this.CurrentState != State.Wandering || this.isPlayerClose != isPlayerCloseOldValue);
+            isPlayerCloseOldValue = this.isPlayerClose;
         }
     }
 
@@ -125,6 +127,7 @@ public class PassiveFishAI : BaseAI {
             } else if (this.fishType == EnumFishType.Shark) {
                 // Sharks do not flee
                 this.isPlayerClose = true;
+                this.IsTargetMoving = true;
                 this.CurrentState = State.Chasing;
             }
         }
