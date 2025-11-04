@@ -16,6 +16,20 @@ public class PassiveFishAI : BaseAI {
 
     [SerializeField] private enum EnumFishType { Shark, Cod }
     private enum State { Wandering, Fleeing, Chasing }
+
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] private Animator fishAnimator;
+
+    private const string TriggerUTurn = "TurnTrigger";
+    private void Awake() {
+        if (modelTransform == null) {
+            modelTransform = this.transform.GetChild(0);
+        }
+
+        if (fishAnimator == null) {
+            fishAnimator = modelTransform.GetComponent<Animator>();
+        }
+    }
     void Start() {
         if (this.potentialTargets.Count == 0) {
             Debug.LogWarning("No potential targets assigned to PassiveFishAI.");
@@ -23,6 +37,13 @@ public class PassiveFishAI : BaseAI {
 
         this.deafualtSpeed = this.speed;
         StartCoroutine(ChangeTarget());
+
+        // Get behaviour script in animator and subscribe to OnExit event
+        this.fishAnimator.GetBehaviour<StatemachineBehaviour>().OnExit += FlipModel;
+    }
+
+    private void OnDisable() {
+        this.fishAnimator.GetBehaviour<StatemachineBehaviour>().OnExit -= FlipModel;
     }
 
     private IEnumerator ChangeTarget() {
@@ -137,5 +158,23 @@ public class PassiveFishAI : BaseAI {
         if (other.CompareTag("Player")) {
             this.isPlayerClose = false;
         }
+    }
+
+    protected override void OnFlipDirection(bool facingLeft) {
+        base.OnFlipDirection(facingLeft); // Call base method
+        FlipModel();
+    }
+
+    public void FlipModel() {
+        Debug.Log("Flipping model");
+        // Flip the model visually
+        Vector3 scale = modelTransform.localScale;
+        scale.y *= -1f;
+        modelTransform.localScale = scale;
+    }
+
+    protected override void OnUTurn() {
+        base.OnUTurn(); // Call base method
+        this.fishAnimator.SetTrigger(TriggerUTurn);
     }
 }

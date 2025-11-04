@@ -17,7 +17,6 @@ public class BaseAI : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
 
     private bool isMovingTarget = false;
-
     public bool IsTargetMoving {
         get => isMovingTarget;
         set {
@@ -36,6 +35,8 @@ public class BaseAI : MonoBehaviour {
     }
     private Coroutine dynamicUpdatePathCoroutine;
 
+    private bool isFacingLeft = true;
+    private Vector2 lastDirection;
     private void Start() {
         this.seeker = GetComponent<Seeker>();
         this.rb = GetComponent<Rigidbody>();
@@ -97,7 +98,31 @@ public class BaseAI : MonoBehaviour {
 
         this.rb.AddForce(force);
 
-        if (rb.linearVelocity.sqrMagnitude > 0.01f) {
+
+        if (this.rb.linearVelocity.sqrMagnitude > 0.01f) {
+            Vector2 currentVelocityDirection = this.rb.linearVelocity.normalized; // Direction of current velocity not affected by speed
+
+            // U-Turn detection
+            if (this.lastDirection != Vector2.zero) {
+                float angle = Vector2.Angle(lastDirection, currentVelocityDirection);
+                if (angle > 120f) {
+                    Debug.Log($"U-Turn detected: {angle}");
+                    OnUTurn();
+                } else {
+                    // Facing direction detection
+                    if (Mathf.Abs(currentVelocityDirection.x) > 0.1f) {
+                        if (currentVelocityDirection.x > 0f && isFacingLeft) {
+                            OnFlipDirection(false);
+                        } else if (currentVelocityDirection.x < 0f && !isFacingLeft) {
+                            OnFlipDirection(true);
+                        }
+                    }
+                }
+            }
+
+            lastDirection = currentVelocityDirection;
+
+            // Rotate toward direction of travel
             // Convert velocity direction (XY plane) to 3D
             Vector3 lookDir = new Vector3(rb.linearVelocity.y, -rb.linearVelocity.x, 0f);
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDir);
@@ -112,4 +137,10 @@ public class BaseAI : MonoBehaviour {
             this.currentWaypoint++;
         }
     }
+
+    // Virtual methods to be overridden by subclasses
+    protected virtual void OnFlipDirection(bool facingLeft) {
+        this.isFacingLeft = facingLeft;
+    }
+    protected virtual void OnUTurn() { }
 }
