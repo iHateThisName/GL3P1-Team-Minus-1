@@ -113,7 +113,7 @@ public class PassiveFishAI : BaseAI {
 
     private void MoveAwayFromPlayer(Vector3 player) {
         Vector3 directionAwayFromPlayer = (transform.position - player).normalized;
-        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 10f; // Move 10 units away
+        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 25f; // Move 10 units away
         SetTarget(fleeTarget);
     }
 
