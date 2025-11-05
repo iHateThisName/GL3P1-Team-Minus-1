@@ -13,17 +13,7 @@ public class OceanScript : MonoBehaviour {
             breathingScript.enabled = true;
             breatheSlider.SetActive(true);
 
-            List<ShopItemData> upgrades = ShopItemLookUp.Instance.GetAllPlayerUppgrades();
-
-            foreach (ShopItemData item in upgrades)
-            {
-                if(item.ItemType == EnumItemSprite.suitUppgradeTier1)
-                {
-                    breathingScript.intendedOxygen = 1300f;
-                    breathingScript.oxygenAmount = breathingScript.intendedOxygen;
-                }
-            }
-            breathingScript.oxygenSlider.maxValue = breathingScript.intendedOxygen;
+            breathingScript.oxygenAmount = breathingScript.intendedOxygen;
         }
     }
 
