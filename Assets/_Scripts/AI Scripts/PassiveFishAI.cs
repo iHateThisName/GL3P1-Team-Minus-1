@@ -21,6 +21,9 @@ public class PassiveFishAI : BaseAI {
     [SerializeField] private Animator fishAnimator;
 
     private const string TriggerUTurn = "TurnTrigger";
+    private const string StateUTurn = "Turn";
+
+    private Coroutine OnUTurnStateExitCoroutine;
     private void Awake() {
         if (modelTransform == null) {
             modelTransform = this.transform.GetChild(0);
@@ -38,12 +41,6 @@ public class PassiveFishAI : BaseAI {
         this.deafualtSpeed = this.speed;
         StartCoroutine(ChangeTarget());
 
-        // Get behaviour script in animator and subscribe to OnExit event
-        this.fishAnimator.GetBehaviour<StatemachineBehaviour>().OnExit += FlipModel;
-    }
-
-    private void OnDisable() {
-        this.fishAnimator.GetBehaviour<StatemachineBehaviour>().OnExit -= FlipModel;
     }
 
     private IEnumerator ChangeTarget() {
@@ -170,11 +167,32 @@ public class PassiveFishAI : BaseAI {
         // Flip the model visually
         Vector3 scale = modelTransform.localScale;
         scale.y *= -1f;
-        modelTransform.localScale = scale;
+        //modelTransform.localScale = scale;
+        this.modelTransform.transform.localScale = scale;
+
     }
 
     protected override void OnUTurn() {
         base.OnUTurn(); // Call base method
-        this.fishAnimator.SetTrigger(TriggerUTurn);
+        //this.fishAnimator.SetTrigger(TriggerUTurn);
+        FlipModel();
+
+        //if (this.OnUTurnStateExitCoroutine == null) {
+        //    this.OnUTurnStateExitCoroutine = StartCoroutine(OnUTurnStateExit());
+        //}
+    }
+
+    private IEnumerator OnUTurnStateExit() {
+        AnimatorStateInfo stateInfo = fishAnimator.GetCurrentAnimatorStateInfo(0);
+        stateInfo.IsName(StateUTurn);
+
+        // Wait until state starts
+        yield return new WaitUntil(() => !stateInfo.IsName(StateUTurn));
+
+        FlipModel();
+        // Wait until state ends
+        yield return new WaitUntil(() => stateInfo.IsName(StateUTurn));
+
+        this.OnUTurnStateExitCoroutine = null;
     }
 }
