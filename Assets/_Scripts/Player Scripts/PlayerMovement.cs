@@ -68,6 +68,8 @@ public class PlayerMovement : MonoBehaviour {
         GameManager.Instance.PlayerMovement = this;
     }
 
+    public Rigidbody GetRigidbody() => this.rb;
+
     private void OnEnable() {
         playerInput.actions["Move"].performed += OnMoveAction;
         playerInput.actions["Move"].canceled += OnMoveAction;

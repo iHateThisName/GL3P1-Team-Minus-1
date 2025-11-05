@@ -93,4 +93,8 @@ public class UIShopManager : MonoBehaviour {
     }
 
     public void OnExitButton() => GameSceneManager.Instance.ToggleShopMenu();
+    public void OnCheckpointButton() {
+        CheckPointManager.Instance.UseCheckpoint();
+        OnExitButton();
+    }
 }

@@ -30,8 +30,7 @@ public class GameManager : PersistenSingleton<GameManager> {
         Debug.Log("Test call from GameManager");
     }
 
-    public void UpMoveSpeed()
-    {
+    public void UpMoveSpeed() {
         PlayerMovement.smallAcceleration += 3;
         PlayerMovement.fastAcceleration += 4;
         BreathingScript.upgradeValue -= 0.1f;
@@ -42,5 +41,16 @@ public class GameManager : PersistenSingleton<GameManager> {
         PlayerPrefs.DeleteKey(ShopItemLookUp.PlayerShopItemsKey);
         ShopItemLookUp.Instance.ResetPlayerItems();
         GameManager.Instance.Money = 0;
+    }
+
+    public void TeleportPlayer(Vector3 newLocation) {
+        Rigidbody playerRigidBody = this.PlayerMovement.GetRigidbody();
+
+        // Directly set the player's position to the new location
+        playerRigidBody.position = newLocation;
+
+        // Reset velocities to prevent unwanted movement after teleportation
+        playerRigidBody.linearVelocity = Vector3.zero;
+        playerRigidBody.angularVelocity = Vector3.zero;
     }
 }
