@@ -103,6 +103,10 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
             Debug.LogWarning("Attempted to add null item to bought shop items.");
         } else {
             this.playersShopItems.Add(item);
+            if (item.ItemType.ToString().Contains("Uppgrade"))
+            {
+                GameManager.Instance.UpMoveSpeed();
+            }
         }
     }
 

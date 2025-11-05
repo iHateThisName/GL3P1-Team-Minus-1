@@ -32,7 +32,9 @@ public class GameManager : PersistenSingleton<GameManager> {
 
     public void UpMoveSpeed()
     {
-
+        PlayerMovement.smallAcceleration += 3;
+        PlayerMovement.fastAcceleration += 4;
+        BreathingScript.upgradeValue -= 0.1f;
     }
 
     // Deletes the saved game state
