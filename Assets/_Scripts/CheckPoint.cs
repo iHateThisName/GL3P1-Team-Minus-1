@@ -11,4 +11,20 @@ public class CheckPoint : MonoBehaviour {
     }
 
     public Transform GetTeleportLocation() => this.teleportLocation;
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            CheckPointManager.Instance.SetCurrentCheckPoint(this);
+            Debug.Log($"Checkpoint {this.name} activated.");
+            GameManager.Instance.PlayerExitOcean();
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            GameManager.Instance.PlayerEnterOcean();
+            Debug.Log($"Player exited checkpoint {this.name}.");
+        }
+    }
 }
+//}

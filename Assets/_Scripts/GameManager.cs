@@ -53,4 +53,15 @@ public class GameManager : PersistenSingleton<GameManager> {
         playerRigidBody.linearVelocity = Vector3.zero;
         playerRigidBody.angularVelocity = Vector3.zero;
     }
+
+    public void PlayerExitOcean() {
+        this.PlayerMovement.isUnderWater = false;
+        this.BreathingScript.DisableBreathing();
+        this.BreathingScript.enabled = false;
+    }
+
+    public void PlayerEnterOcean() {
+        this.PlayerMovement.isUnderWater = true;
+        this.BreathingScript.enabled = true; // Making sure it is enabled
+    }
 }
