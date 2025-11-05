@@ -105,19 +105,19 @@ public class BaseAI : MonoBehaviour {
             // U-Turn detection
             if (this.lastDirection != Vector2.zero) {
                 float angle = Vector2.Angle(lastDirection, currentVelocityDirection);
-                if (angle > 120f) {
-                    Debug.Log($"U-Turn detected: {angle}");
-                    OnUTurn();
-                } else {
-                    // Facing direction detection
-                    if (Mathf.Abs(currentVelocityDirection.x) > 0.1f) {
-                        if (currentVelocityDirection.x > 0f && isFacingLeft) {
-                            OnFlipDirection(false);
-                        } else if (currentVelocityDirection.x < 0f && !isFacingLeft) {
-                            OnFlipDirection(true);
-                        }
+                //if (angle > 120f) {
+                //    Debug.Log($"U-Turn detected: {angle}");
+                //    OnUTurn();
+                //} else {
+                // Facing direction detection
+                if (Mathf.Abs(currentVelocityDirection.x) > 0.1f) {
+                    if (currentVelocityDirection.x > 0f && isFacingLeft) {
+                        OnFlipDirection(false);
+                    } else if (currentVelocityDirection.x < 0f && !isFacingLeft) {
+                        OnFlipDirection(true);
                     }
                 }
+                //}
             }
 
             lastDirection = currentVelocityDirection;

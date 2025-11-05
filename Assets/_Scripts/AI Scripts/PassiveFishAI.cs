@@ -163,12 +163,13 @@ public class PassiveFishAI : BaseAI {
     }
 
     public void FlipModel() {
-        Debug.Log("Flipping model");
         // Flip the model visually
         Vector3 scale = modelTransform.localScale;
         scale.y *= -1f;
-        //modelTransform.localScale = scale;
+        modelTransform.localScale = scale;
         this.modelTransform.transform.localScale = scale;
+
+        Debug.Log($"Flipping model, the new localScale is : {this.modelTransform.transform.localScale}");
 
     }
 
