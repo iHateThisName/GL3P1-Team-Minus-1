@@ -30,6 +30,11 @@ public class GameManager : PersistenSingleton<GameManager> {
         Debug.Log("Test call from GameManager");
     }
 
+    public void UpMoveSpeed()
+    {
+
+    }
+
     // Deletes the saved game state
     public void DeleteGameState() {
         PlayerPrefs.DeleteKey(ShopItemLookUp.PlayerShopItemsKey);
