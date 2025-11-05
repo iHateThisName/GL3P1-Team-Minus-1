@@ -184,7 +184,7 @@ PrefabInstance:
     - target: {fileID: -2906906218502284888, guid: c8386c1100aefe848944ad1cd72857bd, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: da1da1ea90e6ee64baacac18f874c023, type: 2}
+      objectReference: {fileID: 2100000, guid: 84ab818029c5bac4996914e72eda0b7b, type: 2}
     - target: {fileID: 919132149155446097, guid: c8386c1100aefe848944ad1cd72857bd, type: 3}
       propertyPath: m_Name
       value: SharkFullRig

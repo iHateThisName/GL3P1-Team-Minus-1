@@ -156,7 +156,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f);
 
         //Find the desired velocity
-        Vector3 desiredVelocity = new Vector3(input.x, input.y, 0f) * (maxSpeed * suitMultiplier);
+        Vector3 desiredVelocity = new Vector3(input.x, input.y, 0f) * maxSpeed;
 
         //Calculate the velocity change
         Vector3 velocityChange = desiredVelocity - currentVelocity;
