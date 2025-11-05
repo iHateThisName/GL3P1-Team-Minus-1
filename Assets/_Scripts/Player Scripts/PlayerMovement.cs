@@ -58,10 +58,14 @@ public class PlayerMovement : MonoBehaviour {
             this.playerInput = GetComponent<PlayerInput>();
         }
 
-        moveSpeed = walkSpeed;
+        // Setting default values
+        this.moveSpeed = this.walkSpeed;
+        this.maxSpeed = this.normalSpeed;
+        this.acceleration = this.smallAcceleration;
+        this.defaultWeight = rb.mass;
 
-        this.defaultWeight = rb.mass; // Store the default weight of the player
-        GameManager.Instance.PlayerMovement = this; // Register this instance with the GameManager
+        // Register this instance with the GameManager
+        GameManager.Instance.PlayerMovement = this;
     }
 
     private void OnEnable() {
