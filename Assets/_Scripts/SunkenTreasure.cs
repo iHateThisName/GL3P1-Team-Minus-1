@@ -26,6 +26,12 @@ public class SunkenTreasure : Interactable {
 
     [SerializeField] private int treasureNum = 0;
 
+    [SerializeField]
+    private SeaShellScript seaShell;
+
+    [SerializeField]
+    private bool isInShell = false;
+
     private void Awake() {
         if (this.ObjectRootTransform == null) {
             this.ObjectRootTransform = this.transform;
@@ -91,6 +97,11 @@ public class SunkenTreasure : Interactable {
             GameManager.Instance.PlayerMovement.enabled = false;
             breathingScript.enabled = false;
             storyTreasureScript.DisplayTreasureScreen(treasureNum, treasureMessage, isStoryTreasure);
+        }
+
+        if(isInShell && seaShell != null)
+        {
+            seaShell.CloseShell();
         }
     }
 
