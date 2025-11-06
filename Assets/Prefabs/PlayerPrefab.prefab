@@ -48,6 +48,7 @@ MonoBehaviour:
   sprintMultiplier: 5
   weightValue: 0
   upgradeValue: 1
+  breathParent: {fileID: 0}
   breathingSpeed: 12.5
   minBreatheValue: 50
   maxBreatheValue: 62.5

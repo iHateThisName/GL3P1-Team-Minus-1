@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &483590610365320340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3058092479362040586}
+  - component: {fileID: 4429716786733936827}
+  - component: {fileID: 4329980874741381367}
+  m_Layer: 0
+  m_Name: DamageTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3058092479362040586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483590610365320340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.436, y: -0.107, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7182699887532358762}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &4429716786733936827
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483590610365320340}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.2173016, z: 0.5928702}
+  m_Center: {x: -7.6099346e-17, y: -0.037872553, z: 0.067855}
+--- !u!114 &4329980874741381367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483590610365320340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2d2581e643b0148a68c86abe3abccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SharkDamagePlayer
+  damage: 150
 --- !u!1001 &863768048828891908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8,6 +75,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3195001805992608645, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6138990481725953594, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_Name
       value: SharkPrefab
@@ -57,6 +128,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7636722965797316373, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3058092479362040586}
     - targetCorrespondingSourceObject: {fileID: 2431671448627056661, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6769703548874311837}
@@ -102,7 +176,7 @@ MonoBehaviour:
   seeker: {fileID: 8416228905614288753}
   rb: {fileID: 2858190647694491777}
   potentialTargets: []
-  fishType: 1
+  fishType: 0
   modelTransform: {fileID: 3045471537515156241}
   fishAnimator: {fileID: 797978630413554407}
 --- !u!135 &2806837383455441056
@@ -126,6 +200,11 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &7182699887532358762 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
+  m_PrefabInstance: {fileID: 863768048828891908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8416228905614288753 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9165049473305732213, guid: 486ebfaa69be84843b1b26378527c186, type: 3}

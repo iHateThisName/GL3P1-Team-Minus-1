@@ -342,4 +342,9 @@ public class BreathingScript : MonoBehaviour
     {
         this.weightValue -= amount;
     }
+
+    public void TakeDamage(int damage)
+    {
+        oxygenAmount -= damage;
+    }
 }

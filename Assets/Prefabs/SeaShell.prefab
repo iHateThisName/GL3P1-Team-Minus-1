@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 102569917915699129}
   - component: {fileID: 4295682573148850834}
   - component: {fileID: 6003758235935062490}
+  - component: {fileID: 2341064400818547120}
   m_Layer: 0
   m_Name: SeaShell
   m_TagString: Untagged
@@ -70,6 +71,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeaShellScript
   anim: {fileID: 4295682573148850834}
+  damage: 25
+--- !u!65 &2341064400818547120
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909433318056113096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4566917, y: 3.5225554, z: 3.5487766}
+  m_Center: {x: 1.775938, y: 0.0062537193, z: 0.3253107}
 --- !u!1 &6866398053501651729
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,13 +120,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6866398053501651729}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.804615, y: 0, z: -1.7841892}
   m_LocalScale: {x: 3.594722, y: 0.6393799, z: 1.4299093}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 102569917915699129}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
 --- !u!33 &3753018158139088241
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -208,13 +231,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7296667910705225309}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.090969, y: -2.0600004, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.780838, y: -2.0600004, z: 0.30664253}
   m_LocalScale: {x: 3.594722, y: 0.63938, z: 1.4299093}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 102569917915699129}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &3706226454854314005
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
     /// <summary>
     /// The player's rigidbody
     /// </summary>
-    [SerializeField] private Rigidbody rb;
+    public Rigidbody rb;
     public bool isUnderWater = false;
     [SerializeField] private PlayerInput playerInput;
 
