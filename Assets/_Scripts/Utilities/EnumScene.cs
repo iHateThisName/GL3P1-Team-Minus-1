@@ -10,4 +10,5 @@ public enum EnumScene {
     ShopMenu,
     GameScene,
     Tutorial,
+    TransitionScene,
 }

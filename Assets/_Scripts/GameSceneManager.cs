@@ -32,6 +32,17 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         }
     }
 
+    public bool IsTransitionSceneLoaded {
+        get {
+            EnumScene[] activeScenes = GetCurrentActiveScenes();
+            foreach (EnumScene scene in activeScenes) {
+                if (scene == EnumScene.TransitionScene)
+                    return true;
+            }
+            return false;
+        }
+    }
+
     public void TogglePauseMenu() {
         if (this.IsPauseMenuLoaded) {
             UnLoadPauseMenu();
@@ -70,13 +81,51 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
     /// <param name="scene">The scene to load.</param>
     /// <param name="sceneMode">The mode in which to load the scene (Single or Additive).</param>
     /// <returns>IEnumerator for coroutine.</returns>
-    private IEnumerator LoadSceneCoroutine(EnumScene scene, LoadSceneMode sceneMode = LoadSceneMode.Single) {
+    public IEnumerator LoadSceneCoroutine(EnumScene scene, LoadSceneMode sceneMode = LoadSceneMode.Single) {
         Time.timeScale = 0f;
+
         int buildIndex = GetBuildIndexByName(scene);
-        yield return SceneManager.LoadSceneAsync(buildIndex, sceneMode);
+        int TransitionSceneBuildIndex = GetBuildIndexByName(EnumScene.TransitionScene);
+
+        if (scene != EnumScene.TransitionScene && !this.IsTransitionSceneLoaded) {
+            yield return SceneManager.LoadSceneAsync(TransitionSceneBuildIndex, LoadSceneMode.Additive);
+        }
+
+        // If loading GameScene or Tutorial, use fade transitions
+        if (scene == EnumScene.GameScene || scene == EnumScene.Tutorial) {
+            // Starts Fading out
+            yield return StartCoroutine(TransitionController.Instance.FadeOutCoroutine());
+
+            // Unload All outer Scenes
+            UnLoadeAllScenesExcept(TransitionSceneBuildIndex);
+
+            // Wait for scene to load
+            yield return SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+
+            // Starts Fading In
+            yield return StartCoroutine(TransitionController.Instance.FadeInCoroutine());
+        } else {
+            yield return SceneManager.LoadSceneAsync(buildIndex, sceneMode);
+        }
 
         if (scene != EnumScene.PauseMenu) {
+            // Resume time after loading non-pause menu scenes
             Time.timeScale = 1f;
+        }
+    }
+
+    private void UnLoadeAllScenesExcept(int sceneToKeepBuildIndex) {
+        System.Collections.Generic.List<int> scenesToUnload = new System.Collections.Generic.List<int>();
+
+        for (int i = 0; i < SceneManager.sceneCount; i++) {
+            int activeScene = SceneManager.GetSceneAt(i).buildIndex;
+            if (sceneToKeepBuildIndex != activeScene) {
+                scenesToUnload.Add(activeScene);
+            }
+        }
+
+        foreach (int index in scenesToUnload) {
+            SceneManager.UnloadSceneAsync(index);
         }
     }
 
