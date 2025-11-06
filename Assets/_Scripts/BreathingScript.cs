@@ -16,6 +16,9 @@ public class BreathingScript : MonoBehaviour
     public float weightValue;
     public float upgradeValue = 1f;
 
+    [SerializeField]
+    private GameObject breathParent;
+
     //The speed at which the breathing bar rises up
     [SerializeField]
     private float breathingSpeed = 12.5f;
@@ -48,8 +51,7 @@ public class BreathingScript : MonoBehaviour
     private bool hasHeldBreath = true;
 
     //The slider used in the visualisation of your breathing
-    [SerializeField]
-    private Scrollbar breathingSlider;
+    public Scrollbar breathingSlider;
 
     //The text used to communicate how long the player has held their breath
     [SerializeField]
@@ -107,6 +109,8 @@ public class BreathingScript : MonoBehaviour
 
         holdBreathAction.performed += OnHoldBreathStarted;
         holdBreathAction.canceled += OnHoldBreathStopped;
+
+        breathParent.SetActive(true);
     }
 
     //Disables and unsubscribes input actions when this script is disabled
@@ -119,6 +123,8 @@ public class BreathingScript : MonoBehaviour
 
         holdBreathAction.performed -= OnHoldBreathStarted;
         holdBreathAction.canceled -= OnHoldBreathStopped;
+
+        breathParent.SetActive(false);
     }
 
     // Update is called once per frame

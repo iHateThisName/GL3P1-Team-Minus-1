@@ -63,5 +63,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public void PlayerEnterOcean() {
         this.PlayerMovement.isUnderWater = true;
         this.BreathingScript.enabled = true; // Making sure it is enabled
+
+        BreathingScript.oxygenAmount = BreathingScript.intendedOxygen;
     }
 }
