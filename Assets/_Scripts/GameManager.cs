@@ -11,6 +11,11 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool IsPlayerMovementEnabled = true;
     public int Money = 0;
 
+    public bool startedGame = true;
+    public bool startedGameFinished;
+    public bool firstTreasureCollected;
+    public bool firstTreasureFinished;
+
     public int GetHeldItemsValue() {
         if (PlayerInteractTransform == null) {
             Debug.LogWarning("PlayerInteractTransform is not assigned.");

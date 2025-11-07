@@ -1,35 +1,23 @@
-using UnityEngine;
+using Assets.Scripts.Singleton;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class DialougeLookUpManager : MonoBehaviour
+public class DialougeLookUpManager : Singleton<DialougeLookUpManager>
 {
     [SerializeField] private List<DialogTree> dialogTrees;
 
-    private Dictionary<EnumCharacter, DialogTree> dialogTreesDict;
+    private Dictionary<EnumCharacter, DialogTree> dialogTreesDict = new Dictionary<EnumCharacter, DialogTree>();
 
-    [SerializeField]
-    private bool startedGame = true;
-    [SerializeField]
-    private bool startedGameFinished;
-    [SerializeField]
-    private bool firstTreasureCollected;
-    [SerializeField]
-    private bool firstTreasureFinished;
-
-
-    private void Start()
+    private void Awake()
     {
-        foreach (var Tree in dialogTrees)
+        foreach (DialogTree dialogTree in dialogTrees)
         {
-            dialogTreesDict.Add(Tree.character, Tree);
+            dialogTreesDict.Add(dialogTree.character, dialogTree);
         }
     }
 
     public string[] GetDialouge(EnumCharacter character)
     {
-
-
-
         //DialogTree dialogTree = GetCharactersDialogTree(character);
 
         DialogTree dialogTree = dialogTreesDict[character];
@@ -37,22 +25,19 @@ public class DialougeLookUpManager : MonoBehaviour
         switch (character)
         {
             case EnumCharacter.LifeGauard:
-
-
-                //if (!startedGameFinished && startedGame)
-                //{
-                //    return storyDialougeList[0];
-                //}
-                //else if (!firstTreasureFinished && firstTreasureCollected)
-                //{
-                //    return storyDialougeList[1];
-                //}
-                //else
-                //{
-                //    return genericDialougeScript[0];
-                //}
-
-                return dialogTree.storyDialouges[0].ToArray();
+                if(!GameManager.Instance.startedGameFinished && GameManager.Instance.startedGame)
+                {
+                    GameManager.Instance.startedGameFinished = true;
+                    return dialogTree.storyDialouges[0].ConvertToArray();
+                }
+                else if(!GameManager.Instance.firstTreasureFinished && GameManager.Instance.firstTreasureCollected)
+                {
+                    return dialogTree.storyDialouges[1].ConvertToArray();
+                }
+                else
+                {
+                    return dialogTree.genericDialouges[Random.Range(0, dialogTree.genericDialouges.Count)].ConvertToArray();
+                }
 
             default:
                 string[] deafualtString = null;
@@ -61,34 +46,31 @@ public class DialougeLookUpManager : MonoBehaviour
                 return deafualtString;
         }
     }
-
-    private DialogTree GetCharactersDialogTree(EnumCharacter lookUpCharacter)
-    {
-
-        foreach (var dialogTree in dialogTrees)
-        {
-            if (dialogTree.character == lookUpCharacter)
-            {
-                return dialogTree;
-            }
-        }
-
-        return new DialogTree();
-    }
 }
 
 [System.Serializable]
 public struct DialogTree
 {
-    public List<List<string>> storyDialouges;
-    public List<List<string>> genericDialouges;
     public EnumCharacter character;
+    public List<Dialog> storyDialouges;
+    public List<Dialog> genericDialouges;
 
-    public DialogTree(List<List<string>> storyDialouges, List<List<string>> genericDialouges, EnumCharacter character)
+    public DialogTree(List<Dialog> storyDialouges, List<Dialog> genericDialouges, EnumCharacter character)
     {
         this.storyDialouges = storyDialouges;
         this.genericDialouges = genericDialouges;
         this.character = character;
+    }
+}
+
+[System.Serializable]
+public class Dialog
+{
+    public List<string> dialogLines;
+
+    public string[] ConvertToArray()
+    {
+        return dialogLines.ToArray();
     }
 }
 

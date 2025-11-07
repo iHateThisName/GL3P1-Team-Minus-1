@@ -44,19 +44,26 @@ public class DialougeScript : MonoBehaviour
     {
         if(playerInRange)
         {
-            //If the player has not reached the end of the dialouge, the next line will be displayed
-            if (lineNumber < dialouge.Length)
+            if(!inDialouge)
             {
-                NextLine();
-                GameManager.Instance.PlayerMovement.enabled = false;
+                GetDialouge();
             }
-            //If the player has reached the end of the dialouge, the dialouge will close
             else
             {
-                dialougeText.enabled = false;
-                inDialouge = false;
-                lineNumber = 0;
-                GameManager.Instance.PlayerMovement.enabled = true;
+                //If the player has not reached the end of the dialouge, the next line will be displayed
+                if (lineNumber < dialouge.Length)
+                {
+                    NextLine();
+                    GameManager.Instance.PlayerMovement.enabled = false;
+                }
+                //If the player has reached the end of the dialouge, the dialouge will close
+                else
+                {
+                    dialougeText.enabled = false;
+                    inDialouge = false;
+                    lineNumber = 0;
+                    GameManager.Instance.PlayerMovement.enabled = true;
+                }
             }
         }
     }
@@ -79,10 +86,16 @@ public class DialougeScript : MonoBehaviour
         }
     }
 
+    private void GetDialouge()
+    {
+        dialouge = DialougeLookUpManager.Instance.GetDialouge(EnumCharacter.LifeGauard);
+        inDialouge = true;
+        NextLine();
+    }
+
     //A function for displaying the next dialouge line
     private void NextLine()
     {
-        inDialouge = true;
         dialougeText.enabled = true;
         dialougeText.text = dialouge[lineNumber];
         lineNumber++;

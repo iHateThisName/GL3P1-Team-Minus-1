@@ -46,7 +46,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialougeLookUpManager
   dialogTrees:
   - character: 0
-  startedGame: 1
-  startedGameFinished: 0
-  firstTreasureCollected: 0
-  firstTreasureFinished: 0
+    storyDialouges:
+    - dialogLines:
+      - Hey. It's good to see you.
+      - Thanks a lot for coming down here.
+      - I know how hard it is.
+      - But you're lucky. The weather is nice. Perfect for diving.
+      - You know what you need.
+      - The treasures are down there. Scattered all around.
+      - You just need to get them.
+      - Remember what I taught you about breathing.
+      - Breathe in, hold, breathe out.
+      - That's the magic behind it.
+      - Keep your breathing steady and keep an eye on your oxygen.
+      - ...
+      - Tell you what, I'll give you a little practice.
+      - Just go into the water, and bring me the first treasure you find.
+      - I'll explain the rest when you come back.
+      - Good luck.
+    - dialogLines:
+      - Great!
+      - If you go to the shop, you'll be able to sell the items you collected.
+      - And then use the money you get from that to upgrade your suit.
+      - Upgrading allows you to go deeper into the ocean.
+      - And at the bottom, you'll find it. The final treasure.
+      - It'll be difficult. But as long as you keep an eye on your oxygen, you should
+        be safe.
+      - If you see that your oxygen is getting low, swim straight up.
+      - Don't be reckless and go further than you can handle.
+      - I don't want to see you get hurt.
+      - But...
+      - If you get into trouble, get stuck...
+      - I'll come get you. Pull you out.
+      - Just don't rush yourself.
+      - Take one step at a time.
+      - I'll let you go now.
+      - I'll always be here though, if you need someone to talk to.
+      - Oh, and by the way.
+      - Treasures weigh you down. Some more than others.
+      - They make it more difficult for you to breathe.
+      - Just be careful.
+      - If I have to come pull you out, I'll have to leave the treasures behind.
+      - And some treasures...
+      - They may be difficult for you.
+      - But, that's why we're here. You can't get to the bottom if you don't deal
+        with the difficult treasures.
+      - Well, I'll see you later.
+      - Best of luck.
+    - dialogLines:
+      - Wow.
+      - You found one already. I can only imagine how difficult it was to pull it
+        out.
+      - But you managed.
+      - These types of treasures sell for much more at the shop.
+      - You'll probably need all of them in order to buy the suit upgrades you need.
+      - But don't pick those treasures if you can't handle it.
+      - It's a bad idea to deal with them if you're not prepared.
+      - You should have enough money now to buy the first upgrade.
+      - Just come back when you've bought it.
+    genericDialouges:
+    - dialogLines:
+      - Wow, so cool
+    - dialogLines:
+      - What's up?
