@@ -84,6 +84,10 @@ public class SunkenTreasure : Interactable {
     }
 
     private void CollectTreasure() {
+        if(!GameManager.Instance.firstTreasureCollected)
+        {
+            GameManager.Instance.firstTreasureCollected = true;
+        }
         // Collects the treasure and also instantly picks it up
         this.isCollected = true;
         this.isPickedUp = true;

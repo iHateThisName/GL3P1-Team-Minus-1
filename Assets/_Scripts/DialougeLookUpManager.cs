@@ -32,7 +32,13 @@ public class DialougeLookUpManager : Singleton<DialougeLookUpManager>
                 }
                 else if(!GameManager.Instance.firstTreasureFinished && GameManager.Instance.firstTreasureCollected)
                 {
+                    GameManager.Instance.firstTreasureFinished = true;
                     return dialogTree.storyDialouges[1].ConvertToArray();
+                }
+                else if(!GameManager.Instance.firstStoryFinished && GameManager.Instance.firstStoryCollected)
+                {
+                    GameManager.Instance.firstStoryFinished = true;
+                    return dialogTree.storyDialouges[2].ConvertToArray();
                 }
                 else
                 {

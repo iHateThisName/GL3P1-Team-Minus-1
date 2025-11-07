@@ -15,6 +15,8 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool startedGameFinished;
     public bool firstTreasureCollected;
     public bool firstTreasureFinished;
+    public bool firstStoryCollected;
+    public bool firstStoryFinished;
 
     public int GetHeldItemsValue() {
         if (PlayerInteractTransform == null) {
