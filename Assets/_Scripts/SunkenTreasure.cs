@@ -97,6 +97,10 @@ public class SunkenTreasure : Interactable {
         Debug.Log("Treasure collected! Player weight increased by " + this.weight);
 
         if (isStoryTreasure || isArtefact) {
+            if(isStoryTreasure && !GameManager.Instance.firstStoryCollected)
+            {
+                GameManager.Instance.firstStoryCollected = true;
+            }
             GameManager.Instance.PlayerMovement.ResetMomentum();
             GameManager.Instance.PlayerMovement.enabled = false;
             breathingScript.enabled = false;
