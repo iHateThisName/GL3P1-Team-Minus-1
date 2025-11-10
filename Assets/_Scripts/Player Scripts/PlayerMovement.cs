@@ -91,9 +91,45 @@ public class PlayerMovement : MonoBehaviour {
         this.playerInput.actions["Sprint"].canceled -= OnSprintCancel;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
+        // Check if the movment is disabled
+        if (!GameManager.Instance.IsPlayerMovementEnabled) return;
+
+        if (isGrounded) {
+            rb.linearDamping = groundDrag;
+        } else {
+            rb.linearDamping = 0;
+        }
+
+        //If the player is above water, normal movement applies
         if (!this.isUnderWater) {
+            if (rb.useGravity != true) {
+                rb.useGravity = true;
+            }
+            if (input != Vector2.zero) {
+                MovePlayer();
+            } else {
+                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            }
+        }
+        //If they're underneath the water, the water movement applies
+        else {
+            if (rb.useGravity != false) {
+                rb.useGravity = false;
+            }
+            UnderwaterMovement();
+            WaterPhysics();
+        }
+
+        UpdateRotation();
+    }
+
+    private void UpdateRotation()
+    {
+        if (!this.isUnderWater)
+        {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
+
             if (input.x > 0f)
             {
                 targetRotation = Quaternion.Euler(0, 0, 0); // facing right
@@ -148,11 +184,14 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
     }
+
     private void OnMoveAction(InputAction.CallbackContext context) {
         this.input = context.ReadValue<Vector2>();
     }
+
+    public void OnMoveCanceled() => this.input = Vector2.zero;
 
     private void OnSprintAction(InputAction.CallbackContext context) {
         moveSpeed = sprintSpeed;
@@ -181,36 +220,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private void FixedUpdate() {
-        // Check if the movment is disabled
-        if (!GameManager.Instance.IsPlayerMovementEnabled) return;
 
-        if (isGrounded) {
-            rb.linearDamping = groundDrag;
-        } else {
-            rb.linearDamping = 0;
-        }
-
-        //If the player is above water, normal movement applies
-        if (!this.isUnderWater) {
-            if (rb.useGravity != true) {
-                rb.useGravity = true;
-            }
-            if (input != Vector2.zero) {
-                MovePlayer();
-            } else {
-                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-            }
-        }
-        //If they're underneath the water, the water movement applies
-        else {
-            if (rb.useGravity != false) {
-                rb.useGravity = false;
-            }
-            UnderwaterMovement();
-            WaterPhysics();
-        }
-    }
 
     private void UnderwaterMovement() {
         anim.SetBool("IsSwimming", true);

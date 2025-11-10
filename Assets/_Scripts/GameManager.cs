@@ -18,8 +18,8 @@ public class GameManager : PersistenSingleton<GameManager> {
                     playerRigidBody.linearVelocity = Vector3.zero;
                     playerRigidBody.angularVelocity = Vector3.zero;
                 }
+                this.PlayerMovement.OnMoveCanceled();
             }
-            PlayerMovement.enabled = value;
             _isPlayerMovementEnabled = value;
         }
     }
