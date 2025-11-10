@@ -13,7 +13,7 @@ public class DialougeScript : MonoBehaviour
 
     //An array of all the dialouge that will be displayed
     [SerializeField]
-    private string[] dialouge;
+    private string[] dialouge = null;
 
     //A bool to check if the player is in range of the object
     [SerializeField]
