@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
@@ -9,11 +10,14 @@ public class PlayerMovement : MonoBehaviour {
     public Rigidbody rb;
     public bool isUnderWater = false;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject model;
 
     [Header("Walk Movement")]
     public float walkSpeed = 7f;
     public float sprintSpeed = 12f;
     private float moveSpeed;
+    [SerializeField] private float rotationSpeed;
     /// <summary>
     /// LayerMask used to determine what is considered ground for the player.
     /// </summary>
@@ -44,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
     /// The input of the player
     /// </summary>
     private Vector2 input;
+    private Quaternion targetRotation;
 
     private float defaultWeight; // The player's default weight
     private float addedWeight = 0f; // The additional weight added by collectibles
@@ -89,7 +94,61 @@ public class PlayerMovement : MonoBehaviour {
     private void Update() {
         if (!this.isUnderWater) {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
+            if (input.x > 0f)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0); // facing right
+            }
+            else if (input.x < 0f)
+            {
+                targetRotation = Quaternion.Euler(0, 180f, 0); // facing left
+            }
         }
+        else
+        {
+            if (input.x > 0f)
+            {
+                if(input.y > 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 0, 45f);
+                }
+                else if(input.y < 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 0, -45f);
+                }
+                else
+                {
+                    targetRotation = Quaternion.Euler(0, 0, 0);
+                }
+            }
+            else if (input.x < 0f)
+            {
+                if (input.y > 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 180f, 45f);
+                }
+                else if(input.y < 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 180f, -45f);
+                }
+                else
+                {
+                    targetRotation = Quaternion.Euler(0, 180f, 0);
+                }
+            }
+            else
+            {
+                if (input.y > 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 0, 90f);
+                }
+                else if (input.y < 0f)
+                {
+                    targetRotation = Quaternion.Euler(0, 0, -90f);
+                }
+            }
+        }
+
+        model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     private void OnMoveAction(InputAction.CallbackContext context) {
         this.input = context.ReadValue<Vector2>();
@@ -154,6 +213,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void UnderwaterMovement() {
+        anim.SetBool("IsSwimming", true);
+
         //The player's current velocity
         Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f);
 
@@ -181,6 +242,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void MovePlayer() {
+        anim.SetBool("IsSwimming", false);
         //rb.linearVelocity = new Vector3((input.x * speed) * Time.fixedDeltaTime, 0f, 0f);
         Vector3 finalSpeed = new Vector3(input.x * moveSpeed, 0f, 0f);
         //rb.AddForce(walkSpeed);
