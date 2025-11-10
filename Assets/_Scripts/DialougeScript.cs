@@ -46,6 +46,7 @@ public class DialougeScript : MonoBehaviour
         {
             if(!inDialouge)
             {
+                GameManager.Instance.PlayerMovement.enabled = false;
                 GetDialouge();
             }
             else
@@ -54,7 +55,6 @@ public class DialougeScript : MonoBehaviour
                 if (lineNumber < dialouge.Length)
                 {
                     NextLine();
-                    GameManager.Instance.PlayerMovement.enabled = false;
                 }
                 //If the player has reached the end of the dialouge, the dialouge will close
                 else
