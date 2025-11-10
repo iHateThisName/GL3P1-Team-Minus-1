@@ -8,7 +8,22 @@ public class GameManager : PersistenSingleton<GameManager> {
     public BreathingScript BreathingScript;
 
     // Game state variables
-    public bool IsPlayerMovementEnabled = true;
+    private bool _isPlayerMovementEnabled = true; // Never access this directly, use the public property below
+    public bool IsPlayerMovementEnabled {
+        get => _isPlayerMovementEnabled;
+        set {
+            if (!value) {
+                Rigidbody playerRigidBody = PlayerMovement?.GetRigidbody();
+                if (playerRigidBody != null) {
+                    playerRigidBody.linearVelocity = Vector3.zero;
+                    playerRigidBody.angularVelocity = Vector3.zero;
+                }
+            }
+            PlayerMovement.enabled = value;
+            _isPlayerMovementEnabled = value;
+        }
+    }
+
     public int Money = 0;
 
     public bool startedGame = true;

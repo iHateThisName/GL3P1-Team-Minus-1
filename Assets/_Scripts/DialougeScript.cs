@@ -46,7 +46,7 @@ public class DialougeScript : MonoBehaviour
         {
             if(!inDialouge)
             {
-                GameManager.Instance.PlayerMovement.enabled = false;
+                GameManager.Instance.IsPlayerMovementEnabled = false;
                 GetDialouge();
             }
             else
@@ -62,7 +62,7 @@ public class DialougeScript : MonoBehaviour
                     dialougeText.enabled = false;
                     inDialouge = false;
                     lineNumber = 0;
-                    GameManager.Instance.PlayerMovement.enabled = true;
+                    GameManager.Instance.IsPlayerMovementEnabled = true;
                 }
             }
         }
