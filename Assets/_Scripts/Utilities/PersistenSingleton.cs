@@ -9,11 +9,19 @@ namespace Assets.Scripts.Singleton {
         public bool AutoUnparentOnAwake = true;
         protected static T instance;
 
+        // Prevent creating new instances while the application/Editor is shutting down or the singleton is being destroyed.
+        private static bool isShuttingDown = false;
+
         public static bool HasInstance => instance != null;
         public static T TryGetInstance() => HasInstance ? instance : null;
 
         public static T Instance {
             get {
+                // If the application is quitting or the singleton is shutting down, do NOT create a new GameObject.
+                if (isShuttingDown || !Application.isPlaying) {
+                    return instance;
+                }
+
                 if (instance == null) {
                     instance = FindAnyObjectByType<T>();
                     if (instance == null) {
@@ -39,6 +47,14 @@ namespace Assets.Scripts.Singleton {
             }
         }
 
+        protected virtual void OnApplicationQuit() {
+            isShuttingDown = true;
+        }
 
+        protected virtual void OnDestroy() {
+            if (instance == this) {
+                isShuttingDown = true;
+            }
+        }
     }
 }
