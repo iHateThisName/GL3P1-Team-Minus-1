@@ -1,6 +1,7 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 public class DialougeScript : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class DialougeScript : MonoBehaviour
 
     //An array of all the dialouge that will be displayed
     [SerializeField]
-    private string[] dialouge = null;
+    private Dialog dialouge;
 
     //A bool to check if the player is in range of the object
     [SerializeField]
@@ -52,7 +53,7 @@ public class DialougeScript : MonoBehaviour
             else
             {
                 //If the player has not reached the end of the dialouge, the next line will be displayed
-                if (lineNumber < dialouge.Length)
+                if (lineNumber < dialouge.dialogLines.Count)
                 {
                     NextLine();
                 }
@@ -97,7 +98,7 @@ public class DialougeScript : MonoBehaviour
     private void NextLine()
     {
         dialougeText.enabled = true;
-        dialougeText.text = dialouge[lineNumber];
+        dialougeText.text = this.dialouge.dialogLines[lineNumber];
         lineNumber++;
     }
 }
