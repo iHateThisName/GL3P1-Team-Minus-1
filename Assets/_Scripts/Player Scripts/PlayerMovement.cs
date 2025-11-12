@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour {
     public float normalSpeed = 3;
     public float fastSpeed = 6;
     private float maxSpeed;
+    private bool isSprinting;
     /// <summary>
     /// The drag which is used to slow down the player while in the water
     /// </summary>
@@ -200,6 +201,7 @@ public class PlayerMovement : MonoBehaviour {
         if (isUnderWater) {
             GameManager.Instance.BreathingScript.sprintMultiplier = 5f;
         }
+        isSprinting = true;
     }
 
     private void OnSprintCancel(InputAction.CallbackContext context) {
@@ -209,6 +211,7 @@ public class PlayerMovement : MonoBehaviour {
         if (isUnderWater) {
             GameManager.Instance.BreathingScript.sprintMultiplier = 0f;
         }
+        isSprinting = false;
     }
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
@@ -226,11 +229,21 @@ public class PlayerMovement : MonoBehaviour {
         if(input != Vector2.zero)
         {
             anim.SetBool("IsIdleSwim", false);
-            anim.SetBool("IsSwimming", true);
+            if (isSprinting)
+            {
+                anim.SetBool("IsSwimming", false);
+                anim.SetBool("IsFastSwimming", true);
+            }
+            else
+            {
+                anim.SetBool("IsFastSwimming", false);
+                anim.SetBool("IsSwimming", true);
+            }
         }
         else
         {
             anim.SetBool("IsSwimming", false);
+            anim.SetBool("IsFastSwimming", false);
             anim.SetBool("IsIdleSwim", true);
         }
 
