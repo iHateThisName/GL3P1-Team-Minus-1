@@ -223,7 +223,16 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private void UnderwaterMovement() {
-        anim.SetBool("IsSwimming", true);
+        if(input != Vector2.zero)
+        {
+            anim.SetBool("IsIdleSwim", false);
+            anim.SetBool("IsSwimming", true);
+        }
+        else
+        {
+            anim.SetBool("IsSwimming", false);
+            anim.SetBool("IsIdleSwim", true);
+        }
 
         //The player's current velocity
         Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f);
