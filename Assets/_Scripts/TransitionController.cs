@@ -1,5 +1,6 @@
 using Assets.Scripts.Singleton;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class TransitionController : Singleton<TransitionController> {
@@ -56,5 +57,28 @@ public class TransitionController : Singleton<TransitionController> {
             AnimatorStateInfo stateInfo = transitionAnimator.GetCurrentAnimatorStateInfo(0);
             return stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1f;
         });
+    }
+
+    public IEnumerator FadeTextInCoroutine(TMP_Text text, float seconds) {
+        // Fade in the text over v seconds
+        text.alpha = text.alpha;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < seconds) {
+            text.alpha = Mathf.Clamp01(elapsedTime / seconds);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeTextOutCoroutine(TMP_Text text, float seconds) {
+        // Fade out the text over v seconds
+        text.alpha = text.alpha;
+        float elapsedTime = 0f;
+        while (elapsedTime < seconds) {
+            text.alpha = 1 - Mathf.Clamp01(elapsedTime / seconds);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }
