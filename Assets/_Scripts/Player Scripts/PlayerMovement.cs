@@ -231,7 +231,7 @@ public class PlayerMovement : MonoBehaviour {
             anim.SetBool("IsIdleSwim", false);
             if (isSprinting)
             {
-                anim.SetBool("IsSwimming", false);
+                //anim.SetBool("IsSwimming", false);
                 anim.SetBool("IsFastSwimming", true);
             }
             else
