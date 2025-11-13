@@ -275,6 +275,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private void MovePlayer() {
         anim.SetBool("IsSwimming", false);
+        anim.SetBool("IsFastSwimming", false);
+        anim.SetBool("IsIdleSwim", false);
         //rb.linearVelocity = new Vector3((input.x * speed) * Time.fixedDeltaTime, 0f, 0f);
         Vector3 finalSpeed = new Vector3(input.x * moveSpeed, 0f, 0f);
         //rb.AddForce(walkSpeed);
