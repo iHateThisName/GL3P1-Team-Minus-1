@@ -44,7 +44,7 @@ public class PassiveFishAI : BaseAI {
     }
 
     private IEnumerator ChangeTarget() {
-        int i = 0;
+        int i = Random.Range(0, potentialTargets.Count);
         bool isPlayerCloseOldValue = this.isPlayerClose;
 
         while (true) {
