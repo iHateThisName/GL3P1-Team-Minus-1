@@ -142,6 +142,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
+
             if (input.x > 0f)
             {
                 if(input.y > 0f)
