@@ -3,6 +3,7 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour {
 
     [SerializeField] private Transform teleportLocation;
+    public CheckPointManager.EnumCheckPoint currentCheckPoint;
     private void Start() {
         if (teleportLocation == null) {
             teleportLocation = this.transform;
@@ -27,4 +28,3 @@ public class CheckPoint : MonoBehaviour {
         }
     }
 }
-//}
