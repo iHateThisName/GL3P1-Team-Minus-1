@@ -104,8 +104,24 @@ MonoBehaviour:
       - It's a bad idea to deal with them if you're not prepared.
       - You should have enough money now to buy the first upgrade.
       - Just come back when you've bought it.
+    - dialogLines:
+      - Hey, it looks good on you!
+      - You should be able to get into the deeper layers of the ocean now.
+      - If you follow the ocean floor, you should come to a massive drop down.
+      - If you follow the slope, you should come to a cave.
+      - Inside the cave's roof is an air bubble, so you can catch your breath.
+      - The air bubble let's you get back to the surface very quickly.
+      - And once you find an air bubble, you'll be able to travel there from the
+        shop.
+      - It's all very quick and easy.
+      - Saves you a ton of oxygen and time.
+      - There's a few of these air bubbles scattered around the caves.
+      - So don't worry if you feel intimidated by the depth.
+      - You can travel quickly to and from.
+      - So, good luck.
     genericDialouges:
     - dialogLines:
       - Wow, so cool
     - dialogLines:
       - What's up?
+  isInDebugMode: 0
