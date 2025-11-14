@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MiddleTwilightZone
+  m_Name: TopAbyssalZone
   m_Shader: {fileID: -6465566751694194690, guid: 409f659b951088b4c93d0a40be4521a0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -51,13 +51,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GradientStrength: 5
-    - _NoiseStrength: 3
+    - _GradientStrength: 20
+    - _NoiseStrength: -2
     - _Opacity: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _BottomColor: {r: 0.035555553, g: 0.18488891, b: 0.32, a: 1}
-    - _TopColor: {r: 0.039215688, g: 0.20392157, b: 0.3529412, a: 1}
+    - _BottomColor: {r: 0.020224715, g: 0.11460676, b: 0.2, a: 1}
+    - _TopColor: {r: 0.028125001, g: 0.17343743, b: 0.3, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
