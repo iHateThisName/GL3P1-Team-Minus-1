@@ -84,15 +84,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.10000001
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.10000001
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.10000001
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -228,15 +228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7517258792747007854, guid: 486ebfaa69be84843b1b26378527c186, type: 3}
       propertyPath: m_LocalPosition.x
@@ -323,8 +323,8 @@ MonoBehaviour:
   rb: {fileID: 8424274326981408412}
   potentialTargets: []
   fishType: 1
-  modelTransform: {fileID: 0}
-  fishAnimator: {fileID: 0}
+  modelTransform: {fileID: 8719230182807872780}
+  fishAnimator: {fileID: 7529770442888445211}
 --- !u!135 &5325360203188759168
 SphereCollider:
   m_ObjectHideFlags: 0
