@@ -142,7 +142,6 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
-
             if (input.x > 0f)
             {
                 if(input.y > 0f)
@@ -182,6 +181,10 @@ public class PlayerMovement : MonoBehaviour {
                 else if (input.y < 0f)
                 {
                     targetRotation = Quaternion.Euler(0, 0, -90f);
+                }
+                else
+                {
+                    targetRotation = Quaternion.Euler(0, 0, 0);
                 }
             }
         }
