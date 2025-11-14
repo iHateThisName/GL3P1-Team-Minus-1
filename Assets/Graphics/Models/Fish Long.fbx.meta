@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bae08e71ebfd4d14eb41331e8ecb1307
+guid: e609db28008bf974d945e5f4b83634e4
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: fish test.002|FishSwim
-      takeName: fish test.002|FishSwim
-      internalID: -1087263656218873491
+      name: FishSwim
+      takeName: fish 2|fish 2 | FishSwim
+      internalID: -7289900745192099437
       firstFrame: 0
-      lastFrame: 249
+      lastFrame: 75
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
