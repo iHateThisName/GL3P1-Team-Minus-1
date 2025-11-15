@@ -338,6 +338,128 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &541565877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.011555381
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15711743
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.9868078
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 89e44fd4150ac5644ae2e0038bb88da8, type: 2}
+    - target: {fileID: 919132149155446097, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+      propertyPath: m_Name
+      value: WineBottleLRV2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e0e510ce9af499e4b871e5fbffb513d6, type: 3}
+--- !u!1001 &1440360104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.17704
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.157
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.97837
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 89e44fd4150ac5644ae2e0038bb88da8, type: 2}
+    - target: {fileID: 919132149155446097, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
+      propertyPath: m_Name
+      value: WineBottleLR
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a54c9ef385a3876469442cd7155ba8c5, type: 3}
 --- !u!1 &1744851073
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,13 +570,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744851073}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.5354434, y: -0, z: -0, w: 0.8445712}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -64.748, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -462,3 +584,5 @@ SceneRoots:
   - {fileID: 519342211}
   - {fileID: 177455373}
   - {fileID: 1744851076}
+  - {fileID: 1440360104}
+  - {fileID: 541565877}
