@@ -230,6 +230,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private void UnderwaterMovement() {
+        anim.SetBool("IsWalking", false);
         if(input != Vector2.zero)
         {
             anim.SetBool("IsIdleSwim", false);
@@ -278,6 +279,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void MovePlayer() {
+        anim.SetBool("IsWalking", true);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsIdleSwim", false);
@@ -312,6 +314,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public void ResetAnims()
     {
+        anim.SetBool("IsWalking", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsIdleSwim", false);
