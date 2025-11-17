@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PassiveFishAI
   target: {x: 0, y: 0, z: 0}
-  speed: 400
+  speed: 700
   nextWayointDistance: 3
   rotationSpeed: 10
   seeker: {fileID: 8416228905614288753}

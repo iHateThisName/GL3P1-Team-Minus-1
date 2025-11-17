@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6626093493768548001}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 464155804467774915}
   - component: {fileID: 418891678000687101}
   - component: {fileID: 8270205877015638265}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OceanMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 3934437419992670568}
   - component: {fileID: 3367099693186179715}
   - component: {fileID: 3945013105316103834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
