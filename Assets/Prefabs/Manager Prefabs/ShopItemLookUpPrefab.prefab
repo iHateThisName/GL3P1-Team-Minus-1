@@ -46,13 +46,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemLookUp
   AutoUnparentOnAwake: 1
   allShopItems:
-  - ItemType: 1
-    Sprite: {fileID: 1280281500, guid: 070623da56a74874b8c79310b72568bc, type: 3}
-    Price: 100
   - ItemType: 3
     Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
     Price: 500
   - ItemType: 4
     Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
     Price: 1000
+  - ItemType: 5
+    Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
+    Price: 2500
+  - ItemType: 6
+    Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
+    Price: 5000
+  - ItemType: 7
+    Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
+    Price: 10000
+  - ItemType: 8
+    Sprite: {fileID: 21300000, guid: a1dd67784c6cd3d40866cdfdf58f24dd, type: 3}
+    Price: 15000
   playersShopItems: []

@@ -173,5 +173,5 @@ public class PlayerItemsWrapper {
 }
 
 public enum EnumItemSprite {
-    None, star, cross, suitUppgradeTier1, suitUppgradeTier2
+    None, star, cross, suitUppgradeTier1, suitUppgradeTier2, suitUppgradeTier3, suitUppgradeTier4, suitUppgradeTier5, suitUppgradeTier6
 }

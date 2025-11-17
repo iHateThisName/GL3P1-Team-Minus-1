@@ -26,7 +26,7 @@ public class UIShopManager : MonoBehaviour {
         int currentDisplayCount = ShopItemsContainer.childCount;
         List<ShopItemData> allShopItems = ShopItemLookUp.Instance.GetAviableShopItems();
 
-        for (int i = 0; i < 3 - currentDisplayCount; i++) {
+        for (int i = 0; i < 1 - currentDisplayCount; i++) {
             SpawnShopItem(allShopItems[i]);
         }
     }
