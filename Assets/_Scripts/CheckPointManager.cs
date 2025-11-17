@@ -54,6 +54,6 @@ public class CheckPointManager : Singleton<CheckPointManager> {
     }
 
     public enum EnumCheckPoint : int {
-        None = -1, Store = 0, DawnCheckPoint = 1, TwilightCheckPoint = 2, LeftMidnightCheckPoint = 3, MiddleMidnightCheckPoint = 4,
+        None = -1, Store = 0, DawnCheckPoint = 1, TwilightCheckPoint = 2, LeftMidnightCheckPoint = 3, MiddleMidnightCheckPoint = 4, RightMidnightCheckPoint = 5, FarRightCheckPoint = 6,
     }
 }
