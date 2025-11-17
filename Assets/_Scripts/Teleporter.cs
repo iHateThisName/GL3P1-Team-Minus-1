@@ -15,7 +15,7 @@ public class Teleporter : Interactable {
     }
     public override void Interact() {
         if (!this.isPlayerInRange) return;
-        CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.Store);
+        CheckPointManager.Instance.SetCurrentCheckPoint(0);
         CheckPointManager.Instance.UseCheckpoint();
 
     }

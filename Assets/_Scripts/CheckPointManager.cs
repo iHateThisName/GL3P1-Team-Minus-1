@@ -19,7 +19,8 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         this.currentCheckPointSelected = checkPoint.currentCheckPoint;
     }
 
-    public void SetCurrentCheckPoint(EnumCheckPoint checkPoint) {
+    public void SetCurrentCheckPoint(int checkPointNum) {
+        EnumCheckPoint checkPoint = (EnumCheckPoint)checkPointNum;
         this.currentCheckPointSelected = checkPoint;
     }
 

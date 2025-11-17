@@ -323,7 +323,7 @@ public class BreathingScript : MonoBehaviour
     private void Die()
     {
         GameManager.Instance.DropAllTreasure();
-        CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.Store);
+        CheckPointManager.Instance.SetCurrentCheckPoint(0);
         CheckPointManager.Instance.UseCheckpoint();
         DisableBreathing();
         GameManager.Instance.PlayerMovement.isUnderWater = false;

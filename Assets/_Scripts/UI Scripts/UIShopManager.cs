@@ -93,8 +93,8 @@ public class UIShopManager : MonoBehaviour {
     }
 
     public void OnExitButton() => GameSceneManager.Instance.ToggleShopMenu();
-    public void OnCheckpointButton() {
-        CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.DawnCheckPoint);
+    public void OnCheckpointButton(int checkNum) {
+        CheckPointManager.Instance.SetCurrentCheckPoint(checkNum);
         CheckPointManager.Instance.UseCheckpoint();
         OnExitButton();
     }
