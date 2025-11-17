@@ -55,8 +55,8 @@ public class GameManager : PersistenSingleton<GameManager> {
     public void UpMoveSpeed() {
         PlayerMovement.smallAcceleration += 3f;
         PlayerMovement.fastAcceleration += 4f;
-        PlayerMovement.normalSpeed += 2f;
-        PlayerMovement.fastSpeed += 2f;
+        PlayerMovement.normalSpeed += 1f;
+        PlayerMovement.fastSpeed += 1f;
         BreathingScript.upgradeValue -= 0.1f;
     }
 
