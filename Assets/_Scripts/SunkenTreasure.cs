@@ -74,7 +74,7 @@ public class SunkenTreasure : Interactable {
         Debug.Log("Picking up Treasure");
     }
 
-    private void DropTreasure() {
+    public void DropTreasure() {
         // Drops the treasure
         this.isPickedUp = false;
         //this.rb.isKinematic = false; // Enable physics on the treasure
@@ -119,8 +119,9 @@ public class SunkenTreasure : Interactable {
         this.ObjectRootTransform.SetParent(playerTransform);
     }
 
-    private void DetachFromPlayer() {
+    public void DetachFromPlayer() {
         this.ObjectRootTransform.SetParent(null);
+        this.ModelTransform.gameObject.SetActive(true);
         this.rb.isKinematic = false; // Enable physics on the treasure
     }
 }

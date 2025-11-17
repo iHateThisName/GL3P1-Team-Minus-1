@@ -309,4 +309,11 @@ public class PlayerMovement : MonoBehaviour {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
+
+    public void ResetAnims()
+    {
+        anim.SetBool("IsSwimming", false);
+        anim.SetBool("IsFastSwimming", false);
+        anim.SetBool("IsIdleSwim", false);
+    }
 }

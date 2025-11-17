@@ -322,7 +322,13 @@ public class BreathingScript : MonoBehaviour
     //Method for dying
     private void Die()
     {
-        SceneManager.LoadScene("GameOver");
+        GameManager.Instance.DropAllTreasure();
+        CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.Store);
+        CheckPointManager.Instance.UseCheckpoint();
+        DisableBreathing();
+        GameManager.Instance.PlayerMovement.isUnderWater = false;
+        GameManager.Instance.PlayerMovement.ResetAnims();
+        this.enabled = false;
     }
 
     /// <summary>

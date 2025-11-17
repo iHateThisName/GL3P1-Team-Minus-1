@@ -88,4 +88,23 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         BreathingScript.oxygenAmount = BreathingScript.intendedOxygen;
     }
+
+    public void DropAllTreasure()
+    {
+        if (PlayerInteractTransform == null)
+        {
+            Debug.LogWarning("PlayerInteractTransform is not assigned.");
+            return;
+        }
+
+
+        SunkenTreasure[] heldItems = PlayerInteractTransform.GetComponentsInChildren<SunkenTreasure>();
+
+        foreach (SunkenTreasure item in heldItems)
+        {
+            item.DropTreasure();
+            item.DetachFromPlayer();
+            Debug.Log("Dropped treasure" + item);
+        }
+    }
 }

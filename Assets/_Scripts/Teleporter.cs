@@ -21,7 +21,7 @@ public class Teleporter : Interactable {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("PlayerHead")) {
             Debug.Log("Player entered teleporter area.");
             this.isPlayerInRange = true;
 
@@ -31,7 +31,7 @@ public class Teleporter : Interactable {
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("PlayerHead")) {
             Debug.Log("Player exited teleporter area.");
             this.isPlayerInRange = false;
 
