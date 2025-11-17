@@ -46,9 +46,13 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         GameManager.Instance.TeleportPlayer(new Vector3(tp.position.x, tp.position.y, tp.position.z));
         yield return new WaitForSecondsRealtime(1f);
 
+
+
         // Allow Player Movement and turn off Kinematic to allow normal physics interactions
         GameManager.Instance.IsPlayerMovementEnabled = true;
         GameManager.Instance.PlayerMovement.GetRigidbody().isKinematic = false;
+
+        GameManager.Instance.PlayerExitOcean();
 
         // Start Fading In
         TransitionController.Instance.FadeIn();
