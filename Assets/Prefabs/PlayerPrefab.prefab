@@ -359,8 +359,8 @@ MonoBehaviour:
   playerInput: {fileID: 7387604891326746055}
   anim: {fileID: 1058863336146024550}
   model: {fileID: 7248349089034821648}
-  walkSpeed: 7
-  sprintSpeed: 12
+  walkSpeed: 1
+  sprintSpeed: 6
   rotationSpeed: 3
   ground:
     serializedVersion: 2
