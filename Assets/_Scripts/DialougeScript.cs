@@ -48,6 +48,7 @@ public class DialougeScript : MonoBehaviour
             if(!inDialouge)
             {
                 GameManager.Instance.IsPlayerMovementEnabled = false;
+                GameManager.Instance.PlayerMovement.ResetAnims();
                 GetDialouge();
             }
             else

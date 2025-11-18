@@ -113,6 +113,9 @@ public class PlayerMovement : MonoBehaviour {
                 rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
                 anim.SetBool("IsWalking", false);
                 anim.SetBool("IsRunning", false);
+                anim.SetBool("IsIdleSwim", false);
+                anim.SetBool("IsSwimming", false);
+                anim.SetBool("IsFastSwimming", false);
                 anim.SetBool("IsLandIdle", true);
             }
         }
@@ -209,7 +212,6 @@ public class PlayerMovement : MonoBehaviour {
             GameManager.Instance.BreathingScript.sprintMultiplier = 5f;
         }
         isSprinting = true;
-        anim.SetBool("IsRunning", true);
     }
 
     private void OnSprintCancel(InputAction.CallbackContext context) {
@@ -220,7 +222,6 @@ public class PlayerMovement : MonoBehaviour {
             GameManager.Instance.BreathingScript.sprintMultiplier = 0f;
         }
         isSprinting = false;
-        anim.SetBool("IsRunning", false);
     }
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
@@ -235,14 +236,15 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private void UnderwaterMovement() {
+        anim.SetBool("IsLandIdle", false);
         anim.SetBool("IsWalking", false);
         anim.SetBool("IsRunning", false);
-        if(input != Vector2.zero)
+        if (input != Vector2.zero)
         {
             anim.SetBool("IsIdleSwim", false);
             if (isSprinting)
             {
-                //anim.SetBool("IsSwimming", false);
+                anim.SetBool("IsSwimming", false);
                 anim.SetBool("IsFastSwimming", true);
             }
             else
@@ -285,11 +287,22 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void MovePlayer() {
-        anim.SetBool("IsWalking", true);
-        anim.SetBool("IsLandIdle", false);
+        anim.SetBool("IsIdleSwim", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
-        anim.SetBool("IsIdleSwim", false);
+        anim.SetBool("IsLandIdle", false);
+
+        if(isSprinting)
+        {
+            anim.SetBool("IsWalking", false);
+            anim.SetBool("IsRunning", true);
+        }
+        else
+        {
+            anim.SetBool("IsRunning", false);
+            anim.SetBool("IsWalking", true);
+        }
+
         //rb.linearVelocity = new Vector3((input.x * speed) * Time.fixedDeltaTime, 0f, 0f);
         Vector3 finalSpeed = new Vector3(input.x * moveSpeed, 0f, 0f);
         //rb.AddForce(walkSpeed);
@@ -326,6 +339,6 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsIdleSwim", false);
         anim.SetBool("IsRunning", false);
-        anim.SetBool("IsLandIdle", false);
+        anim.SetBool("IsLandIdle", true);
     }
 }
