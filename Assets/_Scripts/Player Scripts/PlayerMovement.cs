@@ -111,6 +111,9 @@ public class PlayerMovement : MonoBehaviour {
                 MovePlayer();
             } else {
                 rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+                anim.SetBool("IsWalking", false);
+                anim.SetBool("IsRunning", false);
+                anim.SetBool("IsLandIdle", true);
             }
         }
         //If they're underneath the water, the water movement applies
@@ -206,6 +209,7 @@ public class PlayerMovement : MonoBehaviour {
             GameManager.Instance.BreathingScript.sprintMultiplier = 5f;
         }
         isSprinting = true;
+        anim.SetBool("IsRunning", true);
     }
 
     private void OnSprintCancel(InputAction.CallbackContext context) {
@@ -216,6 +220,7 @@ public class PlayerMovement : MonoBehaviour {
             GameManager.Instance.BreathingScript.sprintMultiplier = 0f;
         }
         isSprinting = false;
+        anim.SetBool("IsRunning", false);
     }
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
@@ -231,6 +236,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void UnderwaterMovement() {
         anim.SetBool("IsWalking", false);
+        anim.SetBool("IsRunning", false);
         if(input != Vector2.zero)
         {
             anim.SetBool("IsIdleSwim", false);
@@ -280,6 +286,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void MovePlayer() {
         anim.SetBool("IsWalking", true);
+        anim.SetBool("IsLandIdle", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsIdleSwim", false);
@@ -318,5 +325,7 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsIdleSwim", false);
+        anim.SetBool("IsRunning", false);
+        anim.SetBool("IsLandIdle", false);
     }
 }
