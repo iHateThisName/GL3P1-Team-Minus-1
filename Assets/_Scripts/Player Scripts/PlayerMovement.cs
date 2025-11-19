@@ -1,5 +1,5 @@
+using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
@@ -51,8 +51,18 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 input;
     private Quaternion targetRotation;
 
-    private float defaultWeight; // The player's default weight
     private float addedWeight = 0f; // The additional weight added by collectibles
+
+    public bool inCutscene = false;
+
+    public CinemachinePositionComposer cam;
+
+    [SerializeField] private Vector2 closeCamAngle;
+    [SerializeField] private Vector2 farCamAngle;
+
+    [SerializeField] private float camTransitionSpeed = 0.1f;
+
+    public bool zoomedOut = false;
 
     //[SerializeField] private InputActionReference moveActionRef; <-- This seems to be a cool way to do it for the new input system.
 
@@ -68,7 +78,6 @@ public class PlayerMovement : MonoBehaviour {
         this.moveSpeed = this.walkSpeed;
         this.maxSpeed = this.normalSpeed;
         this.acceleration = this.smallAcceleration;
-        this.defaultWeight = rb.mass;
 
         // Register this instance with the GameManager
         GameManager.Instance.PlayerMovement = this;
@@ -92,6 +101,11 @@ public class PlayerMovement : MonoBehaviour {
         this.playerInput.actions["Sprint"].canceled -= OnSprintCancel;
     }
 
+    private void Update()
+    {
+        UpdateCamera();
+    }
+
     private void FixedUpdate() {
         // Check if the movment is disabled
         if (!GameManager.Instance.IsPlayerMovementEnabled) return;
@@ -102,33 +116,50 @@ public class PlayerMovement : MonoBehaviour {
             rb.linearDamping = 0;
         }
 
-        //If the player is above water, normal movement applies
-        if (!this.isUnderWater) {
-            if (rb.useGravity != true) {
+        if(!inCutscene)
+        {
+            //If the player is above water, normal movement applies
+            if (!this.isUnderWater)
+            {
+                if (rb.useGravity != true)
+                {
+                    rb.useGravity = true;
+                }
+                if (input != Vector2.zero)
+                {
+                    MovePlayer();
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+                    anim.SetBool("IsWalking", false);
+                    anim.SetBool("IsRunning", false);
+                    anim.SetBool("IsIdleSwim", false);
+                    anim.SetBool("IsSwimming", false);
+                    anim.SetBool("IsFastSwimming", false);
+                    anim.SetBool("IsLandIdle", true);
+                }
+            }
+            //If they're underneath the water, the water movement applies
+            else
+            {
+                if (rb.useGravity != false)
+                {
+                    rb.useGravity = false;
+                }
+                UnderwaterMovement();
+                WaterPhysics();
+            }
+
+            UpdateRotation();
+        }
+        else
+        {
+            if (rb.useGravity != true)
+            {
                 rb.useGravity = true;
             }
-            if (input != Vector2.zero) {
-                MovePlayer();
-            } else {
-                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-                anim.SetBool("IsWalking", false);
-                anim.SetBool("IsRunning", false);
-                anim.SetBool("IsIdleSwim", false);
-                anim.SetBool("IsSwimming", false);
-                anim.SetBool("IsFastSwimming", false);
-                anim.SetBool("IsLandIdle", true);
-            }
         }
-        //If they're underneath the water, the water movement applies
-        else {
-            if (rb.useGravity != false) {
-                rb.useGravity = false;
-            }
-            UnderwaterMovement();
-            WaterPhysics();
-        }
-
-        UpdateRotation();
     }
 
     private void UpdateRotation()
@@ -196,6 +227,48 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+    }
+
+    private void UpdateCamera()
+    {
+        if(zoomedOut)
+        {
+            if(cam.CameraDistance < farCamAngle.x)
+            {
+                cam.CameraDistance += camTransitionSpeed * Time.deltaTime;
+            }
+            else
+            {
+                cam.CameraDistance = farCamAngle.x;
+            }
+            if (cam.Composition.ScreenPosition.y > farCamAngle.y)
+            {
+                cam.Composition.ScreenPosition.y -= camTransitionSpeed * Time.deltaTime;
+            }
+            else
+            {
+                cam.Composition.ScreenPosition.y = farCamAngle.y;
+            }
+        }
+        else
+        {
+            if (cam.CameraDistance > closeCamAngle.x)
+            {
+                cam.CameraDistance -= camTransitionSpeed * Time.deltaTime;
+            }
+            else
+            {
+                cam.CameraDistance = closeCamAngle.x;
+            }
+            if (cam.Composition.ScreenPosition.y < closeCamAngle.y)
+            {
+                cam.Composition.ScreenPosition.y += camTransitionSpeed * Time.deltaTime;
+            }
+            else
+            {
+                cam.Composition.ScreenPosition.y = closeCamAngle.y;
+            }
+        }
     }
 
     private void OnMoveAction(InputAction.CallbackContext context) {
@@ -340,5 +413,16 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsIdleSwim", false);
         anim.SetBool("IsRunning", false);
         anim.SetBool("IsLandIdle", true);
+    }
+
+    public void PlayRespawnAnim()
+    {
+        anim.SetBool("IsWalking", false);
+        anim.SetBool("IsSwimming", false);
+        anim.SetBool("IsFastSwimming", false);
+        anim.SetBool("IsIdleSwim", false);
+        anim.SetBool("IsRunning", false);
+        anim.SetBool("IsLandIdle", false);
+        anim.SetTrigger("Respawn");
     }
 }

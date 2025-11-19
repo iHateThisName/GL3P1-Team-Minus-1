@@ -1,5 +1,6 @@
 using Assets.Scripts.Singleton;
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : PersistenSingleton<GameManager> {
     // References for easy access
@@ -82,6 +83,8 @@ public class GameManager : PersistenSingleton<GameManager> {
         this.PlayerMovement.isUnderWater = false;
         this.BreathingScript.DisableBreathing();
         this.BreathingScript.enabled = false;
+
+        PlayerMovement.zoomedOut = false;
     }
 
     public void PlayerEnterOcean() {
@@ -89,6 +92,8 @@ public class GameManager : PersistenSingleton<GameManager> {
         this.BreathingScript.enabled = true; // Making sure it is enabled
 
         BreathingScript.oxygenAmount = BreathingScript.intendedOxygen;
+
+        PlayerMovement.zoomedOut = true;
     }
 
     public void DropAllTreasure()
@@ -108,5 +113,24 @@ public class GameManager : PersistenSingleton<GameManager> {
             item.DetachFromPlayer();
             Debug.Log("Dropped treasure" + item);
         }
+    }
+
+    public IEnumerator PlayRespawnAnim()
+    {
+        DropAllTreasure();
+        CheckPointManager.Instance.SetCurrentCheckPoint(7);
+        CheckPointManager.Instance.UseCheckpoint();
+        PlayerMovement.inCutscene = true;
+        PlayerMovement.isUnderWater = false;
+
+        yield return new WaitForSeconds(5f);
+        PlayerMovement.rb.isKinematic = true;
+        PlayerMovement.ResetAnims();
+
+        this.PlayerMovement.PlayRespawnAnim();
+        yield return new WaitForSeconds(10.1f);
+        this.PlayerMovement.ResetAnims();
+        PlayerMovement.inCutscene = false;
+        PlayerMovement.rb.isKinematic = false;
     }
 }

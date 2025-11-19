@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class BreathingScript : MonoBehaviour
 {
@@ -319,17 +318,6 @@ public class BreathingScript : MonoBehaviour
         noAirText.text = "";
     }
 
-    //Method for dying
-    private void Die()
-    {
-        GameManager.Instance.DropAllTreasure();
-        CheckPointManager.Instance.SetCurrentCheckPoint(0);
-        CheckPointManager.Instance.UseCheckpoint();
-        DisableBreathing();
-        GameManager.Instance.PlayerMovement.isUnderWater = false;
-        GameManager.Instance.PlayerMovement.ResetAnims();
-        this.enabled = false;
-    }
 
     /// <summary>
     /// Increases the player's weight by the specified amount
@@ -352,5 +340,14 @@ public class BreathingScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         oxygenAmount -= damage;
+    }
+
+    //Method for dying
+    private void Die()
+    {
+        GameManager.Instance.PlayerMovement.isUnderWater = false;
+        DisableBreathing();
+        StartCoroutine(GameManager.Instance.PlayRespawnAnim());
+        this.enabled = false;
     }
 }
