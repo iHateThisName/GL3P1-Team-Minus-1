@@ -10,6 +10,8 @@ public class UIShopManager : MonoBehaviour {
 
     [SerializeField] private GameObject ShopItemPrefab;
 
+    [SerializeField] private TMP_Text moneyText;
+
     private int collectedValueAmount = 0;
 
     private void OnEnable() {
@@ -42,6 +44,7 @@ public class UIShopManager : MonoBehaviour {
         }
         this.sellButtonText.text = $"Sell 0$";
         GameManager.Instance.BreathingScript.weightValue = 0f;
+        UpdateMoney();
     }
 
     private void SpawnShopItem(ShopItemData itemData) {
@@ -77,6 +80,7 @@ public class UIShopManager : MonoBehaviour {
 
             Debug.Log($"Purchased item for {price}$");
             Destroy(shopItem); // Remove the item from the shop UI
+            UpdateMoney();
         } else {
             Debug.Log("Not enough money to purchase this item.");
         }
@@ -97,5 +101,10 @@ public class UIShopManager : MonoBehaviour {
         CheckPointManager.Instance.SetCurrentCheckPoint(checkNum);
         CheckPointManager.Instance.UseCheckpoint();
         OnExitButton();
+    }
+
+    private void UpdateMoney()
+    {
+        moneyText.text = GameManager.Instance.Money.ToString() + "$";
     }
 }
