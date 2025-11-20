@@ -34,6 +34,11 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool firstStoryCollected;
     public bool firstStoryFinished;
 
+    private void Start() {
+        QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate works
+        Application.targetFrameRate = 60; // Set this to whatever FPS you want
+    }
+
     public int GetHeldItemsValue() {
         if (PlayerInteractTransform == null) {
             Debug.LogWarning("PlayerInteractTransform is not assigned.");
