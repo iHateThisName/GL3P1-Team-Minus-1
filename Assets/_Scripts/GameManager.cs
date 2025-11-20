@@ -128,9 +128,9 @@ public class GameManager : PersistenSingleton<GameManager> {
         PlayerMovement.ResetAnims();
 
         this.PlayerMovement.PlayRespawnAnim();
-        yield return new WaitForSeconds(10.1f);
-        this.PlayerMovement.ResetAnims();
+        yield return new WaitForSeconds(11.6f);
         PlayerMovement.inCutscene = false;
         PlayerMovement.rb.isKinematic = false;
+        this.PlayerMovement.ResetAnims();
     }
 }
