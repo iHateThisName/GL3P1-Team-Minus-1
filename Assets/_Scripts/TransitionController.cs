@@ -2,6 +2,7 @@ using Assets.Scripts.Singleton;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TransitionController : Singleton<TransitionController> {
 
@@ -61,7 +62,6 @@ public class TransitionController : Singleton<TransitionController> {
 
     public IEnumerator FadeTextInCoroutine(TMP_Text text, float seconds) {
         // Fade in the text over v seconds
-        text.alpha = text.alpha;
         float elapsedTime = 0f;
 
         while (elapsedTime < seconds) {
@@ -69,6 +69,19 @@ public class TransitionController : Singleton<TransitionController> {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public IEnumerator FadeImageInCoroutine(Image image, float seconds) {
+        // Fade in the text over v seconds
+        float elapsedTime = 0f;
+
+        while (elapsedTime < seconds) {
+            float alpha = Mathf.Clamp01(elapsedTime / seconds);
+            image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 
     public IEnumerator FadeTextOutCoroutine(TMP_Text text, float seconds) {
@@ -80,5 +93,18 @@ public class TransitionController : Singleton<TransitionController> {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public IEnumerator FadeImageOutCoroutine(Image image, float seconds) {
+        // Fade out the text over v seconds
+        float startAlpha = image.color.a;
+        float elapsedTime = 0f;
+        while (elapsedTime < seconds) {
+            float alpha = startAlpha * (1 - Mathf.Clamp01(elapsedTime / seconds));
+            image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
     }
 }

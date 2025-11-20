@@ -3,6 +3,7 @@ using UnityEngine;
 public class Teleporter : Interactable {
 
     [SerializeField] private string text = "Teleporter Area";
+    [SerializeField] private string promtTextValue = "Press 'E' to go to shore";
     [SerializeField] private TMPro.TMP_Text infoText;
     [SerializeField] private TMPro.TMP_Text promptText;
     private bool isPlayerInRange = false;
@@ -10,7 +11,7 @@ public class Teleporter : Interactable {
     public override int GetValueAmount() => 0;
 
     private void Start() {
-        this.promptText.text = "Press 'E' to go to shore";
+        this.promptText.text = this.promtTextValue;
         this.infoText.text = this.text;
     }
     public override void Interact() {

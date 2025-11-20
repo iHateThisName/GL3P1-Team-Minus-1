@@ -123,7 +123,7 @@ public class GameManager : PersistenSingleton<GameManager> {
 
     public IEnumerator PlayRespawnAnim() {
         DropAllTreasure();
-        CheckPointManager.Instance.SetCurrentCheckPoint(7);
+        CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.RespawnCheckpoint);
         CheckPointManager.Instance.UseCheckpoint();
         PlayerMovement.inCutscene = true;
         PlayerMovement.isUnderWater = false;

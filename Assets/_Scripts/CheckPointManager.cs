@@ -24,6 +24,10 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         this.currentCheckPointSelected = checkPoint;
     }
 
+    public void SetCurrentCheckPoint(EnumCheckPoint enumCheckPoint) {
+        this.currentCheckPointSelected = enumCheckPoint;
+    }
+
     [ContextMenu("Teleport Checkpoint")]
     public void UseCheckpoint() => StartCoroutine(UseCheckpointCoroutine());
     public IEnumerator UseCheckpointCoroutine() {
