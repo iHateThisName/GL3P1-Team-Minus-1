@@ -38,6 +38,7 @@ public class CheckPointManager : Singleton<CheckPointManager> {
 
         // Turn on Kinematic to avoid physics issues during teleport
         GameManager.Instance.PlayerMovement.GetRigidbody().isKinematic = true;
+        GameManager.Instance.PlayerMovement.ResetAnims();
 
         CheckPoint cp = this.checkPointDictionary[this.currentCheckPointSelected];
         Transform tp = cp.GetTeleportLocation();

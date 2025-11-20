@@ -125,7 +125,6 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         yield return new WaitForSeconds(5f);
         PlayerMovement.rb.isKinematic = true;
-        PlayerMovement.ResetAnims();
 
         this.PlayerMovement.PlayRespawnAnim();
         yield return new WaitForSeconds(11.6f);

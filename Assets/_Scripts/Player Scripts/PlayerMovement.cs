@@ -413,6 +413,7 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsIdleSwim", false);
         anim.SetBool("IsRunning", false);
         anim.SetBool("IsLandIdle", true);
+        model.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void PlayRespawnAnim()
@@ -424,5 +425,6 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsRunning", false);
         anim.SetBool("IsLandIdle", false);
         anim.SetTrigger("Respawn");
+        model.transform.rotation = Quaternion.Euler(0, 0, 0) ;
     }
 }
