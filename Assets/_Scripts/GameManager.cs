@@ -1,6 +1,6 @@
 using Assets.Scripts.Singleton;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class GameManager : PersistenSingleton<GameManager> {
     // References for easy access
@@ -85,6 +85,8 @@ public class GameManager : PersistenSingleton<GameManager> {
         this.BreathingScript.enabled = false;
 
         PlayerMovement.zoomedOut = false;
+
+        FogController.Instance.DisableFogEffect();
     }
 
     public void PlayerEnterOcean() {
@@ -94,12 +96,12 @@ public class GameManager : PersistenSingleton<GameManager> {
         BreathingScript.oxygenAmount = BreathingScript.intendedOxygen;
 
         PlayerMovement.zoomedOut = true;
+
+        FogController.Instance.EnableFogEffect();
     }
 
-    public void DropAllTreasure()
-    {
-        if (PlayerInteractTransform == null)
-        {
+    public void DropAllTreasure() {
+        if (PlayerInteractTransform == null) {
             Debug.LogWarning("PlayerInteractTransform is not assigned.");
             return;
         }
@@ -107,16 +109,14 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         SunkenTreasure[] heldItems = PlayerInteractTransform.GetComponentsInChildren<SunkenTreasure>();
 
-        foreach (SunkenTreasure item in heldItems)
-        {
+        foreach (SunkenTreasure item in heldItems) {
             item.DropTreasure();
             item.DetachFromPlayer();
             Debug.Log("Dropped treasure" + item);
         }
     }
 
-    public IEnumerator PlayRespawnAnim()
-    {
+    public IEnumerator PlayRespawnAnim() {
         DropAllTreasure();
         CheckPointManager.Instance.SetCurrentCheckPoint(7);
         CheckPointManager.Instance.UseCheckpoint();
