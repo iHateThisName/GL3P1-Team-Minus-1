@@ -8,6 +8,9 @@ public class CheckPointManager : Singleton<CheckPointManager> {
 
     [SerializeField] private EnumCheckPoint currentCheckPointSelected = 0;
     private Dictionary<EnumCheckPoint, CheckPoint> checkPointDictionary = new Dictionary<EnumCheckPoint, CheckPoint>();
+    public HashSet<EnumCheckPoint> avaiableCheckPoints { get; private set; } = new HashSet<EnumCheckPoint>();
+
+    public System.Action OnAvaiableCheckPointAdded;
     [SerializeField] private Transform playerTransform;
 
     public void RegisterCheckPoint(CheckPoint checkPoint) {
@@ -18,15 +21,21 @@ public class CheckPointManager : Singleton<CheckPointManager> {
 
     public void SetCurrentCheckPoint(CheckPoint checkPoint) {
         this.currentCheckPointSelected = checkPoint.currentCheckPoint;
+        this.avaiableCheckPoints.Add(checkPoint.currentCheckPoint);
+        this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
     public void SetCurrentCheckPoint(int checkPointNum) {
         EnumCheckPoint checkPoint = (EnumCheckPoint)checkPointNum;
         this.currentCheckPointSelected = checkPoint;
+        this.avaiableCheckPoints.Add(checkPoint);
+        this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
     public void SetCurrentCheckPoint(EnumCheckPoint enumCheckPoint) {
         this.currentCheckPointSelected = enumCheckPoint;
+        this.avaiableCheckPoints.Add(enumCheckPoint);
+        this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
     [ContextMenu("Teleport Checkpoint")]
@@ -64,6 +73,10 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         TransitionController.Instance.FadeIn();
 
         AccessibleTracker.Instance.Skipped(cp.name);
+    }
+
+    public bool IsCheckPointReached(CheckPointManager.EnumCheckPoint enumCheckPoint) {
+        return this.avaiableCheckPoints.Contains(enumCheckPoint);
     }
 
     public enum EnumCheckPoint : int {
