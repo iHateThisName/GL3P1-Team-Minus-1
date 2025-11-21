@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Xasu.HighLevel;
 
 public class BreathingScript : MonoBehaviour
 {
@@ -191,10 +192,11 @@ public class BreathingScript : MonoBehaviour
     }
 
     //Action for starting your breathing
-    private void OnBreatheInStarted(InputAction.CallbackContext context) {
+    private void OnBreatheInStarted(InputAction.CallbackContext context)
+    {
         isBreathingIn = true;
         //Check used to punish those who didn't hold their breath
-        if(hasHeldBreath)
+        if (hasHeldBreath)
         {
             hasHeldBreath = false;
         }
@@ -205,7 +207,7 @@ public class BreathingScript : MonoBehaviour
             hasHeldBreath = false;
         }
         //If you start breathing perfectly, you gain no punishment
-        if(breathingBar <= 4f && noAirTimer <= 0f)
+        if (breathingBar <= 4f && noAirTimer <= 0f)
         {
             Debug.Log("Started breathing at perfect time");
             correctImage.color = Color.darkGreen;
@@ -228,6 +230,10 @@ public class BreathingScript : MonoBehaviour
         noAirTimer = 0f;
         holdingText.text = "";
         noAirText.text = "";
+
+        CompletableTracker.Instance.Initialized("Breathing").WithResultExtension("Score", GetScore());
+
+        
     }
     //Action for stopping breathing in
     private void OnBreatheInStopped(InputAction.CallbackContext context) {
@@ -247,6 +253,7 @@ public class BreathingScript : MonoBehaviour
             }
         }
         inhaleTimer = 0f;
+        CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
     }
     //Action for starting to hold your breath
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
@@ -273,6 +280,7 @@ public class BreathingScript : MonoBehaviour
         }
         //Makes sure the game knows that the player held their breath
         hasHeldBreath = true;
+        CompletableTracker.Instance.Progressed("Breathing", 0.75f).WithResultExtension("Score", GetScore());
     }
     //Action for stopping holding your breath
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
@@ -299,6 +307,8 @@ public class BreathingScript : MonoBehaviour
         oxygenPunishment = 0f;
         holdingTimer = 0;
         holdingText.text = "";
+
+        CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
     }
 
     //Method for resetting everything
@@ -349,5 +359,11 @@ public class BreathingScript : MonoBehaviour
         DisableBreathing();
         StartCoroutine(GameManager.Instance.PlayRespawnAnim());
         this.enabled = false;
+        GameObjectTracker.Instance.Interacted("Died");
+    }
+
+    private double GetScore()
+    {
+        return correctImage.color == Color.darkGreen ? 10.0 : (correctImage.color == Color.green ? 5.0 : 0.0);
     }
 }

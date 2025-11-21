@@ -1,4 +1,5 @@
 using UnityEngine;
+using Xasu.HighLevel;
 
 public class SunkenTreasure : Interactable {
     [SerializeField] private int value = 100; // The value of the treasure
@@ -84,6 +85,12 @@ public class SunkenTreasure : Interactable {
     }
 
     private void CollectTreasure() {
+        GameObjectTracker.Instance.Used(gameObject.name).WithResultExtensions(new System.Collections.Generic.Dictionary<string, object>
+        {
+            { "http://isStoryTreasure", isStoryTreasure }, 
+            { "http://isArtefact", isArtefact },
+            { "http://isNormalTreasure", !isArtefact && !isStoryTreasure }
+        });
         if(!GameManager.Instance.firstTreasureCollected)
         {
             GameManager.Instance.firstTreasureCollected = true;

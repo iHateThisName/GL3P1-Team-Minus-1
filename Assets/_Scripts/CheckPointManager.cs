@@ -2,6 +2,7 @@ using Assets.Scripts.Singleton;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xasu.HighLevel;
 
 public class CheckPointManager : Singleton<CheckPointManager> {
 
@@ -61,6 +62,8 @@ public class CheckPointManager : Singleton<CheckPointManager> {
 
         // Start Fading In
         TransitionController.Instance.FadeIn();
+
+        AccessibleTracker.Instance.Skipped(cp.name);
     }
 
     public enum EnumCheckPoint : int {
