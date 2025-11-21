@@ -26,7 +26,8 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
         this.IsInitialized = true; // Might be redundant
     }
 
-    private void OnDestroy() {
+    protected override void OnDestroy() {
+        base.OnDestroy();
         Debug.Log("ShopItemLookUp OnDestroy called.");
         if (ShopItemLookUp.Instance == this) { // Make sure this is the active instance
             // TODO Not working properly because cant serialize Sprite
@@ -103,8 +104,7 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
             Debug.LogWarning("Attempted to add null item to bought shop items.");
         } else {
             this.playersShopItems.Add(item);
-            if (item.ItemType.ToString().Contains("Uppgrade"))
-            {
+            if (item.ItemType.ToString().Contains("Uppgrade")) {
                 GameManager.Instance.UpMoveSpeed();
             }
         }
