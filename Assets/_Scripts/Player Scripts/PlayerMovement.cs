@@ -153,13 +153,13 @@ public class PlayerMovement : MonoBehaviour {
 
             UpdateRotation();
         }
-        else
+        /*else
         {
             if (rb.useGravity != true)
             {
                 rb.useGravity = true;
             }
-        }
+        }*/
     }
 
     private void UpdateRotation()
@@ -426,5 +426,16 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsLandIdle", false);
         anim.SetTrigger("Respawn");
         model.transform.rotation = Quaternion.Euler(0, 0, 0) ;
+    }
+
+    public void PlayDeathAnim()
+    {
+        anim.SetBool("IsWalking", false);
+        anim.SetBool("IsSwimming", false);
+        anim.SetBool("IsFastSwimming", false);
+        anim.SetBool("IsIdleSwim", false);
+        anim.SetBool("IsRunning", false);
+        anim.SetBool("IsLandIdle", false);
+        anim.SetTrigger("Death");
     }
 }

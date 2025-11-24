@@ -78,6 +78,11 @@ public class UIShopManager : MonoBehaviour {
                 ShopItemLookUp.Instance.RegisterShopItem(itemData);
             }
 
+            if(!GameManager.Instance.firstSuitUpgrade)
+            {
+                GameManager.Instance.firstSuitUpgrade = true;
+            }
+
             Debug.Log($"Purchased item for {price}$");
             Destroy(shopItem); // Remove the item from the shop UI
             UpdateMoney();

@@ -59,6 +59,12 @@ public class DialougeLookUpManager : Singleton<DialougeLookUpManager>
                     return dialogTree.storyDialouges[2];
 
                 }
+                else if(!GameManager.Instance.firstSuitUpgradeFinished && GameManager.Instance.firstSuitUpgrade)
+                {
+                    if (this.isInDebugMode) Debug.Log("Returning first upgrade dialogue");
+                    GameManager.Instance.firstSuitUpgradeFinished = true;
+                    return dialogTree.storyDialouges[3];
+                }
                 else
                 {
                     int randomIndex = Random.Range(0, dialogTree.genericDialouges.Count);

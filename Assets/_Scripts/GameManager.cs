@@ -33,6 +33,8 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool firstTreasureFinished;
     public bool firstStoryCollected;
     public bool firstStoryFinished;
+    public bool firstSuitUpgrade;
+    public bool firstSuitUpgradeFinished;
 
     private void Start() {
         QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate works
@@ -122,11 +124,14 @@ public class GameManager : PersistenSingleton<GameManager> {
     }
 
     public IEnumerator PlayRespawnAnim() {
+        PlayerMovement.inCutscene = true;
+        PlayerMovement.ResetMomentum();
+        this.PlayerMovement.PlayDeathAnim();
+        yield return new WaitForSeconds(7.25f);
         DropAllTreasure();
+        PlayerMovement.isUnderWater = false;
         CheckPointManager.Instance.SetCurrentCheckPoint(CheckPointManager.EnumCheckPoint.RespawnCheckpoint);
         CheckPointManager.Instance.UseCheckpoint();
-        PlayerMovement.inCutscene = true;
-        PlayerMovement.isUnderWater = false;
 
         yield return new WaitForSeconds(5f);
         PlayerMovement.rb.isKinematic = true;
