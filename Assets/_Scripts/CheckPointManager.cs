@@ -72,7 +72,7 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         // Start Fading In
         TransitionController.Instance.FadeIn();
 
-        AccessibleTracker.Instance.Skipped(cp.name);
+        //AccessibleTracker.Instance.Skipped(cp.name);
     }
 
     public bool IsCheckPointReached(CheckPointManager.EnumCheckPoint enumCheckPoint) {
