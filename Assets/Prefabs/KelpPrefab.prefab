@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.312464e-15
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 76d8b271ee351a242a9f3ca652197fc9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c8e405ee633452a4a809d218e39952c7, type: 2}
     - target: {fileID: 919132149155446097, guid: 76d8b271ee351a242a9f3ca652197fc9, type: 3}
       propertyPath: m_Name
       value: kelp anim
