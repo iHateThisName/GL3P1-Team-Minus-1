@@ -91,7 +91,7 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         PlayerMovement.zoomedOut = false;
 
-        FogController.Instance.DisableFogEffect();
+        //FogController.Instance.DisableFogEffect();
     }
 
     public void PlayerEnterOcean() {
@@ -102,7 +102,7 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         PlayerMovement.zoomedOut = true;
 
-        FogController.Instance.EnableFogEffect();
+        //FogController.Instance.EnableFogEffect();
     }
 
     public void DropAllTreasure() {
