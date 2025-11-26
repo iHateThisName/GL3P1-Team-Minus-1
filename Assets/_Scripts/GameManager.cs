@@ -93,6 +93,9 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         PlayerMovement.zoomedOut = false;
 
+        // Fog of war
+        Camera.main.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
         //FogController.Instance.DisableFogEffect();
     }
 
@@ -103,6 +106,9 @@ public class GameManager : PersistenSingleton<GameManager> {
         BreathingScript.oxygenAmount = BreathingScript.intendedOxygen;
 
         PlayerMovement.zoomedOut = true;
+
+        // Fog of war
+        Camera.main.gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         //FogController.Instance.EnableFogEffect();
     }

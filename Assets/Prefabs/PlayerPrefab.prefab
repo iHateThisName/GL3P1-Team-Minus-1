@@ -150,6 +150,100 @@ CapsuleCollider:
   m_Height: 0.27765965
   m_Direction: 1
   m_Center: {x: -7.1218795e-17, y: 0.6484808, z: -0.020636573}
+--- !u!1 &1581616939928677346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7678815533685088083}
+  - component: {fileID: 4085454327093485727}
+  m_Layer: 0
+  m_Name: FlashLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7678815533685088083
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581616939928677346}
+  m_LocalRotation: {x: 0, y: -0.70710677, z: 0.70710677, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 15, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7532187433274206192}
+  m_LocalEulerAnglesHint: {x: 90, y: -90, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!331 &4085454327093485727
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581616939928677346}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 222820901, guid: 8a05a3548d3367246a530fb814d06d73, type: 3}
+  m_MaskAlphaCutoff: 1
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 1
+  m_MaskSource: 0
 --- !u!1 &1741856783041519145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1485,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -3276651912773169449, guid: 51d4a0b2cfdf4d740ad17fd09663a808, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6277086330842328098}
+    - targetCorrespondingSourceObject: {fileID: 3989335644405228039, guid: 51d4a0b2cfdf4d740ad17fd09663a808, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7678815533685088083}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51d4a0b2cfdf4d740ad17fd09663a808, type: 3}
 --- !u!4 &963133995047357216 stripped
@@ -1406,5 +1503,10 @@ Animator:
 --- !u!4 &6364142955423785500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 51d4a0b2cfdf4d740ad17fd09663a808, type: 3}
+  m_PrefabInstance: {fileID: 6907188335050720759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7532187433274206192 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3989335644405228039, guid: 51d4a0b2cfdf4d740ad17fd09663a808, type: 3}
   m_PrefabInstance: {fileID: 6907188335050720759}
   m_PrefabAsset: {fileID: 0}
