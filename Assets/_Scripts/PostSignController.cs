@@ -178,11 +178,18 @@ public class PostSignController : Interactable {
         this.is6KmEnabled = CheckPointManager.Instance.avaiableCheckPoints.Contains(CheckPointManager.EnumCheckPoint.RightMidnightCheckPoint);
 
         // set sign visibility based on variables
-        this.TwoHundredMeterSign.gameObject.SetActive(this.is200Enabled);
-        this.km1Sign.gameObject.SetActive(this.is1KmEnabled);
-        this.km4Sign.gameObject.SetActive(this.is4KmEnabled);
-        this.km5Sign.gameObject.SetActive(this.is5KmEnabled);
-        this.km6Sign.gameObject.SetActive(this.is6KmEnabled);
+        //this.TwoHundredMeterSign.gameObject.SetActive(this.is200Enabled);
+        //this.km1Sign.gameObject.SetActive(this.is1KmEnabled);
+        //this.km4Sign.gameObject.SetActive(this.is4KmEnabled);
+        //this.km5Sign.gameObject.SetActive(this.is5KmEnabled);
+        //this.km6Sign.gameObject.SetActive(this.is6KmEnabled);
+
+        // set flower visibility based on variables
+        this.TwoHundredFlower.gameObject.SetActive(this.is200Enabled);
+        this.OneKmFlower.gameObject.SetActive(this.is1KmEnabled);
+        this.FourKmFlower.gameObject.SetActive(this.is4KmEnabled);
+        this.FiveKmFlower.gameObject.SetActive(this.is5KmEnabled);
+        this.SixKmFlower.gameObject.SetActive(this.is6KmEnabled);
     }
 
     private void OnHoverChange(CheckPointManager.EnumCheckPoint enumCheckPoint) {

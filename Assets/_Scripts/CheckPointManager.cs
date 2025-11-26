@@ -2,7 +2,6 @@ using Assets.Scripts.Singleton;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Xasu.HighLevel;
 
 public class CheckPointManager : Singleton<CheckPointManager> {
 
@@ -35,6 +34,16 @@ public class CheckPointManager : Singleton<CheckPointManager> {
     public void SetCurrentCheckPoint(EnumCheckPoint enumCheckPoint) {
         this.currentCheckPointSelected = enumCheckPoint;
         this.avaiableCheckPoints.Add(enumCheckPoint);
+        this.OnAvaiableCheckPointAdded?.Invoke();
+    }
+
+    [ContextMenu("Unlock All Checkpoints")]
+    public void UnlockAllCheckpoints() {
+        foreach (EnumCheckPoint cp in System.Enum.GetValues(typeof(EnumCheckPoint))) {
+            if (cp != EnumCheckPoint.None && cp != EnumCheckPoint.Store && cp != EnumCheckPoint.RespawnCheckpoint) {
+                this.avaiableCheckPoints.Add(cp);
+            }
+        }
         this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
