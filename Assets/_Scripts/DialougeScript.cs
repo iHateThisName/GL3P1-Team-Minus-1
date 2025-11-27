@@ -26,7 +26,9 @@ public class DialougeScript : MonoBehaviour {
     //A bool for if the player is in dialouge
     private bool inDialouge;
 
-    private bool useScreenDialouge = true;
+    [SerializeField] private bool useScreenDialouge = true;
+
+    private bool hasDoneFirstDialouge = false;
 
     private void OnEnable() {
         dialougeStartAction.Enable();
@@ -41,7 +43,7 @@ public class DialougeScript : MonoBehaviour {
     }
 
     private void OnDialougeStarted(InputAction.CallbackContext context) {
-        if (playerInRange) {
+        if (playerInRange || inDialouge) {
             if (!inDialouge) {
                 GameManager.Instance.IsPlayerMovementEnabled = false;
                 GameManager.Instance.PlayerMovement.ResetAnims();
@@ -71,6 +73,11 @@ public class DialougeScript : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             playerInRange = true;
+
+            if (!hasDoneFirstDialouge) {
+                hasDoneFirstDialouge = true;
+                OnDialougeStarted(new InputAction.CallbackContext());
+            }
         }
     }
 
