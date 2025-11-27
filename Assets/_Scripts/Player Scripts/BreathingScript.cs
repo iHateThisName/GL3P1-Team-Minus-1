@@ -231,7 +231,7 @@ public class BreathingScript : MonoBehaviour
         holdingText.text = "";
         noAirText.text = "";
 
-        //CompletableTracker.Instance.Initialized("Breathing").WithResultExtension("Score", GetScore());
+        CompletableTracker.Instance.Initialized("Breathing").WithResultExtension("Score", GetScore());
 
         
     }
@@ -253,7 +253,7 @@ public class BreathingScript : MonoBehaviour
             }
         }
         inhaleTimer = 0f;
-        //CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
+        CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
     }
     //Action for starting to hold your breath
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
@@ -280,7 +280,7 @@ public class BreathingScript : MonoBehaviour
         }
         //Makes sure the game knows that the player held their breath
         hasHeldBreath = true;
-        //CompletableTracker.Instance.Progressed("Breathing", 0.75f).WithResultExtension("Score", GetScore());
+        CompletableTracker.Instance.Progressed("Breathing", 0.75f).WithResultExtension("Score", GetScore());
     }
     //Action for stopping holding your breath
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
@@ -308,7 +308,7 @@ public class BreathingScript : MonoBehaviour
         holdingTimer = 0;
         holdingText.text = "";
 
-        //CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
+        CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
     }
 
     //Method for resetting everything
@@ -359,7 +359,7 @@ public class BreathingScript : MonoBehaviour
         DisableBreathing();
         StartCoroutine(GameManager.Instance.PlayRespawnAnim());
         this.enabled = false;
-        //GameObjectTracker.Instance.Interacted("Died");
+        GameObjectTracker.Instance.Interacted("Died");
     }
 
     private double GetScore()

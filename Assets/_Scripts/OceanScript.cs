@@ -6,6 +6,8 @@ public class OceanScript : MonoBehaviour {
         if (other.CompareTag("PlayerHead")) {
             if(!GameManager.Instance.firstEnteredOcean)
             {
+                GameManager.Instance.PlayerMovement.ResetAnims();
+                GameManager.Instance.PlayerMovement.rb.useGravity = false;
                 GameSceneManager.Instance.LoadScene(EnumScene.Tutorial, UnityEngine.SceneManagement.LoadSceneMode.Additive);
                 GameManager.Instance.IsPlayerMovementEnabled = false;
             }

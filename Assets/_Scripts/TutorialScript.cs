@@ -43,9 +43,11 @@ public class TutorialScript : MonoBehaviour
 
     [Header("Input Actions")]
     [SerializeField]
-    private InputAction breatheInAction;
+    private InputActionReference breatheInAction;
     [SerializeField]
-    private InputAction holdBreathAction;
+    private InputActionReference holdBreathAction;
+    [SerializeField]
+    private InputActionReference interactAction;
 
     [Header("Phase stuff")]
     [SerializeField]
@@ -56,26 +58,24 @@ public class TutorialScript : MonoBehaviour
 
     private void OnEnable()
     {
-        breatheInAction.Enable();
-        holdBreathAction.Enable();
+        breatheInAction.action.performed += OnBreatheInStarted;
+        breatheInAction.action.canceled += OnBreatheInStopped;
 
-        breatheInAction.performed += OnBreatheInStarted;
-        breatheInAction.canceled += OnBreatheInStopped;
+        holdBreathAction.action.performed += OnHoldBreathStarted;
+        holdBreathAction.action.canceled += OnHoldBreathStopped;
 
-        holdBreathAction.performed += OnHoldBreathStarted;
-        holdBreathAction.canceled += OnHoldBreathStopped;
+        interactAction.action.performed += OnInteractStarted;
     }
 
     private void OnDisable()
     {
-        breatheInAction.Disable();
-        holdBreathAction.Disable();
+        breatheInAction.action.performed -= OnBreatheInStarted;
+        breatheInAction.action.canceled -= OnBreatheInStopped;
 
-        breatheInAction.performed -= OnBreatheInStarted;
-        breatheInAction.canceled -= OnBreatheInStopped;
+        holdBreathAction.action.performed -= OnHoldBreathStarted;
+        holdBreathAction.action.canceled -= OnHoldBreathStopped;
 
-        holdBreathAction.performed -= OnHoldBreathStarted;
-        holdBreathAction.canceled -= OnHoldBreathStopped;
+        interactAction.action.performed -= OnInteractStarted;
     }
 
     // Update is called once per frame
@@ -246,12 +246,18 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
+    private void OnInteractStarted(InputAction.CallbackContext context)
+    {
+        NextPhase();
+    }
+
     public void NextPhase()
     {
         if (phaseNum >= tutorialScreens.Length - 1)
         {
             GameSceneManager.Instance.UnloadeScene(EnumScene.Tutorial);
             GameManager.Instance.IsPlayerMovementEnabled = true;
+            GameManager.Instance.PlayerEnterOcean();
         }
         else
         {

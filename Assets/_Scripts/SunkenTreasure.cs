@@ -85,12 +85,12 @@ public class SunkenTreasure : Interactable {
     }
 
     private void CollectTreasure() {
-        /*GameObjectTracker.Instance.Used(gameObject.name).WithResultExtensions(new System.Collections.Generic.Dictionary<string, object>
+        GameObjectTracker.Instance.Used(gameObject.name).WithResultExtensions(new System.Collections.Generic.Dictionary<string, object>
         {
             { "http://isStoryTreasure", isStoryTreasure }, 
             { "http://isArtefact", isArtefact },
             { "http://isNormalTreasure", !isArtefact && !isStoryTreasure }
-        });*/
+        });
         if(!GameManager.Instance.firstTreasureCollected)
         {
             GameManager.Instance.firstTreasureCollected = true;
