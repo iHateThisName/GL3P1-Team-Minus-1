@@ -92,7 +92,7 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         }
 
         // If loading GameScene or Tutorial, use fade transitions
-        if (scene == EnumScene.GameScene || scene == EnumScene.Tutorial) {
+        if (scene == EnumScene.GameScene) {
             // Starts Fading out
             yield return StartCoroutine(TransitionController.Instance.FadeOutCoroutine());
 

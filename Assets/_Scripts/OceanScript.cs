@@ -7,9 +7,12 @@ public class OceanScript : MonoBehaviour {
             if(!GameManager.Instance.firstEnteredOcean)
             {
                 GameSceneManager.Instance.LoadScene(EnumScene.Tutorial, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                GameManager.Instance.IsPlayerMovementEnabled = false;
             }
-
-            GameManager.Instance.PlayerEnterOcean();
+            else
+            {
+                GameManager.Instance.PlayerEnterOcean();
+            }
         }
     }
 
