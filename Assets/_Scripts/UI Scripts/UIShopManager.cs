@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIShopManager : MonoBehaviour {
@@ -14,23 +14,32 @@ public class UIShopManager : MonoBehaviour {
 
     private int collectedValueAmount = 0;
 
+    [SerializeField] private InputActionReference InputMoveAction;
+
     private void OnEnable() {
         sellButton.onClick.AddListener(OnSellButton);
+        InputMoveAction.action.performed += OnNavigateStoreItems;
     }
+
 
     private void OnDisable() {
         this.sellButton.onClick.RemoveListener(OnSellButton);
+        InputMoveAction.action.performed -= OnNavigateStoreItems;
+    }
+    private void OnNavigateStoreItems(InputAction.CallbackContext context) {
+        Vector2 inputVector = context.ReadValue<Vector2>();
+        GameManager.Instance.ShopInteractable.Navigate(inputVector);
     }
 
     private void Start() {
         UpdateSellButtonText();
 
-        int currentDisplayCount = ShopItemsContainer.childCount;
-        List<ShopItemData> allShopItems = ShopItemLookUp.Instance.GetAviableShopItems();
+        //int currentDisplayCount = ShopItemsContainer.childCount;
+        //List<ShopItemData> allShopItems = ShopItemLookUp.Instance.GetAviableShopItems();
 
-        for (int i = 0; i < 1 - currentDisplayCount; i++) {
-            SpawnShopItem(allShopItems[i]);
-        }
+        //for (int i = 0; i < 1 - currentDisplayCount; i++) {
+        //    SpawnShopItem(allShopItems[i]);
+        //}
     }
 
     private void OnSellButton() {
@@ -78,8 +87,7 @@ public class UIShopManager : MonoBehaviour {
                 ShopItemLookUp.Instance.RegisterShopItem(itemData);
             }
 
-            if(!GameManager.Instance.firstSuitUpgrade)
-            {
+            if (!GameManager.Instance.firstSuitUpgrade) {
                 GameManager.Instance.firstSuitUpgrade = true;
             }
 
@@ -108,8 +116,7 @@ public class UIShopManager : MonoBehaviour {
         OnExitButton();
     }
 
-    private void UpdateMoney()
-    {
+    private void UpdateMoney() {
         moneyText.text = GameManager.Instance.Money.ToString() + "$";
     }
 }
