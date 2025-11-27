@@ -250,7 +250,8 @@ public class TutorialScript : MonoBehaviour
     {
         if (phaseNum >= tutorialScreens.Length - 1)
         {
-            //GameSceneManager.Instance.Un
+            GameSceneManager.Instance.UnloadeScene(EnumScene.Tutorial);
+            GameManager.Instance.IsPlayerMovementEnabled = true;
         }
         else
         {
