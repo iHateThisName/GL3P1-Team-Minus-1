@@ -100,14 +100,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
   active: 1
   lift:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.032645762, y: 0.06594672, z: 1, w: -0.1299639}
   gamma:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.7724275, y: 1, z: 0.9786433, w: -0.75090253}
   gain:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.8495387, y: 0.9878011, z: 1, w: -0.27436823}
 --- !u!114 &4742664091767807026
 MonoBehaviour:
   m_ObjectHideFlags: 3
