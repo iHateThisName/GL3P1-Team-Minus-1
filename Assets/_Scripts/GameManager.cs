@@ -7,6 +7,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public PlayerMovement PlayerMovement;
     public Transform PlayerInteractTransform;
     public BreathingScript BreathingScript;
+    public TutorialScript TutorialScript;
 
     // Game state variables
     private bool _isPlayerMovementEnabled = true; // Never access this directly, use the public property below
@@ -26,6 +27,8 @@ public class GameManager : PersistenSingleton<GameManager> {
     }
 
     public int Money = 0;
+
+    public bool firstEnteredOcean;
 
     public bool startedGame = true;
     public bool startedGameFinished;
