@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DialougeScript : MonoBehaviour
-{
+public class DialougeScript : MonoBehaviour {
     [SerializeField]
     private InputAction dialougeStartAction;
 
@@ -27,77 +26,90 @@ public class DialougeScript : MonoBehaviour
     //A bool for if the player is in dialouge
     private bool inDialouge;
 
-    private void OnEnable()
-    {
+    private bool useScreenDialouge = true;
+
+    private void OnEnable() {
         dialougeStartAction.Enable();
 
         dialougeStartAction.performed += OnDialougeStarted;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         dialougeStartAction.Disable();
 
         dialougeStartAction.canceled -= OnDialougeStarted;
     }
 
-    private void OnDialougeStarted(InputAction.CallbackContext context)
-    {
-        if(playerInRange)
-        {
-            if(!inDialouge)
-            {
+    private void OnDialougeStarted(InputAction.CallbackContext context) {
+        if (playerInRange) {
+            if (!inDialouge) {
                 GameManager.Instance.IsPlayerMovementEnabled = false;
                 GameManager.Instance.PlayerMovement.ResetAnims();
                 GetDialouge();
-            }
-            else
-            {
+            } else {
                 //If the player has not reached the end of the dialouge, the next line will be displayed
-                if (lineNumber < dialouge.dialogLines.Count)
-                {
-                    NextLine();
+                if (lineNumber < dialouge.dialogLines.Count) {
+                    ShowNextLine();
                 }
                 //If the player has reached the end of the dialouge, the dialouge will close
-                else
-                {
+                else {
+                    if (this.useScreenDialouge) {
+                        ScreenDialouge.Instance.CloseDialougeScreen();
+                    }
+
                     dialougeText.enabled = false;
                     inDialouge = false;
                     lineNumber = 0;
                     GameManager.Instance.IsPlayerMovementEnabled = true;
+
                 }
             }
         }
     }
 
     //If the player enters the object's trigger, it will register that the player is in there and the outline will turn on if allowed
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
             playerInRange = true;
         }
     }
 
     //If the player exits the object's trigger, it will register that the player is not there and the dialouge will turn off
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
             playerInRange = false;
         }
     }
 
-    private void GetDialouge()
-    {
+    private void GetDialouge() {
         dialouge = DialougeLookUpManager.Instance.GetDialouge(EnumCharacter.LifeGauard);
         inDialouge = true;
-        NextLine();
+        if (this.useScreenDialouge) {
+            ScreenDialouge.Instance.speedUpFactor = 1f;
+        }
+        ShowNextLine();
+    }
+
+    private void ShowNextLine() {
+        if (this.useScreenDialouge) {
+            if (ScreenDialouge.Instance.isPlayingDialogLine) {
+                ScreenDialouge.Instance.speedUpFactor = 0.5f;
+            } else {
+                StartCoroutine(GlobalNextLine(dialouge.dialogLines[this.lineNumber]));
+            }
+        } else {
+            NextLine();
+        }
+    }
+
+    private IEnumerator GlobalNextLine(string line) {
+        yield return StartCoroutine(ScreenDialouge.Instance.ShowDialougeScreen(line));
+        this.lineNumber++;
+
     }
 
     //A function for displaying the next dialouge line
-    private void NextLine()
-    {
+    private void NextLine() {
         dialougeText.enabled = true;
         dialougeText.text = this.dialouge.dialogLines[lineNumber];
         lineNumber++;
