@@ -48,6 +48,8 @@ public class TutorialScript : MonoBehaviour
     private InputActionReference holdBreathAction;
     [SerializeField]
     private InputActionReference interactAction;
+    [SerializeField]
+    private InputActionReference skipTutorialAction;
 
     [Header("Phase stuff")]
     [SerializeField]
@@ -70,6 +72,8 @@ public class TutorialScript : MonoBehaviour
         holdBreathAction.action.canceled += OnHoldBreathStopped;
 
         interactAction.action.performed += OnInteract;
+
+        skipTutorialAction.action.performed += OnSkippedTut;
     }
 
     private void OnDisable()
@@ -79,6 +83,10 @@ public class TutorialScript : MonoBehaviour
 
         holdBreathAction.action.performed -= OnHoldBreathStarted;
         holdBreathAction.action.canceled -= OnHoldBreathStopped;
+
+        interactAction.action.performed -= OnInteract;
+
+        skipTutorialAction.action.performed -= OnSkippedTut;
     }
 
     // Update is called once per frame
@@ -287,12 +295,21 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
+    private void OnSkippedTut(InputAction.CallbackContext context)
+    {
+        GameSceneManager.Instance.UnloadeScene(EnumScene.Tutorial);
+        GameManager.Instance.IsPlayerMovementEnabled = true;
+        GameManager.Instance.firstEnteredOcean = true;
+        GameManager.Instance.PlayerEnterOcean();
+    }
+
     public void NextPhase()
     {
         if (phaseNum >= tutorialScreens.Length - 1)
         {
             GameSceneManager.Instance.UnloadeScene(EnumScene.Tutorial);
             GameManager.Instance.IsPlayerMovementEnabled = true;
+            GameManager.Instance.firstEnteredOcean = true;
             GameManager.Instance.PlayerEnterOcean();
         }
         else

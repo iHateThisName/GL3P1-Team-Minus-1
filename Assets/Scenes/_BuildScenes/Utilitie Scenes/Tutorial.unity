@@ -2625,6 +2625,7 @@ MonoBehaviour:
   breatheInAction: {fileID: -764016298102831055, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   holdBreathAction: {fileID: -3783024939543351448, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  skipTutorialAction: {fileID: 4015737152230954350, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   phaseNum: 0
   tutorialScreens:
   - {fileID: 1744163126}
