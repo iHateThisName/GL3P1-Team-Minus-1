@@ -114,6 +114,10 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         }
     }
 
+    private void UnloadeScene(EnumScene scene) {
+        SceneManager.UnloadSceneAsync(scene.ToString());
+    }
+
     private void UnLoadeAllScenesExcept(int sceneToKeepBuildIndex) {
         System.Collections.Generic.List<int> scenesToUnload = new System.Collections.Generic.List<int>();
 
