@@ -56,6 +56,11 @@ public class TutorialScript : MonoBehaviour
     [SerializeField]
     private GameObject[] tutorialScreens;
 
+    private int breatheInCorrect;
+    private int holdBreathCorrect1;
+    private int holdBreathCorrect2;
+    private int breatheOutCorrect;
+
     private void OnEnable()
     {
         breatheInAction.action.performed += OnBreatheInStarted;
@@ -64,7 +69,7 @@ public class TutorialScript : MonoBehaviour
         holdBreathAction.action.performed += OnHoldBreathStarted;
         holdBreathAction.action.canceled += OnHoldBreathStopped;
 
-        interactAction.action.performed += OnInteractStarted;
+        interactAction.action.performed += OnInteract;
     }
 
     private void OnDisable()
@@ -74,8 +79,6 @@ public class TutorialScript : MonoBehaviour
 
         holdBreathAction.action.performed -= OnHoldBreathStarted;
         holdBreathAction.action.canceled -= OnHoldBreathStopped;
-
-        interactAction.action.performed -= OnInteractStarted;
     }
 
     // Update is called once per frame
@@ -121,6 +124,10 @@ public class TutorialScript : MonoBehaviour
         {
             Debug.Log("Started breathing at correct time");
             correctImage.color = Color.green;
+            if (phaseNum == 2)
+            {
+                breatheOutCorrect++;
+            }
         }
         else
         {
@@ -132,7 +139,15 @@ public class TutorialScript : MonoBehaviour
         {
             breathingBar = 0f;
         }
-        holdingText.text = "";
+        else if(phaseNum == 2 && breatheOutCorrect >= 3 && holdBreathCorrect1 >= 3 && holdBreathCorrect2 >= 3)
+        {
+            breatheOutCorrect = 0;
+            breatheInCorrect = 0;
+            holdBreathCorrect1 = 0;
+            holdBreathCorrect2 = 0;
+            NextPhase();
+        }
+            holdingText.text = "";
         noAirText.text = "";
     }
     private void OnBreatheInStopped(InputAction.CallbackContext context)
@@ -144,6 +159,7 @@ public class TutorialScript : MonoBehaviour
             {
                 Debug.Log("Let go at correct time");
                 correctImage.color = Color.green;
+                breatheInCorrect++;
             }
             else
             {
@@ -151,6 +167,11 @@ public class TutorialScript : MonoBehaviour
                 correctImage.color = Color.red;
             }
             breathingBar = 0;
+            if (breatheInCorrect >= 3)
+            {
+                breatheInCorrect = 0;
+                NextPhase();
+            }
         }
         else if(phaseNum == 1)
         {
@@ -158,6 +179,7 @@ public class TutorialScript : MonoBehaviour
             {
                 Debug.Log("Let go at correct time");
                 correctImage.color = Color.green;
+                breatheInCorrect++;
             }
             else
             {
@@ -186,6 +208,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     Debug.Log("Started holding at correct time");
                     correctImage.color = Color.green;
+                    holdBreathCorrect1++;
                 }
                 else
                 {
@@ -200,6 +223,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     Debug.Log("Started holding at correct time");
                     correctImage.color = Color.green;
+                    holdBreathCorrect1++;
                 }
                 else
                 {
@@ -220,6 +244,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     Debug.Log("Held breath for the correct amount of time");
                     correctImage.color = Color.green;
+                    holdBreathCorrect2++;
                 }
                 else
                 {
@@ -227,6 +252,13 @@ public class TutorialScript : MonoBehaviour
                     correctImage.color = Color.red;
                 }
                 breathingBar = 0;
+                if(breatheInCorrect >= 3 && holdBreathCorrect1 >= 3 && holdBreathCorrect2 >= 3)
+                {
+                    breatheInCorrect = 0;
+                    holdBreathCorrect1 = 0;
+                    holdBreathCorrect2 = 0;
+                    NextPhase();
+                }
             }
             else
             {
@@ -234,6 +266,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     Debug.Log("Held breath for the correct amount of time");
                     correctImage.color = Color.green;
+                    holdBreathCorrect2++;
                 }
                 else
                 {
@@ -246,9 +279,12 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
-    private void OnInteractStarted(InputAction.CallbackContext context)
+    private void OnInteract(InputAction.CallbackContext context)
     {
-        NextPhase();
+        if(phaseNum > 2)
+        {
+            NextPhase();
+        }
     }
 
     public void NextPhase()
