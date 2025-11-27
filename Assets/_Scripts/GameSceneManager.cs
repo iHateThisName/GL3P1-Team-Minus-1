@@ -114,7 +114,7 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
         }
     }
 
-    private void UnloadeScene(EnumScene scene) {
+    public void UnloadeScene(EnumScene scene) {
         SceneManager.UnloadSceneAsync(scene.ToString());
     }
 

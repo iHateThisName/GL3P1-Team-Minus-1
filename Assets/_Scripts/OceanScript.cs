@@ -6,7 +6,7 @@ public class OceanScript : MonoBehaviour {
         if (other.CompareTag("PlayerHead")) {
             if(!GameManager.Instance.firstEnteredOcean)
             {
-                //GameSceneManager.Instance.
+                GameSceneManager.Instance.LoadScene(EnumScene.Tutorial, UnityEngine.SceneManagement.LoadSceneMode.Additive);
             }
 
             GameManager.Instance.PlayerEnterOcean();

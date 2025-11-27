@@ -250,7 +250,7 @@ public class TutorialScript : MonoBehaviour
     {
         if (phaseNum >= tutorialScreens.Length - 1)
         {
-            GameSceneManager.Instance.LoadScene(EnumScene.MainMenu);
+            //GameSceneManager.Instance.Un
         }
         else
         {
