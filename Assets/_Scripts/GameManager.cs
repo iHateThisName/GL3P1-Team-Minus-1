@@ -101,6 +101,8 @@ public class GameManager : PersistenSingleton<GameManager> {
         Camera.main.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         //FogController.Instance.DisableFogEffect();
+
+        AudioManager.Instance.underWaterSound.Stop();
     }
 
     public void PlayerEnterOcean() {
@@ -115,6 +117,8 @@ public class GameManager : PersistenSingleton<GameManager> {
         Camera.main.gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         //FogController.Instance.EnableFogEffect();
+
+        AudioManager.Instance.underWaterSound.Play();
     }
 
     public void DropAllTreasure() {
