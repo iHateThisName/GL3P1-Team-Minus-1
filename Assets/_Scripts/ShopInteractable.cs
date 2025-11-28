@@ -88,6 +88,7 @@ public class ShopInteractable : Interactable {
 
                 // If nothing to sell, exit
                 if (collectedValueAmount <= 0) break;
+                AudioManager.Instance.sellTreasureSound.Play();
 
                 // Add money to player
                 GameManager.Instance.Money += collectedValueAmount;
@@ -110,6 +111,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitOne = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier1);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitOne)) {
                     soldOutOneOne.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
 
@@ -121,6 +123,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitTwo = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier2);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitTwo)) {
                     soldOutOneTwo.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
 
@@ -132,6 +135,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitThree = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier3);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitThree)) {
                     soldOutOneThree.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
 
@@ -143,6 +147,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitFour = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier4);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitFour)) {
                     soldOutTwoOne.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
 
@@ -154,6 +159,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitFive = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier5);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitFive)) {
                     soldOutTwoTwo.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
 
@@ -165,6 +171,7 @@ public class ShopInteractable : Interactable {
                 ShopItemData suitSix = ShopItemLookUp.Instance.GetShopItemData(EnumItemSprite.suitUppgradeTier6);
                 if (GameManager.Instance.UIShopManager.BuyItem(suitSix)) {
                     soldOutTwoThree.color = Color.white;
+                    AudioManager.Instance.shopPurchaseSound.Play();
                 }
                 break;
         }

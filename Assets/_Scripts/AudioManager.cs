@@ -12,4 +12,6 @@ public class AudioManager : PersistenSingleton<AudioManager>
     public AudioSource bubbleSound;
 
     public AudioSource shopEnterAndExit;
+    public AudioSource shopPurchaseSound;
+    public AudioSource sellTreasureSound;
 }
