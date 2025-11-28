@@ -35,6 +35,10 @@ public class UIMainMenuController : MonoBehaviour {
         this.howToPlayButton.gameObject.SetActive(true);
 
         this.howToPlayButton.onClick.AddListener(() => OnHowToPlayPressed());
+
+#if UNITY_WEBGL
+        this.howToPlayButton.interactable = false;
+#endif
     }
     private void OnDisable() {
         this.newGameButton.onClick.RemoveAllListeners();
@@ -53,6 +57,10 @@ public class UIMainMenuController : MonoBehaviour {
     }
 
     public void OnHowToPlayPressed() {
-        GameSceneManager.Instance.LoadScene(EnumScene.Tutorial);
+        //GameSceneManager.Instance.LoadScene(EnumScene.Tutorial);
+#if !UNITY_WEBGL
+        Application.Quit();
+#endif
+
     }
 }
