@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using Xasu.HighLevel;
+using UnityEngine.VFX;
 
 public class BreathingScript : MonoBehaviour
 {
@@ -85,6 +86,8 @@ public class BreathingScript : MonoBehaviour
 
     //The slider used to communicate how much oxygen the player has left
     public Slider oxygenSlider;
+
+    public VisualEffect bubbleEffect;
 
     [Header("Input Actions")]
     //The action for breathing in
@@ -178,8 +181,9 @@ public class BreathingScript : MonoBehaviour
             if(breathingBar <= 0f) {
                 noAirTimer += Time.deltaTime;
                 noAirText.text = noAirTimer.ToString("F2");
+                bubbleEffect.SendEvent("OnStop");
                 //If you don't breathe in for too long, you die
-                if(noAirTimer >= 10f)
+                if (noAirTimer >= 10f)
                 {
                     Die();
                 }
@@ -195,6 +199,7 @@ public class BreathingScript : MonoBehaviour
     private void OnBreatheInStarted(InputAction.CallbackContext context)
     {
         isBreathingIn = true;
+        bubbleEffect.SendEvent("OnStop");
         //Check used to punish those who didn't hold their breath
         if (hasHeldBreath)
         {
@@ -251,6 +256,8 @@ public class BreathingScript : MonoBehaviour
                 oxygenAmount -= oxygenLoss + oxygenPunishment;
                 oxygenPunishment = 0f;
             }
+
+            bubbleEffect.SendEvent("OnStop");
         }
         inhaleTimer = 0f;
         CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
@@ -258,6 +265,7 @@ public class BreathingScript : MonoBehaviour
     //Action for starting to hold your breath
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
+        bubbleEffect.SendEvent("OnStop");
         //Calculates the diffrence between the max and min oxygen values and halves them, used to check for perfect breathing
         breathValueDiffrence = (maxBreatheValue - minBreatheValue) * 0.5f;
         //If you start holding your breath at perfect time, you get no punishment
@@ -308,6 +316,8 @@ public class BreathingScript : MonoBehaviour
         holdingTimer = 0;
         holdingText.text = "";
 
+        bubbleEffect.SendEvent("OnPlay");
+
         CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
     }
 
@@ -326,6 +336,7 @@ public class BreathingScript : MonoBehaviour
         hasHeldBreath = true;
         holdingText.text = "";
         noAirText.text = "";
+        bubbleEffect.Stop();
     }
 
 

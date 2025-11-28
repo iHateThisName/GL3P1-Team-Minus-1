@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3386735289888521847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.285}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,7 +42,7 @@ VisualEffect:
   m_GameObject: {fileID: 3386735289888521847}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 1d23634828ba0d048b27f9cae4040133, type: 3}
-  m_InitialEventName: OnPlay
+  m_InitialEventName: 
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
