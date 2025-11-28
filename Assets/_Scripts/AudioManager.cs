@@ -10,4 +10,6 @@ public class AudioManager : PersistenSingleton<AudioManager>
     public AudioSource breatheOutSound;
 
     public AudioSource bubbleSound;
+
+    public AudioSource shopEnterAndExit;
 }

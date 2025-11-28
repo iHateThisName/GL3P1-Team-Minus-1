@@ -173,6 +173,7 @@ public class ShopInteractable : Interactable {
     private void OnShopOpened() {
         GameManager.Instance.IsPlayerMovementEnabled = false;
         HoverFlower(EnumShopGrid.OneOne);
+        AudioManager.Instance.shopEnterAndExit.Play();
     }
 
     public void OnShopClosed() {
@@ -182,6 +183,7 @@ public class ShopInteractable : Interactable {
         this.isInteracted = false;
         UpdateCamera();
         GameManager.Instance.IsPlayerMovementEnabled = true;
+        AudioManager.Instance.shopEnterAndExit.Play();
     }
 
 
