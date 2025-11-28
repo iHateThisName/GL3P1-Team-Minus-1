@@ -50,6 +50,16 @@ public class ShopItemLookUp : PersistenSingleton<ShopItemLookUp> {
 
     public List<ShopItemData> GetAllPlayerItems() => this.playersShopItems;
 
+    public ShopItemData GetShopItemData(EnumItemSprite itemType) {
+        foreach (ShopItemData item in this.allShopItems) {
+            if (item.ItemType == itemType) {
+                return item;
+            }
+        }
+        Debug.LogError($"Shop item of type {itemType} not found in allShopItems.");
+        return new ShopItemData();
+    }
+
     private List<ShopItemData> LoadPlayerShopItems() {
         if (PlayerPrefs.HasKey(PlayerShopItemsKey)) {
             string jsonPlayerItems = PlayerPrefs.GetString(PlayerShopItemsKey);
@@ -137,6 +147,11 @@ public struct ShopItemData {
     public ShopItemData(EnumItemSprite itemType, Sprite sprite, int price) {
         ItemType = itemType;
         Sprite = sprite ?? throw new ArgumentNullException(nameof(sprite));
+        Price = price;
+    }
+
+    public ShopItemData(EnumItemSprite itemType, int price) : this() {
+        ItemType = itemType;
         Price = price;
     }
 

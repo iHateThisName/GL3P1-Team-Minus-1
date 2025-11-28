@@ -33,13 +33,8 @@ public class UIShopManager : MonoBehaviour {
 
     private void Start() {
         UpdateSellButtonText();
-
-        //int currentDisplayCount = ShopItemsContainer.childCount;
-        //List<ShopItemData> allShopItems = ShopItemLookUp.Instance.GetAviableShopItems();
-
-        //for (int i = 0; i < 1 - currentDisplayCount; i++) {
-        //    SpawnShopItem(allShopItems[i]);
-        //}
+        UpdateMoney();
+        GameManager.Instance.UIShopManager = this;
     }
 
     private void OnSellButton() {
@@ -76,9 +71,22 @@ public class UIShopManager : MonoBehaviour {
         Transform textTransfrom = shopItem.transform.Find("Model/TopInfoContainer/PriceText");
         int price = int.Parse(textTransfrom.GetComponent<TMP_Text>().text.Replace("$", ""));
 
+        if (BuyItem(itemData)) {
+            // Successfully bought the item
+            Destroy(shopItem); // Remove the item from the shop UI
+            Debug.Log($"Purchased item for {itemData.Price}$");
+
+        } else {
+            // Failed to buy the item
+            Debug.Log("Not enough money to purchase this item.");
+
+        }
+    }
+
+    public bool BuyItem(ShopItemData itemData) {
         // Enough money to buy the item
-        if (GameManager.Instance.Money >= price) {
-            GameManager.Instance.Money -= price;
+        if (GameManager.Instance.Money >= itemData.Price) {
+            GameManager.Instance.Money -= itemData.Price;
             // TODO Do Animation with sound etc.
             // TODO Give an effect to the player
 
@@ -87,15 +95,14 @@ public class UIShopManager : MonoBehaviour {
                 ShopItemLookUp.Instance.RegisterShopItem(itemData);
             }
 
-            if (!GameManager.Instance.firstSuitUpgrade) {
+            if (itemData.ItemType == EnumItemSprite.suitUppgradeTier1) {
                 GameManager.Instance.firstSuitUpgrade = true;
             }
 
-            Debug.Log($"Purchased item for {price}$");
-            Destroy(shopItem); // Remove the item from the shop UI
             UpdateMoney();
+            return true;
         } else {
-            Debug.Log("Not enough money to purchase this item.");
+            return false;
         }
     }
 
@@ -116,7 +123,7 @@ public class UIShopManager : MonoBehaviour {
         OnExitButton();
     }
 
-    private void UpdateMoney() {
+    public void UpdateMoney() {
         moneyText.text = GameManager.Instance.Money.ToString() + "$";
     }
 }

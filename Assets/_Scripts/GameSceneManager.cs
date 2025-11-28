@@ -54,6 +54,7 @@ public class GameSceneManager : PersistenSingleton<GameSceneManager> {
     public void ToggleShopMenu() {
         if (this.IsShopMenuLoaded) {
             StartCoroutine(UnLoadShopMenuCorutine());
+            GameManager.instance.ShopInteractable.OnShopClosed();
         } else {
             GameManager.Instance.IsPlayerMovementEnabled = false;
             LoadScene(EnumScene.ShopMenu, LoadSceneMode.Additive);

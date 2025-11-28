@@ -9,6 +9,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public BreathingScript BreathingScript;
     public TutorialScript TutorialScript;
     public ShopInteractable ShopInteractable;
+    public UIShopManager UIShopManager;
 
     // Game state variables
     private bool _isPlayerMovementEnabled = true; // Never access this directly, use the public property below
