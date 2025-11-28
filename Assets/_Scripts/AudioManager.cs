@@ -8,4 +8,6 @@ public class AudioManager : PersistenSingleton<AudioManager>
 
     public AudioSource breatheInSound;
     public AudioSource breatheOutSound;
+
+    public AudioSource bubbleSound;
 }

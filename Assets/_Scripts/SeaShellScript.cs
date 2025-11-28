@@ -10,6 +10,9 @@ public class SeaShellScript : MonoBehaviour
 
     private bool inRange = false;
 
+    [SerializeField]
+    private AudioSource closeSound;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -43,5 +46,6 @@ public class SeaShellScript : MonoBehaviour
         {
             Debug.Log("Not in range");
         }
+        closeSound.Play();
     }
 }

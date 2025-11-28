@@ -182,6 +182,9 @@ public class BreathingScript : MonoBehaviour
                 noAirTimer += Time.deltaTime;
                 noAirText.text = noAirTimer.ToString("F2");
                 bubbleEffect.SendEvent("OnStop");
+                AudioManager.Instance.breatheOutSound.Stop();
+                AudioManager.Instance.breatheInSound.Stop();
+                AudioManager.Instance.bubbleSound.Stop();
                 //If you don't breathe in for too long, you die
                 if (noAirTimer >= 10f)
                 {
@@ -201,6 +204,7 @@ public class BreathingScript : MonoBehaviour
         isBreathingIn = true;
         bubbleEffect.SendEvent("OnStop");
         AudioManager.Instance.breatheOutSound.Stop();
+        AudioManager.Instance.bubbleSound.Stop();
         AudioManager.Instance.breatheInSound.Play();
         //Check used to punish those who didn't hold their breath
         if (hasHeldBreath)
@@ -260,12 +264,15 @@ public class BreathingScript : MonoBehaviour
             }
             AudioManager.Instance.breatheInSound.Stop();
             AudioManager.Instance.breatheOutSound.Play();
-        }
-        else if(breathingBar <= maxBreatheValue || breathingBar >= minBreatheValue)
-        {
+            AudioManager.Instance.bubbleSound.Play();
             bubbleEffect.SendEvent("OnPlay");
+        }
+        else if(breathingBar <= maxBreatheValue && breathingBar >= minBreatheValue)
+        {
+            bubbleEffect.SendEvent("OnStop");
             AudioManager.Instance.breatheOutSound.Stop();
             AudioManager.Instance.breatheInSound.Stop();
+            AudioManager.Instance.bubbleSound.Stop();
         }
         inhaleTimer = 0f;
         CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
@@ -276,6 +283,7 @@ public class BreathingScript : MonoBehaviour
         bubbleEffect.SendEvent("OnStop");
         AudioManager.Instance.breatheOutSound.Stop();
         AudioManager.Instance.breatheInSound.Stop();
+        AudioManager.Instance.bubbleSound.Stop();
         //Calculates the diffrence between the max and min oxygen values and halves them, used to check for perfect breathing
         breathValueDiffrence = (maxBreatheValue - minBreatheValue) * 0.5f;
         //If you start holding your breath at perfect time, you get no punishment
@@ -330,6 +338,7 @@ public class BreathingScript : MonoBehaviour
 
         AudioManager.Instance.breatheInSound.Stop();
         AudioManager.Instance.breatheOutSound.Play();
+        AudioManager.Instance.bubbleSound.Play();
 
         CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
     }
@@ -350,6 +359,9 @@ public class BreathingScript : MonoBehaviour
         holdingText.text = "";
         noAirText.text = "";
         bubbleEffect.SendEvent("OnStop");
+        AudioManager.Instance.breatheOutSound.Stop();
+        AudioManager.Instance.breatheInSound.Stop();
+        AudioManager.Instance.bubbleSound.Stop();
     }
 
 
@@ -384,6 +396,10 @@ public class BreathingScript : MonoBehaviour
         StartCoroutine(GameManager.Instance.PlayRespawnAnim());
         this.enabled = false;
         GameObjectTracker.Instance.Interacted("Died");
+        bubbleEffect.SendEvent("OnStop");
+        AudioManager.Instance.breatheOutSound.Stop();
+        AudioManager.Instance.breatheInSound.Stop();
+        AudioManager.Instance.bubbleSound.Stop();
     }
 
     private double GetScore()
