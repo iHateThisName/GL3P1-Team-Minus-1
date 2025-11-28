@@ -299,10 +299,14 @@ public class PlayerMovement : MonoBehaviour {
 
     // TODO The player input should not be handled here, but rather in a global script so it can me runned in scenes without the player
     private void OnPauseMenuToggle(InputAction.CallbackContext context) {
-        if (GameSceneManager.Instance.IsShopMenuLoaded) {
-            GameSceneManager.Instance.ToggleShopMenu();
+        if (GameManager.Instance.PostSignController.IsPlayerInteracting()) {
+            GameManager.Instance.PostSignController.Interact();
         } else {
-            GameSceneManager.Instance.TogglePauseMenu();
+            if (GameSceneManager.Instance.IsShopMenuLoaded) {
+                GameSceneManager.Instance.ToggleShopMenu();
+            } else {
+                GameSceneManager.Instance.TogglePauseMenu();
+            }
         }
     }
 

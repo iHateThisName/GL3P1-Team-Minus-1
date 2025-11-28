@@ -38,7 +38,7 @@ public class PostSignController : Interactable {
     [SerializeField] private InputActionReference moveActionReference;
 
     public override int GetValueAmount() => 0;
-
+    public bool IsPlayerInteracting() => this.isInteracted;
     public override void Interact() {
         if (!this.isPlayerInRange) return;
 
@@ -87,10 +87,10 @@ public class PostSignController : Interactable {
     }
 
     private IEnumerator Start() {
-
         ResetAllHoverInteractions();
         UpdateSignVisibility();
         UpdateCamera();
+        GameManager.Instance.PostSignController = this;
         return null;
     }
 
