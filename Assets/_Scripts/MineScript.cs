@@ -5,9 +5,12 @@ public class MineScript : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    [SerializeField]
+    private Transform lookAtPlayer;
+
     private void Update()
     {
-        transform.LookAt(GameManager.Instance.PlayerInteractTransform);
+        lookAtPlayer.LookAt(GameManager.Instance.PlayerInteractTransform);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,7 +19,7 @@ public class MineScript : MonoBehaviour
         {
             GameManager.Instance.BreathingScript.TakeDamage(damage);
 
-            GameManager.Instance.PlayerMovement.GetRigidbody().AddForce(transform.forward * 25f, ForceMode.Impulse);
+            GameManager.Instance.PlayerMovement.GetRigidbody().AddForce(lookAtPlayer.forward * 25f, ForceMode.Impulse);
 
             Destroy(this.gameObject);
         }
