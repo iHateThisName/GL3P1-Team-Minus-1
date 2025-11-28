@@ -200,6 +200,8 @@ public class BreathingScript : MonoBehaviour
     {
         isBreathingIn = true;
         bubbleEffect.SendEvent("OnStop");
+        AudioManager.Instance.breatheOutSound.Stop();
+        AudioManager.Instance.breatheInSound.Play();
         //Check used to punish those who didn't hold their breath
         if (hasHeldBreath)
         {
@@ -256,8 +258,14 @@ public class BreathingScript : MonoBehaviour
                 oxygenAmount -= oxygenLoss + oxygenPunishment;
                 oxygenPunishment = 0f;
             }
-
-            bubbleEffect.SendEvent("OnStop");
+            AudioManager.Instance.breatheInSound.Stop();
+            AudioManager.Instance.breatheOutSound.Play();
+        }
+        else if(breathingBar <= maxBreatheValue || breathingBar >= minBreatheValue)
+        {
+            bubbleEffect.SendEvent("OnPlay");
+            AudioManager.Instance.breatheOutSound.Stop();
+            AudioManager.Instance.breatheInSound.Stop();
         }
         inhaleTimer = 0f;
         CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
@@ -266,6 +274,8 @@ public class BreathingScript : MonoBehaviour
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
         isHoldingBreath = true;
         bubbleEffect.SendEvent("OnStop");
+        AudioManager.Instance.breatheOutSound.Stop();
+        AudioManager.Instance.breatheInSound.Stop();
         //Calculates the diffrence between the max and min oxygen values and halves them, used to check for perfect breathing
         breathValueDiffrence = (maxBreatheValue - minBreatheValue) * 0.5f;
         //If you start holding your breath at perfect time, you get no punishment
@@ -318,6 +328,9 @@ public class BreathingScript : MonoBehaviour
 
         bubbleEffect.SendEvent("OnPlay");
 
+        AudioManager.Instance.breatheInSound.Stop();
+        AudioManager.Instance.breatheOutSound.Play();
+
         CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
     }
 
@@ -336,7 +349,7 @@ public class BreathingScript : MonoBehaviour
         hasHeldBreath = true;
         holdingText.text = "";
         noAirText.text = "";
-        bubbleEffect.Stop();
+        bubbleEffect.SendEvent("OnStop");
     }
 
 

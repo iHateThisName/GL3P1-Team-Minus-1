@@ -103,7 +103,7 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         //FogController.Instance.DisableFogEffect();
 
-        AudioManager.Instance.underWaterSound.Stop();
+        AudioManager.Instance.underWaterSound.mute = true;
     }
 
     public void PlayerEnterOcean() {
@@ -119,7 +119,7 @@ public class GameManager : PersistenSingleton<GameManager> {
 
         //FogController.Instance.EnableFogEffect();
 
-        AudioManager.Instance.underWaterSound.Play();
+        AudioManager.Instance.underWaterSound.mute = false;
     }
 
     public void DropAllTreasure() {
