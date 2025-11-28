@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7970868354422472008, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -5719914414589681639, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -189,6 +193,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
       propertyPath: m_Name
       value: chest_closed
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481497940879842768, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
