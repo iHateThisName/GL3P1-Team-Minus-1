@@ -104,9 +104,24 @@ public class SunkenTreasure : Interactable {
         Debug.Log("Treasure collected! Player weight increased by " + this.weight);
 
         if (isStoryTreasure || isArtefact) {
-            if(isStoryTreasure && !GameManager.Instance.firstStoryCollected)
+            if(isStoryTreasure)
             {
-                GameManager.Instance.firstStoryCollected = true;
+                if (!GameManager.Instance.firstStoryCollected)
+                {
+                    GameManager.Instance.firstStoryCollected = true;
+                }
+                else if (!GameManager.Instance.secondStoryCollected)
+                {
+                    GameManager.Instance.secondStoryCollected = true;
+                }
+                else if (!GameManager.Instance.thirdStoryCollected)
+                {
+                    GameManager.Instance.thirdStoryCollected = true;
+                }
+                else if(!GameManager.Instance.fourthStoryCollected)
+                {
+                    GameManager.Instance.fourthStoryCollected = true;
+                }
             }
             GameManager.Instance.PlayerMovement.ResetMomentum();
             GameManager.Instance.PlayerMovement.enabled = false;

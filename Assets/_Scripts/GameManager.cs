@@ -35,14 +35,32 @@ public class GameManager : PersistenSingleton<GameManager> {
 
     public bool startedGame = true;
     public bool startedGameFinished;
+
     public bool firstTreasureCollected;
     public bool firstTreasureFinished;
-    public bool firstStoryCollected;
-    public bool firstStoryFinished;
+
     public bool firstSuitUpgrade;
     public bool firstSuitUpgradeFinished;
+
     public bool firstDied;
     public bool firstDiedFinished;
+
+    public bool firstStoryCollected;
+    public bool firstStoryFinished;
+
+    public bool secondStoryCollected;
+    public bool secondStoryFinished;
+
+    public bool thirdStoryCollected;
+    public bool thirdStoryFinished;
+
+    public bool fourthStoryCollected;
+    public bool fourthStoryFinished;
+
+    public bool secretDialougeTriggered;
+    public bool secretDialougeActive;
+    public bool secretDialougeFinished;
+
 
     private void Start() {
         QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate works
