@@ -452,28 +452,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181a44818799ff943bbb2e3ff1d8094a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialougeScript
-  dialougeStartAction:
-    m_Name: Dialouge Start
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: 9f71ec69-b646-4729-96f3-01052472c199
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 31b09593-326b-427e-945c-2c26f2e6fa86
-      m_Path: <Keyboard>/e
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Dialouge Start
-      m_Flags: 0
-    m_Flags: 0
+  dialougeStartAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dialougeText: {fileID: 4353435834887371988}
   dialouge:
     dialogLines: []
   playerInRange: 0
   lineNumber: 0
+  useScreenDialouge: 1
 --- !u!65 &433059321658413351
 BoxCollider:
   m_ObjectHideFlags: 0

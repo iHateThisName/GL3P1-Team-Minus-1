@@ -5,7 +5,7 @@ public class RopeScript : MonoBehaviour
 {
     //The action for cutting rope
     [SerializeField]
-    private InputAction cutAction;
+    private InputActionReference cutAction;
 
     [SerializeField]
     private ConstantForce treasure;
@@ -14,18 +14,12 @@ public class RopeScript : MonoBehaviour
 
     private void OnEnable()
     {
-        cutAction.Enable();
-
-        cutAction.performed += OnCutStarted;
-        cutAction.canceled += OnCutStopped;
+        cutAction.action.performed += OnCutStarted;
     }
 
     private void OnDisable()
     {
-        cutAction.Disable();
-
-        cutAction.performed -= OnCutStarted;
-        cutAction.canceled -= OnCutStopped;
+        cutAction.action.performed -= OnCutStarted;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,14 +44,6 @@ public class RopeScript : MonoBehaviour
         {
             treasure.enabled = true;
             Destroy(this.gameObject);
-        }
-    }
-
-    private void OnCutStopped(InputAction.CallbackContext context)
-    {
-        if (inRange)
-        {
-            Debug.Log("Cut action finished");
         }
     }
 }

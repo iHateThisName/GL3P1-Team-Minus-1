@@ -4,20 +4,16 @@ using UnityEngine.InputSystem;
 public class GodMode : MonoBehaviour
 {
     [SerializeField]
-    private InputAction modeActivatedAction;
+    private InputActionReference modeActivatedAction;
 
     void OnEnable()
     {
-        modeActivatedAction.Enable();
-
-        modeActivatedAction.performed += OnGodStarted;
+        modeActivatedAction.action.performed += OnGodStarted;
     }
 
     private void OnDisable()
     {
-        modeActivatedAction.Disable();
-
-        modeActivatedAction.canceled -= OnGodStarted;
+        modeActivatedAction.action.performed -= OnGodStarted;
     }
 
     void OnGodStarted(InputAction.CallbackContext context)

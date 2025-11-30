@@ -92,10 +92,10 @@ public class BreathingScript : MonoBehaviour
     [Header("Input Actions")]
     //The action for breathing in
     [SerializeField]
-    private InputAction breatheInAction;
+    private InputActionReference breatheInAction;
     //The action for breathing out
     [SerializeField]
-    private InputAction holdBreathAction;
+    private InputActionReference holdBreathAction;
 
     private void Awake()
     {
@@ -104,28 +104,22 @@ public class BreathingScript : MonoBehaviour
 
     //Enables and subscribes input actions when this script is enabled
     private void OnEnable() {
-        breatheInAction.Enable();
-        holdBreathAction.Enable();
+        breatheInAction.action.performed += OnBreatheInStarted;
+        breatheInAction.action.canceled += OnBreatheInStopped;
 
-        breatheInAction.performed += OnBreatheInStarted;
-        breatheInAction.canceled += OnBreatheInStopped;
-
-        holdBreathAction.performed += OnHoldBreathStarted;
-        holdBreathAction.canceled += OnHoldBreathStopped;
+        holdBreathAction.action.performed += OnHoldBreathStarted;
+        holdBreathAction.action.canceled += OnHoldBreathStopped;
 
         breathParent.SetActive(true);
     }
 
     //Disables and unsubscribes input actions when this script is disabled
     private void OnDisable() {
-        breatheInAction.Disable();
-        holdBreathAction.Disable();
+        breatheInAction.action.performed -= OnBreatheInStarted;
+        breatheInAction.action.canceled -= OnBreatheInStopped;
 
-        breatheInAction.performed -= OnBreatheInStarted;
-        breatheInAction.canceled -= OnBreatheInStopped;
-
-        holdBreathAction.performed -= OnHoldBreathStarted;
-        holdBreathAction.canceled -= OnHoldBreathStopped;
+        holdBreathAction.action.performed -= OnHoldBreathStarted;
+        holdBreathAction.action.canceled -= OnHoldBreathStopped;
 
         breathParent.SetActive(false);
     }

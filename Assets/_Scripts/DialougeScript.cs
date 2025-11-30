@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class DialougeScript : MonoBehaviour {
     [SerializeField]
-    private InputAction dialougeStartAction;
+    private InputActionReference dialougeStartAction;
 
     //A refrence to the dialouge text
     [SerializeField]
@@ -31,15 +31,11 @@ public class DialougeScript : MonoBehaviour {
     private bool hasDoneFirstDialouge = false;
 
     private void OnEnable() {
-        dialougeStartAction.Enable();
-
-        dialougeStartAction.performed += OnDialougeStarted;
+        dialougeStartAction.action.performed += OnDialougeStarted;
     }
 
     private void OnDisable() {
-        dialougeStartAction.Disable();
-
-        dialougeStartAction.canceled -= OnDialougeStarted;
+        dialougeStartAction.action.canceled -= OnDialougeStarted;
     }
 
     private void OnDialougeStarted(InputAction.CallbackContext context) {
