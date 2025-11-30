@@ -136,6 +136,57 @@ MonoBehaviour:
       - So whenever your oxygen starts getting low.
       - Get yourself to safety.
       - Can you do that?
+    - dialogLines:
+      - Does your mother know about...
+      - You know...
+      - All this?
+      - ...
+      - Not so, huh?
+      - I know you don't like talking about her all that much.
+      - How long has it been since you spoke with her?
+      - ...
+      - Sorry.
+      - I won't pry.
+    - dialogLines:
+      - I know you're not much for big groups and all, but I was thinking.
+      - Me and a few of my friends are going on a skiing trip next month.
+      - We rented two small cabins up in the mountains and stay there for a few days.
+      - I know you've never been much for group events and whatnot.
+      - But think about it, okay?
+      - She won't hurt you when you're with us.
+    - dialogLines:
+      - ...
+      - I can't pretend to know exactly what happened between you two.
+      - But what happened wasn't your fault.
+      - Don't blame yourself for the choices of others.
+      - I know it affects you a lot these days.
+      - And I know my words won't change what happened.
+      - But don't let the past drag you down.
+      - Main thing is to keep your head straight and move forward.
+    - dialogLines:
+      - I felt it too.
+      - The presence.
+      - There was a time where I felt like you do.
+      - When the sight of a stranger terrified me.
+      - My body shaking at the least sign of trouble.
+      - That voice in the back of my head telling me that something will go wrong.
+      - All the worst pain in the world couldn't commpare to the pain that the presence
+        gave me.
+      - There are days where it feels like it'll swarm you, drown you in that void.
+      - You'll feel like the world will never have color again.
+      - But listen to me carefully.
+      - No matter how hard you fight it, no matter how hard you ignore it.
+      - It'll always be there.
+      - Somewhere, in the back of your mind.
+      - Not being able to get rid of it made me feel pathetic.
+      - I couldn't understand why something so small wouldn't go away.
+      - But a good friend of mine helped me get through it.
+      - If you can't fight it, or get rid of it.
+      - Then the best you can do is to accept it.
+      - Live with it.
+      - I know it's hard.
+      - But please.
+      - Live.
     genericDialouges:
     - dialogLines:
       - Wow, so cool
