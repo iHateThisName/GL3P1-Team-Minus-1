@@ -119,6 +119,23 @@ MonoBehaviour:
       - So don't worry if you feel intimidated by the depth.
       - You can travel quickly to and from.
       - So, good luck.
+    - dialogLines:
+      - You alright?
+      - I was worried that you might have pushed yourself too far.
+      - Had to pull you out of there quickly.
+      - But, it seem to be alright.
+      - I know it must be frustrating. Starting over again.
+      - Must be exhausting. It's a long way down to the bottom.
+      - But you'll get there eventually.
+      - I know it's tempting to just jump in there. "Get it over with".
+      - But please.
+      - Be careful. Take your time.
+      - Being reckless won't help you.
+      - You have to face the depths, no matter what you do.
+      - Otherwise you'll be stuck up here for the rest of your life.
+      - So whenever your oxygen starts getting low.
+      - Get yourself to safety.
+      - Can you do that?
     genericDialouges:
     - dialogLines:
       - Wow, so cool

@@ -41,6 +41,8 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool firstStoryFinished;
     public bool firstSuitUpgrade;
     public bool firstSuitUpgradeFinished;
+    public bool firstDied;
+    public bool firstDiedFinished;
 
     private void Start() {
         QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate works

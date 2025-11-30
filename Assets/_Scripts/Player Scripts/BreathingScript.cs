@@ -400,6 +400,10 @@ public class BreathingScript : MonoBehaviour
         AudioManager.Instance.breatheOutSound.Stop();
         AudioManager.Instance.breatheInSound.Stop();
         AudioManager.Instance.bubbleSound.Stop();
+        if(GameManager.Instance.firstDied != true)
+        {
+            GameManager.Instance.firstDied = true;
+        }
     }
 
     private double GetScore()

@@ -65,6 +65,12 @@ public class DialougeLookUpManager : Singleton<DialougeLookUpManager>
                     GameManager.Instance.firstSuitUpgradeFinished = true;
                     return dialogTree.storyDialouges[3];
                 }
+                else if (!GameManager.Instance.firstDiedFinished && GameManager.Instance.firstDied)
+                {
+                    if (this.isInDebugMode) Debug.Log("Returning first death dialogue");
+                    GameManager.Instance.firstDiedFinished = true;
+                    return dialogTree.storyDialouges[4];
+                }
                 else
                 {
                     int randomIndex = Random.Range(0, dialogTree.genericDialouges.Count);
