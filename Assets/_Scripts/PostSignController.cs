@@ -37,11 +37,12 @@ public class PostSignController : Interactable {
     [Header("Player Actions")]
     [SerializeField] private InputActionReference moveActionReference;
 
+    private bool isPerformingDelayedAction = false;
+
     public override int GetValueAmount() => 0;
     public bool IsPlayerInteracting() => this.isInteracted;
     public override void Interact() {
-        if (!this.isPlayerInRange) return;
-
+        if (!this.isPlayerInRange || isPerformingDelayedAction) return;
         // Toggle interaction state
         this.isInteracted = !this.isInteracted;
 
@@ -60,19 +61,25 @@ public class PostSignController : Interactable {
                 OnHoverChange(available[0]);
             }
             GameManager.Instance.IsPlayerMovementEnabled = false;
+
         } else {
             GameManager.Instance.IsPlayerMovementEnabled = true;
             if (this.currentHoverCheckPoint != CheckPointManager.EnumCheckPoint.None) {
                 // Teleport to selected checkpoint
-                CheckPointManager.Instance.SetCurrentCheckPoint(this.currentHoverCheckPoint);
-                CheckPointManager.Instance.UseCheckpoint();
+                StartCoroutine(SignTeleport());
+            } else {
             }
 
             ResetAllHoverInteractions();
         }
-        Debug.Log("Interacted with Post Sign.");
     }
 
+    private IEnumerator SignTeleport() {
+        this.isPerformingDelayedAction = true;
+        CheckPointManager.Instance.SetCurrentCheckPoint(this.currentHoverCheckPoint);
+        yield return CheckPointManager.Instance.UseCheckpointCoroutine();
+        this.isPerformingDelayedAction = false;
+    }
 
     private void UpdateCamera() {
         Camera mainCamera = Camera.main;
@@ -102,6 +109,8 @@ public class PostSignController : Interactable {
     private void OnMoveAction(InputAction.CallbackContext context) {
         if (!this.isInteracted) return; // only process move input when interacted
         if (context.performed) {
+            if (this.isPerformingDelayedAction) return;
+
             Vector2 moveInput = context.ReadValue<Vector2>();
 
             // Check if moving left or right
