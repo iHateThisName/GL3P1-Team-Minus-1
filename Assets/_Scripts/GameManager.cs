@@ -91,7 +91,7 @@ public class GameManager : PersistenSingleton<GameManager> {
         PlayerMovement.fastAcceleration += 4f;
         PlayerMovement.normalSpeed += 2f;
         PlayerMovement.fastSpeed += 2f;
-        BreathingScript.upgradeValue -= 0.1f;
+        BreathingScript.upgradeValue -= 0.15f;
     }
 
     // Deletes the saved game state
