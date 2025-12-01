@@ -185,11 +185,11 @@ PrefabInstance:
     - target: {fileID: -5719914414589681639, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1376448c610f7e945a3979268553f856, type: 2}
+      objectReference: {fileID: 2100000, guid: 3825e61077df6f94dab7b2f3b5e46dd0, type: 2}
     - target: {fileID: -5481070343548110531, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1376448c610f7e945a3979268553f856, type: 2}
+      objectReference: {fileID: 2100000, guid: 24b23a4d0613f7949af33648bd30b495, type: 2}
     - target: {fileID: 919132149155446097, guid: 92e82d69aaa3c144b82c0bd184441e18, type: 3}
       propertyPath: m_Name
       value: chest_closed
