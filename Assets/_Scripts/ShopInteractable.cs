@@ -66,9 +66,7 @@ public class ShopInteractable : Interactable {
 
         this.isInteracted = !this.isInteracted;
         UpdateCamera();
-
         if (this.isInteracted) {
-            this.shopSellButton.gameObject.SetActive(true);
             OnShopOpened();
         } else {
 
@@ -178,12 +176,17 @@ public class ShopInteractable : Interactable {
     }
 
     private void OnShopOpened() {
+        this.shopSellButton.gameObject.SetActive(true);
         GameManager.Instance.IsPlayerMovementEnabled = false;
         HoverFlower(EnumShopGrid.OneOne);
         AudioManager.Instance.shopEnterAndExit.Play();
+
+        this.shopSellButton.GetComponent<Button>().onClick.AddListener(GameManager.Instance.UIShopManager.OnSellButton);
     }
 
     public void OnShopClosed() {
+        this.shopSellButton.GetComponent<Button>().onClick.RemoveAllListeners();
+
         UnhoverFlower(this.currentHoverdGrid);
         this.currentHoverdGrid = EnumShopGrid.None;
         this.shopSellButton.gameObject.SetActive(false);

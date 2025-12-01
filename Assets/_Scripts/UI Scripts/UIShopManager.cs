@@ -37,7 +37,7 @@ public class UIShopManager : MonoBehaviour {
         GameManager.Instance.UIShopManager = this;
     }
 
-    private void OnSellButton() {
+    public void OnSellButton() {
         collectedValueAmount = GameManager.Instance.GetHeldItemsValue();
         GameManager.Instance.Money += collectedValueAmount;
         Debug.Log($"Sold items for {collectedValueAmount}$");
@@ -46,7 +46,7 @@ public class UIShopManager : MonoBehaviour {
         foreach (Interactable item in heldItems) {
             Destroy(item.gameObject);
         }
-        this.sellButtonText.text = $"Sell 0$";
+        //this.sellButtonText.text = $"Sell 0";
         GameManager.Instance.BreathingScript.weightValue = 0f;
         UpdateMoney();
     }
@@ -126,14 +126,19 @@ public class UIShopManager : MonoBehaviour {
     public void UpdateMoney() {
 
         string moneyString = GameManager.Instance.Money.ToString();
+        moneyString = FormatMoneyString(moneyString);
 
+        moneyText.text = "$" + moneyString;
+    }
+
+    private static string FormatMoneyString(string moneyString) {
         if (moneyString.Length > 3) {
             moneyString = moneyString.Insert(moneyString.Length - 3, " ");
-            if (moneyString.Length > 7) { // 6 + 1 comma
+            if (moneyString.Length > 7) { // 6 + 1 space
                 moneyString = moneyString.Insert(moneyString.Length - 7, " ");
             }
         }
 
-        moneyText.text = "$" + moneyString;
+        return moneyString;
     }
 }
