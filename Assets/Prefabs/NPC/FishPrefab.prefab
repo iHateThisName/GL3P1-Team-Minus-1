@@ -166,6 +166,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 24.799774
       objectReference: {fileID: 0}
+    - target: {fileID: -3887185075125053422, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68ecbf46bd5dd9c48bf3cafcdfbd25ac, type: 2}
     - target: {fileID: 919132149155446097, guid: e609db28008bf974d945e5f4b83634e4, type: 3}
       propertyPath: m_Name
       value: Fish Long
