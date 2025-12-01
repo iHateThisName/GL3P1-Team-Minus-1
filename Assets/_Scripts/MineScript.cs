@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MineScript : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class MineScript : MonoBehaviour
 
     [SerializeField]
     private Transform lookAtPlayer;
+
+    [SerializeField]
+    private VisualEffect explosionEffect;
 
     private void Update()
     {
@@ -20,6 +25,9 @@ public class MineScript : MonoBehaviour
             GameManager.Instance.BreathingScript.TakeDamage(damage);
 
             GameManager.Instance.PlayerMovement.GetRigidbody().AddForce(lookAtPlayer.forward * 25f, ForceMode.Impulse);
+
+            VisualEffect obj = Instantiate(explosionEffect);
+            obj.transform.position = transform.position;
 
             Destroy(this.gameObject);
         }

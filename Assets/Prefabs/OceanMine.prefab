@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MineScript
   damage: 300
   lookAtPlayer: {fileID: 1911766848774607385}
+  explosionEffect: {fileID: 1103554152408652956, guid: 3ef7d0cc4c3c14147bee521c0e208995, type: 3}
 --- !u!135 &8270205877015638265
 SphereCollider:
   m_ObjectHideFlags: 0
