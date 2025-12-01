@@ -96,7 +96,7 @@ public class DialougeScript : MonoBehaviour {
     private void ShowNextLine() {
         if (this.useScreenDialouge) {
             if (ScreenDialouge.Instance.isPlayingDialogLine) {
-                ScreenDialouge.Instance.speedUpFactor = 0.5f;
+                ScreenDialouge.Instance.speedUpFactor -= 0.5f;
             } else {
                 StartCoroutine(GlobalNextLine(dialouge.dialogLines[this.lineNumber]));
             }
