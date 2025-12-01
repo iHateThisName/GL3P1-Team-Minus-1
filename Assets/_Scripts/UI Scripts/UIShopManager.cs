@@ -124,6 +124,16 @@ public class UIShopManager : MonoBehaviour {
     }
 
     public void UpdateMoney() {
-        moneyText.text = GameManager.Instance.Money.ToString() + "$";
+
+        string moneyString = GameManager.Instance.Money.ToString();
+
+        if (moneyString.Length > 3) {
+            moneyString = moneyString.Insert(moneyString.Length - 3, " ");
+            if (moneyString.Length > 7) { // 6 + 1 comma
+                moneyString = moneyString.Insert(moneyString.Length - 7, " ");
+            }
+        }
+
+        moneyText.text = "$" + moneyString;
     }
 }
