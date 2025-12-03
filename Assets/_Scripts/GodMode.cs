@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Xasu.Util;
 
-public class GodMode : MonoBehaviour {
+public class GodMode : Singleton<GodMode> {
     [SerializeField]
     private InputActionReference modeActivatedAction;
 
@@ -13,7 +14,7 @@ public class GodMode : MonoBehaviour {
         modeActivatedAction.action.performed -= OnGodStarted;
     }
 
-    void OnGodStarted(InputAction.CallbackContext context) {
+    public void OnGodStarted(InputAction.CallbackContext context) {
         GameManager.Instance.BreathingScript.DisableBreathing();
         GameManager.Instance.BreathingScript.enabled = false;
         CheckPointManager.Instance.UnlockAllCheckpoints();

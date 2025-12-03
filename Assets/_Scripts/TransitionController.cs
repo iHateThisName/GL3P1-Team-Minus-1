@@ -9,11 +9,16 @@ public class TransitionController : Singleton<TransitionController> {
     [SerializeField] private Animator transitionAnimator;
     public bool isFadedOut { private set; get; } = false;
 
-    private readonly struct AnimatorParameters {
+    public readonly struct AnimatorParameters {
         public const string FadeOutTrigger = "StartFadeOutTransitionTrigger";
         public const string FadeInTrigger = "StartFadeInTransitionTrigger";
+        public const string FadeInBlackAndWhiteTrigger = "BlackWhiteFadeInTrigger";
+        public const string FadeOutBlackAndWhiteTrigger = "BlackWhiteFadeOutTrigger";
+
         public const string FadeOutState = "FadeOut";
         public const string FadeInState = "FadeIn";
+        public const string BlackWhiteFadeInState = "BlackWhiteFadeIn";
+        public const string BlackWhiteFadeOutState = "BlackWhiteFadeOut";
     }
     [ContextMenu("Start Fade Transition")]
     public void StartFadeTransition() {
@@ -24,6 +29,29 @@ public class TransitionController : Singleton<TransitionController> {
         transitionAnimator.SetTrigger(AnimatorParameters.FadeOutTrigger);
         yield return StartCoroutine(WaitForAnimationToFinish(AnimatorParameters.FadeOutState));
     }
+
+    private IEnumerator TransitionCoroutine(string trigger, string state) {
+        // the parameters should be a field value from AnimatorParameters
+        transitionAnimator.SetTrigger(trigger);
+        yield return StartCoroutine(WaitForAnimationToFinish(trigger));
+    }
+
+    public void RollCredits() => StartCoroutine(RollCreditsCorutine());
+
+    private IEnumerator RollCreditsCorutine() {
+        transitionAnimator.SetTrigger(AnimatorParameters.FadeOutBlackAndWhiteTrigger);
+        yield return new WaitForSecondsRealtime(3f);
+        GameSceneManager.Instance.UnloadeScene(EnumScene.GameScene);
+        GameSceneManager.Instance.LoadScene(EnumScene.MainMenu);
+        yield return new WaitForSecondsRealtime(3f);
+        this.transitionAnimator.SetTrigger(AnimatorParameters.FadeInBlackAndWhiteTrigger);
+
+        //yield return StartCoroutine(TransitionCoroutine(AnimatorParameters.FadeOutBlackAndWhiteTrigger, AnimatorParameters.BlackWhiteFadeOutState));
+        //GameSceneManager.Instance.UnloadeScene(EnumScene.GameScene);
+        //yield return StartCoroutine(GameSceneManager.Instance.LoadSceneCoroutine(EnumScene.GameScene, UnityEngine.SceneManagement.LoadSceneMode.Additive));
+        //yield return StartCoroutine(TransitionCoroutine(AnimatorParameters.FadeInBlackAndWhiteTrigger, AnimatorParameters.BlackWhiteFadeInState));
+    }
+
     public IEnumerator FadeInCoroutine() {
         transitionAnimator.SetTrigger(AnimatorParameters.FadeInTrigger);
         yield return StartCoroutine(WaitForAnimationToFinish(AnimatorParameters.FadeInState));

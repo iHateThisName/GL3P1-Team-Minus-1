@@ -1,12 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
-using Xasu.HighLevel;
 using UnityEngine.VFX;
+using Xasu.HighLevel;
 
-public class BreathingScript : MonoBehaviour
-{
+public class BreathingScript : MonoBehaviour {
     [Header("Breathing values")]
     //The bar that rises up and down depending on your breathing
     [SerializeField]
@@ -97,8 +96,7 @@ public class BreathingScript : MonoBehaviour
     [SerializeField]
     private InputActionReference holdBreathAction;
 
-    private void Awake()
-    {
+    private void Awake() {
         GameManager.Instance.BreathingScript = this;
     }
 
@@ -141,8 +139,7 @@ public class BreathingScript : MonoBehaviour
         oxygenSlider.value = oxygenAmount;
 
         //If you run out of oxygen, you die :)
-        if(oxygenAmount <= 0f)
-        {
+        if (oxygenAmount <= 0f) {
             Die();
         }
     }
@@ -154,8 +151,7 @@ public class BreathingScript : MonoBehaviour
             breathingBar += (breathingSpeed + sprintMultiplier + (weightValue * upgradeValue)) * Time.deltaTime;
             inhaleTimer += Time.deltaTime;
             //If you breathe in for too long, you die
-            if(inhaleTimer >= 12f)
-            {
+            if (inhaleTimer >= 12f) {
                 Die();
             }
         }
@@ -164,15 +160,14 @@ public class BreathingScript : MonoBehaviour
             holdingTimer += Time.deltaTime;
             holdingText.text = holdingTimer.ToString("F2");
             //If you hold your breath for too long, you die
-            if(holdingTimer >= 15f)
-            {
+            if (holdingTimer >= 15f) {
                 Die();
             }
         }
         //If you're breathing out, the breathing bar goes down
         else if (isBreathingOut) {
             //If you have already reached the bottom, the breathing bar stays in place and the the no air timer is displayed
-            if(breathingBar <= 0f) {
+            if (breathingBar <= 0f) {
                 noAirTimer += Time.deltaTime;
                 noAirText.text = noAirTimer.ToString("F2");
                 bubbleEffect.SendEvent("OnStop");
@@ -180,8 +175,7 @@ public class BreathingScript : MonoBehaviour
                 AudioManager.Instance.breatheInSound.Stop();
                 AudioManager.Instance.bubbleSound.Stop();
                 //If you don't breathe in for too long, you die
-                if (noAirTimer >= 10f)
-                {
+                if (noAirTimer >= 10f) {
                     Die();
                 }
             }
@@ -193,40 +187,33 @@ public class BreathingScript : MonoBehaviour
     }
 
     //Action for starting your breathing
-    private void OnBreatheInStarted(InputAction.CallbackContext context)
-    {
+    private void OnBreatheInStarted(InputAction.CallbackContext context) {
         isBreathingIn = true;
         bubbleEffect.SendEvent("OnStop");
         AudioManager.Instance.breatheOutSound.Stop();
         AudioManager.Instance.bubbleSound.Stop();
         AudioManager.Instance.breatheInSound.Play();
         //Check used to punish those who didn't hold their breath
-        if (hasHeldBreath)
-        {
+        if (hasHeldBreath) {
             hasHeldBreath = false;
-        }
-        else
-        {
+        } else {
             oxygenAmount -= oxygenLoss + oxygenPunishment + 15f;
             oxygenPunishment = 0f;
             hasHeldBreath = false;
         }
         //If you start breathing perfectly, you gain no punishment
-        if (breathingBar <= 4f && noAirTimer <= 0f)
-        {
+        if (breathingBar <= 4f && noAirTimer <= 0f) {
             Debug.Log("Started breathing at perfect time");
             correctImage.color = Color.darkGreen;
         }
         //If you start breathing correctly, but not perfectly, you will gain a small punishment
-        else if (breathingBar <= 4f && noAirTimer <= 3f && noAirTimer > 0f)
-        {
+        else if (breathingBar <= 4f && noAirTimer <= 3f && noAirTimer > 0f) {
             Debug.Log("Started breathing at correct time");
             correctImage.color = Color.green;
             oxygenPunishment += 4f;
         }
         //If you start breathing at the wrong time, you lose quite a bit of air
-        else
-        {
+        else {
             Debug.Log("Started breathing too early or too late");
             oxygenPunishment += 10f;
             correctImage.color = Color.red;
@@ -238,21 +225,19 @@ public class BreathingScript : MonoBehaviour
 
         CompletableTracker.Instance.Initialized("Breathing").WithResultExtension("Score", GetScore());
 
-        
+
     }
     //Action for stopping breathing in
     private void OnBreatheInStopped(InputAction.CallbackContext context) {
         isBreathingIn = false;
         //If you stop inhaling at the wrong time, you get punished
-        if (breathingBar > maxBreatheValue || breathingBar < minBreatheValue)
-        {
+        if (breathingBar > maxBreatheValue || breathingBar < minBreatheValue) {
             Debug.Log("Inhaled for too long or too short");
             oxygenPunishment += 10f;
             correctImage.color = Color.red;
 
             //If you aren't holding your breath, you lose the oxygen you were meant to losse
-            if(!isHoldingBreath)
-            {
+            if (!isHoldingBreath) {
                 oxygenAmount -= oxygenLoss + oxygenPunishment;
                 oxygenPunishment = 0f;
             }
@@ -260,9 +245,7 @@ public class BreathingScript : MonoBehaviour
             AudioManager.Instance.breatheOutSound.Play();
             AudioManager.Instance.bubbleSound.Play();
             bubbleEffect.SendEvent("OnPlay");
-        }
-        else if(breathingBar <= maxBreatheValue && breathingBar >= minBreatheValue)
-        {
+        } else if (breathingBar <= maxBreatheValue && breathingBar >= minBreatheValue) {
             bubbleEffect.SendEvent("OnStop");
             AudioManager.Instance.breatheOutSound.Stop();
             AudioManager.Instance.breatheInSound.Stop();
@@ -281,13 +264,12 @@ public class BreathingScript : MonoBehaviour
         //Calculates the diffrence between the max and min oxygen values and halves them, used to check for perfect breathing
         breathValueDiffrence = (maxBreatheValue - minBreatheValue) * 0.5f;
         //If you start holding your breath at perfect time, you get no punishment
-        if (breathingBar >= minBreatheValue && breathingBar <= minBreatheValue + breathValueDiffrence)
-        {
+        if (breathingBar >= minBreatheValue && breathingBar <= minBreatheValue + breathValueDiffrence) {
             Debug.Log("Started holding at perfect time");
             correctImage.color = Color.darkGreen;
         }
         //If you start holding your breath at imperfect time, you gain a small punishment
-        else if(breathingBar > minBreatheValue + breathValueDiffrence && breathingBar <= maxBreatheValue) {
+        else if (breathingBar > minBreatheValue + breathValueDiffrence && breathingBar <= maxBreatheValue) {
             Debug.Log("Started holding at correct time");
             oxygenPunishment += 4f;
             correctImage.color = Color.green;
@@ -306,13 +288,12 @@ public class BreathingScript : MonoBehaviour
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
         isHoldingBreath = false;
         //If you stop holding your breath at perfect time, you gain no punishment
-        if(holdingTimer >= 4f && holdingTimer < 5f)
-        {
+        if (holdingTimer >= 4f && holdingTimer < 5f) {
             Debug.Log("Held breath for the perfect amount of time");
             correctImage.color = Color.darkGreen;
         }
         //If you stop holding your breath at imperfect time, you gain a small punishment
-        else if(holdingTimer >= 5f && holdingTimer <= 7f) {
+        else if (holdingTimer >= 5f && holdingTimer <= 7f) {
             Debug.Log("Held breath for the correct amount of time");
             oxygenPunishment += 4f;
             correctImage.color = Color.green;
@@ -338,8 +319,7 @@ public class BreathingScript : MonoBehaviour
     }
 
     //Method for resetting everything
-    public void DisableBreathing()
-    {
+    public void DisableBreathing() {
         oxygenAmount = intendedOxygen;
         oxygenPunishment = 0f;
         breathingBar = 0f;
@@ -363,8 +343,7 @@ public class BreathingScript : MonoBehaviour
     /// Increases the player's weight by the specified amount
     /// </summary>
     /// <param name="amount">How much to increase by</param>
-    public void IncreaseWeight(float amount)
-    {
+    public void IncreaseWeight(float amount) {
         this.weightValue += amount;
     }
 
@@ -372,19 +351,16 @@ public class BreathingScript : MonoBehaviour
     /// Decreases the player's weight by the specified amount
     /// </summary>
     /// <param name="amount">How much to decrease by</param>
-    public void DecreaseWeight(float amount)
-    {
+    public void DecreaseWeight(float amount) {
         this.weightValue -= amount;
     }
 
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(int damage) {
         oxygenAmount -= damage;
     }
 
     //Method for dying
-    private void Die()
-    {
+    private void Die() {
         GameManager.Instance.PlayerMovement.isUnderWater = false;
         DisableBreathing();
         StartCoroutine(GameManager.Instance.PlayRespawnAnim());
@@ -394,14 +370,12 @@ public class BreathingScript : MonoBehaviour
         AudioManager.Instance.breatheOutSound.Stop();
         AudioManager.Instance.breatheInSound.Stop();
         AudioManager.Instance.bubbleSound.Stop();
-        if(GameManager.Instance.firstDied != true)
-        {
+        if (GameManager.Instance.firstDied != true) {
             GameManager.Instance.firstDied = true;
         }
     }
 
-    private double GetScore()
-    {
+    private double GetScore() {
         return correctImage.color == Color.darkGreen ? 10.0 : (correctImage.color == Color.green ? 5.0 : 0.0);
     }
 }

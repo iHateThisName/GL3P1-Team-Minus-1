@@ -8,11 +8,13 @@ public class UIMainMenuController : MonoBehaviour {
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button howToPlayButton;
+    [SerializeField] private Transform finishedGameContainer;
 
     private void Awake() {
         this.newGameButton.gameObject.SetActive(false);
         this.continueButton.gameObject.SetActive(false);
         this.howToPlayButton.gameObject.SetActive(false);
+        this.finishedGameContainer.gameObject.SetActive(false);
     }
 
     private IEnumerator Start() {
@@ -35,6 +37,10 @@ public class UIMainMenuController : MonoBehaviour {
         this.howToPlayButton.gameObject.SetActive(true);
 
         this.howToPlayButton.onClick.AddListener(() => OnHowToPlayPressed());
+
+        if (GameManager.Instance.endingTriggered) {
+            this.finishedGameContainer.gameObject.SetActive(true);
+        }
 
 #if UNITY_WEBGL
         this.howToPlayButton.interactable = false;

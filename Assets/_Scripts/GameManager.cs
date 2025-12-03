@@ -61,6 +61,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public bool secretDialougeActive;
     public bool secretDialougeFinished;
 
+    public bool endingTriggered = false;
 
     private void Start() {
         QualitySettings.vSyncCount = 0; // Disable VSync so targetFrameRate works
@@ -92,6 +93,18 @@ public class GameManager : PersistenSingleton<GameManager> {
         PlayerMovement.normalSpeed += 2f;
         PlayerMovement.fastSpeed += 2f;
         BreathingScript.upgradeValue -= 0.15f;
+    }
+
+    public void SlowDownPlayer() {
+        GodMode.Instance.OnGodStarted(new UnityEngine.InputSystem.InputAction.CallbackContext()); // TODO REMOVE
+        this.PlayerMovement.isSlowedDown = true; // W? NONONON
+
+        // SLOW
+        PlayerMovement.smallAcceleration = 5f;
+        PlayerMovement.fastAcceleration = 10f;
+        PlayerMovement.normalSpeed = 3f;
+        PlayerMovement.fastSpeed = 6f;
+        BreathingScript.upgradeValue = 1f;
     }
 
     // Deletes the saved game state

@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float camTransitionSpeed = 0.1f;
 
     public bool zoomedOut = false;
+    public bool isSlowedDown = false;
 
     //[SerializeField] private InputActionReference moveActionRef; <-- This seems to be a cool way to do it for the new input system.
 
@@ -101,8 +102,7 @@ public class PlayerMovement : MonoBehaviour {
         this.playerInput.actions["Sprint"].canceled -= OnSprintCancel;
     }
 
-    private void Update()
-    {
+    private void Update() {
         UpdateCamera();
     }
 
@@ -110,27 +110,25 @@ public class PlayerMovement : MonoBehaviour {
         // Check if the movment is disabled
         if (!GameManager.Instance.IsPlayerMovementEnabled) return;
 
+        if (this.isSlowedDown && this.input.y > 0) {
+            this.input.y = 0;
+        }
+
         if (isGrounded) {
             rb.linearDamping = groundDrag;
         } else {
             rb.linearDamping = 0;
         }
 
-        if(!inCutscene)
-        {
+        if (!inCutscene) {
             //If the player is above water, normal movement applies
-            if (!this.isUnderWater)
-            {
-                if (rb.useGravity != true)
-                {
+            if (!this.isUnderWater) {
+                if (rb.useGravity != true) {
                     rb.useGravity = true;
                 }
-                if (input != Vector2.zero)
-                {
+                if (input != Vector2.zero) {
                     MovePlayer();
-                }
-                else
-                {
+                } else {
                     rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
                     anim.SetBool("IsWalking", false);
                     anim.SetBool("IsRunning", false);
@@ -141,10 +139,8 @@ public class PlayerMovement : MonoBehaviour {
                 }
             }
             //If they're underneath the water, the water movement applies
-            else
-            {
-                if (rb.useGravity != false)
-                {
+            else {
+                if (rb.useGravity != false) {
                     rb.useGravity = false;
                 }
                 UnderwaterMovement();
@@ -162,65 +158,38 @@ public class PlayerMovement : MonoBehaviour {
         }*/
     }
 
-    private void UpdateRotation()
-    {
-        if (!this.isUnderWater)
-        {
+    private void UpdateRotation() {
+        if (!this.isUnderWater) {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
 
-            if (input.x > 0f)
-            {
+            if (input.x > 0f) {
                 targetRotation = Quaternion.Euler(0, 0, 0); // facing right
-            }
-            else if (input.x < 0f)
-            {
+            } else if (input.x < 0f) {
                 targetRotation = Quaternion.Euler(0, 180f, 0); // facing left
             }
-        }
-        else
-        {
-            if (input.x > 0f)
-            {
-                if(input.y > 0f)
-                {
+        } else {
+            if (input.x > 0f) {
+                if (input.y > 0f) {
                     targetRotation = Quaternion.Euler(0, 0, 45f);
-                }
-                else if(input.y < 0f)
-                {
+                } else if (input.y < 0f) {
                     targetRotation = Quaternion.Euler(0, 0, -45f);
-                }
-                else
-                {
+                } else {
                     targetRotation = Quaternion.Euler(0, 0, 0);
                 }
-            }
-            else if (input.x < 0f)
-            {
-                if (input.y > 0f)
-                {
+            } else if (input.x < 0f) {
+                if (input.y > 0f) {
                     targetRotation = Quaternion.Euler(0, 180f, 45f);
-                }
-                else if(input.y < 0f)
-                {
+                } else if (input.y < 0f) {
                     targetRotation = Quaternion.Euler(0, 180f, -45f);
-                }
-                else
-                {
+                } else {
                     targetRotation = Quaternion.Euler(0, 180f, 0);
                 }
-            }
-            else
-            {
-                if (input.y > 0f)
-                {
+            } else {
+                if (input.y > 0f) {
                     targetRotation = Quaternion.Euler(0, 0, 90f);
-                }
-                else if (input.y < 0f)
-                {
+                } else if (input.y < 0f) {
                     targetRotation = Quaternion.Euler(0, 0, -90f);
-                }
-                else
-                {
+                } else {
                     targetRotation = Quaternion.Euler(0, 0, 0);
                 }
             }
@@ -229,43 +198,27 @@ public class PlayerMovement : MonoBehaviour {
         model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
     }
 
-    private void UpdateCamera()
-    {
-        if(zoomedOut)
-        {
-            if(cam.CameraDistance < farCamAngle.x)
-            {
+    private void UpdateCamera() {
+        if (zoomedOut) {
+            if (cam.CameraDistance < farCamAngle.x) {
                 cam.CameraDistance += camTransitionSpeed * Time.deltaTime;
-            }
-            else
-            {
+            } else {
                 cam.CameraDistance = farCamAngle.x;
             }
-            if (cam.Composition.ScreenPosition.y > farCamAngle.y)
-            {
+            if (cam.Composition.ScreenPosition.y > farCamAngle.y) {
                 cam.Composition.ScreenPosition.y -= camTransitionSpeed * Time.deltaTime;
-            }
-            else
-            {
+            } else {
                 cam.Composition.ScreenPosition.y = farCamAngle.y;
             }
-        }
-        else
-        {
-            if (cam.CameraDistance > closeCamAngle.x)
-            {
+        } else {
+            if (cam.CameraDistance > closeCamAngle.x) {
                 cam.CameraDistance -= camTransitionSpeed * Time.deltaTime;
-            }
-            else
-            {
+            } else {
                 cam.CameraDistance = closeCamAngle.x;
             }
-            if (cam.Composition.ScreenPosition.y < closeCamAngle.y)
-            {
+            if (cam.Composition.ScreenPosition.y < closeCamAngle.y) {
                 cam.Composition.ScreenPosition.y += camTransitionSpeed * Time.deltaTime;
-            }
-            else
-            {
+            } else {
                 cam.Composition.ScreenPosition.y = closeCamAngle.y;
             }
         }
@@ -316,22 +269,16 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsLandIdle", false);
         anim.SetBool("IsWalking", false);
         anim.SetBool("IsRunning", false);
-        if (input != Vector2.zero)
-        {
+        if (input != Vector2.zero) {
             anim.SetBool("IsIdleSwim", false);
-            if (isSprinting)
-            {
+            if (isSprinting) {
                 anim.SetBool("IsSwimming", false);
                 anim.SetBool("IsFastSwimming", true);
-            }
-            else
-            {
+            } else {
                 anim.SetBool("IsFastSwimming", false);
                 anim.SetBool("IsSwimming", true);
             }
-        }
-        else
-        {
+        } else {
             anim.SetBool("IsSwimming", false);
             anim.SetBool("IsFastSwimming", false);
             anim.SetBool("IsIdleSwim", true);
@@ -369,18 +316,16 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsFastSwimming", false);
         anim.SetBool("IsLandIdle", false);
 
-        if(isSprinting)
-        {
+        if (isSprinting) {
             anim.SetBool("IsWalking", false);
             anim.SetBool("IsRunning", true);
-        }
-        else
-        {
+        } else {
             anim.SetBool("IsRunning", false);
             anim.SetBool("IsWalking", true);
         }
 
         //rb.linearVelocity = new Vector3((input.x * speed) * Time.fixedDeltaTime, 0f, 0f);
+
         Vector3 finalSpeed = new Vector3(input.x * moveSpeed, 0f, 0f);
         //rb.AddForce(walkSpeed);
         rb.linearVelocity = new Vector3(finalSpeed.x, rb.linearVelocity.y, 0f);
@@ -409,8 +354,7 @@ public class PlayerMovement : MonoBehaviour {
         rb.angularVelocity = Vector3.zero;
     }
 
-    public void ResetAnims()
-    {
+    public void ResetAnims() {
         anim.SetBool("IsWalking", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
@@ -420,8 +364,7 @@ public class PlayerMovement : MonoBehaviour {
         model.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void PlayRespawnAnim()
-    {
+    public void PlayRespawnAnim() {
         anim.SetBool("IsWalking", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
@@ -429,11 +372,9 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsRunning", false);
         anim.SetBool("IsLandIdle", false);
         anim.SetTrigger("Respawn");
-        model.transform.rotation = Quaternion.Euler(0, 0, 0) ;
+        model.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
-
-    public void PlayDeathAnim()
-    {
+    public void PlayDeathAnim() {
         anim.SetBool("IsWalking", false);
         anim.SetBool("IsSwimming", false);
         anim.SetBool("IsFastSwimming", false);
