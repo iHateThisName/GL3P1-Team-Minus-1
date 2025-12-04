@@ -1,10 +1,9 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
 
-public class TutorialScript : MonoBehaviour
-{
+public class TutorialScript : MonoBehaviour {
     [Header("Breathing values")]
     [SerializeField]
     private float breathingBar = 0f;
@@ -63,8 +62,10 @@ public class TutorialScript : MonoBehaviour
     private int holdBreathCorrect2;
     private int breatheOutCorrect;
 
-    private void OnEnable()
-    {
+    private void Awake() {
+        GameManager.Instance.TutorialScript = this;
+    }
+    private void OnEnable() {
         breatheInAction.action.performed += OnBreatheInStarted;
         breatheInAction.action.canceled += OnBreatheInStopped;
 
@@ -76,8 +77,7 @@ public class TutorialScript : MonoBehaviour
         skipTutorialAction.action.performed += OnSkippedTut;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         breatheInAction.action.performed -= OnBreatheInStarted;
         breatheInAction.action.canceled -= OnBreatheInStopped;
 
@@ -90,8 +90,7 @@ public class TutorialScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (this.breathingSlider == null) return;
 
         breathingBar = Mathf.Clamp(breathingBar, 0f, 100f);
