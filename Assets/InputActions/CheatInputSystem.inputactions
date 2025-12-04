@@ -1,0 +1,135 @@
+{
+    "version": 1,
+    "name": "CheatInputSystem",
+    "maps": [
+        {
+            "name": "CheatCodes",
+            "id": "59844b34-1ec4-4e19-9e1b-ee25d684e849",
+            "actions": [
+                {
+                    "name": "Holding Down",
+                    "type": "Button",
+                    "id": "43c79192-ecd8-4ffd-8bc2-f2f12a79a005",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Disable Breating Mechanic",
+                    "type": "Button",
+                    "id": "717df91c-8b4d-4952-9443-9d5622da7b7c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Unlock All CheckPoints",
+                    "type": "Button",
+                    "id": "4247a4b1-0108-4331-9848-afbd4bff62d9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Teleport Player To The Bottom",
+                    "type": "Button",
+                    "id": "46120d02-95ec-44d3-8a36-f1dc8819a8fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Teleport Player To The Top",
+                    "type": "Button",
+                    "id": "43b6b8a9-98c6-4fe0-b721-20aa2f2fce5e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Give Money",
+                    "type": "Button",
+                    "id": "a23683a8-703f-4d15-a449-00214ab28d6e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "769d47c9-1767-496b-913a-b1df604fb156",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Holding Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97ceaaca-ac84-40dd-9291-40f1b201eab6",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Disable Breating Mechanic",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e57fa1e-ae46-4742-bfec-7b8d5b5e05b1",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Unlock All CheckPoints",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c79eba1a-67fd-4b78-8b38-3311d858cbf6",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport Player To The Bottom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17701f46-4872-4535-834a-0f1cd30112fe",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Give Money",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5746c4bc-8d26-4c25-9a98-6f625b95ce87",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport Player To The Top",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

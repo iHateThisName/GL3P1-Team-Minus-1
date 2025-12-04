@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class TurnOnLight : MonoBehaviour
-{
+public class TurnOnLight : MonoBehaviour {
     [SerializeField]
     private bool turnOn;
 
@@ -15,29 +14,25 @@ public class TurnOnLight : MonoBehaviour
     [SerializeField]
     private Material normalMat;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            if(turnOn)
-            {
+    private void Start() {
+        GameManager.Instance.TurnOnLight = this;
+    }
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            if (turnOn) {
                 TurnOn();
-            }
-            else
-            {
+            } else {
                 TurnOff();
             }
         }
     }
 
-    public void TurnOn()
-    {
+    public void TurnOn() {
         flashLight.SetActive(true);
         emmisionBands.GetComponent<Renderer>().material = emissiveMat;
     }
 
-    public void TurnOff()
-    {
+    public void TurnOff() {
         flashLight.SetActive(false);
         emmisionBands.GetComponent<Renderer>().material = normalMat;
     }
