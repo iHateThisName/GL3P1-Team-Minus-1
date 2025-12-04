@@ -21,14 +21,24 @@ public class TurnOnLight : MonoBehaviour
         {
             if(turnOn)
             {
-                flashLight.SetActive(true);
-                emmisionBands.GetComponent<Renderer>().material = emissiveMat;
+                TurnOn();
             }
             else
             {
-                flashLight.SetActive(false);
-                emmisionBands.GetComponent<Renderer>().material = normalMat;
+                TurnOff();
             }
         }
+    }
+
+    public void TurnOn()
+    {
+        flashLight.SetActive(true);
+        emmisionBands.GetComponent<Renderer>().material = emissiveMat;
+    }
+
+    public void TurnOff()
+    {
+        flashLight.SetActive(false);
+        emmisionBands.GetComponent<Renderer>().material = normalMat;
     }
 }

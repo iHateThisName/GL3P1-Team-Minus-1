@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPointManager : Singleton<CheckPointManager> {
+public class CheckPointManager : Singleton<CheckPointManager>
+{
 
     [SerializeField] private EnumCheckPoint currentCheckPointSelected = 0;
     private Dictionary<EnumCheckPoint, CheckPoint> checkPointDictionary = new Dictionary<EnumCheckPoint, CheckPoint>();
@@ -12,35 +13,43 @@ public class CheckPointManager : Singleton<CheckPointManager> {
     public System.Action OnAvaiableCheckPointAdded;
     [SerializeField] private Transform playerTransform;
 
-    public void RegisterCheckPoint(CheckPoint checkPoint) {
-        if (!checkPointDictionary.ContainsKey(checkPoint.currentCheckPoint)) {
+    public void RegisterCheckPoint(CheckPoint checkPoint)
+    {
+        if (!checkPointDictionary.ContainsKey(checkPoint.currentCheckPoint))
+        {
             checkPointDictionary.Add(checkPoint.currentCheckPoint, checkPoint);
         }
     }
 
-    public void SetCurrentCheckPoint(CheckPoint checkPoint) {
+    public void SetCurrentCheckPoint(CheckPoint checkPoint)
+    {
         this.currentCheckPointSelected = checkPoint.currentCheckPoint;
         this.avaiableCheckPoints.Add(checkPoint.currentCheckPoint);
         this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
-    public void SetCurrentCheckPoint(int checkPointNum) {
+    public void SetCurrentCheckPoint(int checkPointNum)
+    {
         EnumCheckPoint checkPoint = (EnumCheckPoint)checkPointNum;
         this.currentCheckPointSelected = checkPoint;
         this.avaiableCheckPoints.Add(checkPoint);
         this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
-    public void SetCurrentCheckPoint(EnumCheckPoint enumCheckPoint) {
+    public void SetCurrentCheckPoint(EnumCheckPoint enumCheckPoint)
+    {
         this.currentCheckPointSelected = enumCheckPoint;
         this.avaiableCheckPoints.Add(enumCheckPoint);
         this.OnAvaiableCheckPointAdded?.Invoke();
     }
 
     [ContextMenu("Unlock All Checkpoints")]
-    public void UnlockAllCheckpoints() {
-        foreach (EnumCheckPoint cp in System.Enum.GetValues(typeof(EnumCheckPoint))) {
-            if (cp != EnumCheckPoint.None && cp != EnumCheckPoint.Store && cp != EnumCheckPoint.RespawnCheckpoint) {
+    public void UnlockAllCheckpoints()
+    {
+        foreach (EnumCheckPoint cp in System.Enum.GetValues(typeof(EnumCheckPoint)))
+        {
+            if (cp != EnumCheckPoint.None && cp != EnumCheckPoint.Store && cp != EnumCheckPoint.RespawnCheckpoint)
+            {
                 this.avaiableCheckPoints.Add(cp);
             }
         }
@@ -49,12 +58,23 @@ public class CheckPointManager : Singleton<CheckPointManager> {
 
     [ContextMenu("Teleport Checkpoint")]
     public void UseCheckpoint() => StartCoroutine(UseCheckpointCoroutine());
-    public IEnumerator UseCheckpointCoroutine() {
-        if (!GameSceneManager.Instance.IsTransitionSceneLoaded) {
+    public IEnumerator UseCheckpointCoroutine()
+    {
+        if (!GameSceneManager.Instance.IsTransitionSceneLoaded)
+        {
             yield return StartCoroutine(GameSceneManager.Instance.LoadSceneCoroutine(EnumScene.TransitionScene, UnityEngine.SceneManagement.LoadSceneMode.Additive));
         }
         // Disable Player Movement
         GameManager.Instance.IsPlayerMovementEnabled = false;
+
+        if (currentCheckPointSelected != EnumCheckPoint.DawnCheckPoint || currentCheckPointSelected != EnumCheckPoint.RespawnCheckpoint || currentCheckPointSelected != EnumCheckPoint.FarRightCheckPoint || currentCheckPointSelected != EnumCheckPoint.Store)
+        {
+            GameManager.Instance.TurnOnLight.TurnOn();
+        }
+        else
+        {
+            GameManager.Instance.TurnOnLight.TurnOff();
+        }
 
         // Wait intill completely faded out
         yield return StartCoroutine(TransitionController.Instance.FadeOutCoroutine());
@@ -84,11 +104,13 @@ public class CheckPointManager : Singleton<CheckPointManager> {
         //AccessibleTracker.Instance.Skipped(cp.name);
     }
 
-    public bool IsCheckPointReached(CheckPointManager.EnumCheckPoint enumCheckPoint) {
+    public bool IsCheckPointReached(CheckPointManager.EnumCheckPoint enumCheckPoint)
+    {
         return this.avaiableCheckPoints.Contains(enumCheckPoint);
     }
 
-    public enum EnumCheckPoint : int {
+    public enum EnumCheckPoint : int
+    {
         None = -1, Store = 0, DawnCheckPoint = 1, TwilightCheckPoint = 2, LeftMidnightCheckPoint = 3, MiddleMidnightCheckPoint = 4, RightMidnightCheckPoint = 5, FarRightCheckPoint = 6, RespawnCheckpoint = 7,
     }
 }

@@ -11,6 +11,7 @@ public class GameManager : PersistenSingleton<GameManager> {
     public ShopInteractable ShopInteractable;
     public UIShopManager UIShopManager;
     public PostSignController PostSignController;
+    public TurnOnLight TurnOnLight;
 
     // Game state variables
     private bool _isPlayerMovementEnabled = true; // Never access this directly, use the public property below
