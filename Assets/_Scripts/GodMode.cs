@@ -14,7 +14,7 @@ public class GodMode : Singleton<GodMode> {
         modeActivatedAction.action.performed -= OnGodStarted;
     }
 
-    public void OnGodStarted(InputAction.CallbackContext context) {
+    private void OnGodStarted(InputAction.CallbackContext context) {
         GameManager.Instance.BreathingScript.DisableBreathing();
         GameManager.Instance.BreathingScript.enabled = false;
         CheckPointManager.Instance.UnlockAllCheckpoints();

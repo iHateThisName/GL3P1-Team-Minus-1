@@ -97,7 +97,10 @@ public class GameManager : PersistenSingleton<GameManager> {
     }
 
     public void SlowDownPlayer() {
-        GodMode.Instance.OnGodStarted(new UnityEngine.InputSystem.InputAction.CallbackContext()); // TODO REMOVE
+
+        // Disable breathing mechanic
+        BreathingScript.DisableBreathing();
+        BreathingScript.enabled = false;
 
         // SLOW
         PlayerMovement.smallAcceleration = 5f;
