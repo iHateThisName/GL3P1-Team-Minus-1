@@ -1,5 +1,7 @@
 using UnityEngine;
+#if !UNITY_WEBGL
 using Xasu.HighLevel;
+#endif
 
 public class SunkenTreasure : Interactable {
     [SerializeField] private int value = 100; // The value of the treasure
@@ -85,14 +87,15 @@ public class SunkenTreasure : Interactable {
     }
 
     private void CollectTreasure() {
+#if !UNITY_WEBGL
         GameObjectTracker.Instance.Used(gameObject.name).WithResultExtensions(new System.Collections.Generic.Dictionary<string, object>
+#endif
         {
-            { "http://isStoryTreasure", isStoryTreasure }, 
+            { "http://isStoryTreasure", isStoryTreasure },
             { "http://isArtefact", isArtefact },
             { "http://isNormalTreasure", !isArtefact && !isStoryTreasure }
         });
-        if(!GameManager.Instance.firstTreasureCollected)
-        {
+        if (!GameManager.Instance.firstTreasureCollected) {
             GameManager.Instance.firstTreasureCollected = true;
         }
         // Collects the treasure and also instantly picks it up
@@ -104,22 +107,14 @@ public class SunkenTreasure : Interactable {
         Debug.Log("Treasure collected! Player weight increased by " + this.weight);
 
         if (isStoryTreasure || isArtefact) {
-            if(isStoryTreasure)
-            {
-                if (!GameManager.Instance.firstStoryCollected)
-                {
+            if (isStoryTreasure) {
+                if (!GameManager.Instance.firstStoryCollected) {
                     GameManager.Instance.firstStoryCollected = true;
-                }
-                else if (!GameManager.Instance.secondStoryCollected)
-                {
+                } else if (!GameManager.Instance.secondStoryCollected) {
                     GameManager.Instance.secondStoryCollected = true;
-                }
-                else if (!GameManager.Instance.thirdStoryCollected)
-                {
+                } else if (!GameManager.Instance.thirdStoryCollected) {
                     GameManager.Instance.thirdStoryCollected = true;
-                }
-                else if(!GameManager.Instance.fourthStoryCollected)
-                {
+                } else if (!GameManager.Instance.fourthStoryCollected) {
                     GameManager.Instance.fourthStoryCollected = true;
                 }
             }
@@ -129,8 +124,7 @@ public class SunkenTreasure : Interactable {
             storyTreasureScript.DisplayTreasureScreen(treasureNum, treasureMessage, isStoryTreasure);
         }
 
-        if(isInShell && seaShell != null)
-        {
+        if (isInShell && seaShell != null) {
             seaShell.CloseShell();
         }
     }

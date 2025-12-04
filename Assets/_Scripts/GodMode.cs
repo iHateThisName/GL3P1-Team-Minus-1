@@ -1,6 +1,6 @@
+using Assets.Scripts.Singleton;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Xasu.Util;
 
 public class GodMode : Singleton<GodMode> {
     [SerializeField]

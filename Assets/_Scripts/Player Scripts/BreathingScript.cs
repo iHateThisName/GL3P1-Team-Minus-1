@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+#if !UNITY_WEBGL
 using Xasu.HighLevel;
+#endif
 
 public class BreathingScript : MonoBehaviour {
     [Header("Breathing values")]
@@ -223,7 +225,9 @@ public class BreathingScript : MonoBehaviour {
         holdingText.text = "";
         noAirText.text = "";
 
+#if !UNITY_WEBGL
         CompletableTracker.Instance.Initialized("Breathing").WithResultExtension("Score", GetScore());
+#endif
 
 
     }
@@ -252,7 +256,9 @@ public class BreathingScript : MonoBehaviour {
             AudioManager.Instance.bubbleSound.Stop();
         }
         inhaleTimer = 0f;
+#if !UNITY_WEBGL
         CompletableTracker.Instance.Progressed("Breathing", 0.5f).WithResultExtension("Score", GetScore());
+#endif
     }
     //Action for starting to hold your breath
     private void OnHoldBreathStarted(InputAction.CallbackContext context) {
@@ -282,7 +288,9 @@ public class BreathingScript : MonoBehaviour {
         }
         //Makes sure the game knows that the player held their breath
         hasHeldBreath = true;
+#if !UNITY_WEBGL
         CompletableTracker.Instance.Progressed("Breathing", 0.75f).WithResultExtension("Score", GetScore());
+#endif
     }
     //Action for stopping holding your breath
     private void OnHoldBreathStopped(InputAction.CallbackContext context) {
@@ -315,7 +323,9 @@ public class BreathingScript : MonoBehaviour {
         AudioManager.Instance.breatheOutSound.Play();
         AudioManager.Instance.bubbleSound.Play();
 
+#if !UNITY_WEBGL
         CompletableTracker.Instance.Completed("Breathing").WithResultExtension("Score", GetScore());
+#endif
     }
 
     //Method for resetting everything
@@ -365,7 +375,9 @@ public class BreathingScript : MonoBehaviour {
         DisableBreathing();
         StartCoroutine(GameManager.Instance.PlayRespawnAnim());
         this.enabled = false;
+#if !UNITY_WEBGL
         GameObjectTracker.Instance.Interacted("Died");
+#endif
         bubbleEffect.SendEvent("OnStop");
         AudioManager.Instance.breatheOutSound.Stop();
         AudioManager.Instance.breatheInSound.Stop();
