@@ -378,4 +378,18 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("IsLandIdle", false);
         anim.SetTrigger("Death");
     }
+
+    public void SlowDownPlayer() {
+        this.rb.linearVelocity = Vector3.zero;
+        this.rb.angularVelocity = Vector3.zero;
+
+        this.smallAcceleration = 5f;
+        this.fastAcceleration = 10f;
+        this.acceleration = this.smallAcceleration;
+        this.normalSpeed = 3f;
+        this.fastSpeed = 6f;
+        this.maxSpeed = this.normalSpeed;
+
+        GameManager.Instance.BreathingScript.upgradeValue = 1f;
+    }
 }

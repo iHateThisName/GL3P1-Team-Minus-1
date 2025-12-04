@@ -103,11 +103,7 @@ public class GameManager : PersistenSingleton<GameManager> {
         BreathingScript.enabled = false;
 
         // SLOW
-        PlayerMovement.smallAcceleration = 5f;
-        PlayerMovement.fastAcceleration = 10f;
-        PlayerMovement.normalSpeed = 3f;
-        PlayerMovement.fastSpeed = 6f;
-        BreathingScript.upgradeValue = 1f;
+        PlayerMovement.SlowDownPlayer();
     }
 
     // Deletes the saved game state
