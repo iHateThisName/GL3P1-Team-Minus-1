@@ -67,13 +67,14 @@ public class CheckPointManager : Singleton<CheckPointManager>
         // Disable Player Movement
         GameManager.Instance.IsPlayerMovementEnabled = false;
 
-        if (currentCheckPointSelected != EnumCheckPoint.DawnCheckPoint || currentCheckPointSelected != EnumCheckPoint.RespawnCheckpoint || currentCheckPointSelected != EnumCheckPoint.FarRightCheckPoint || currentCheckPointSelected != EnumCheckPoint.Store)
-        {
-            GameManager.Instance.TurnOnLight.TurnOn();
-        }
-        else
+        if (currentCheckPointSelected == EnumCheckPoint.DawnCheckPoint || currentCheckPointSelected == EnumCheckPoint.RespawnCheckpoint || currentCheckPointSelected == EnumCheckPoint.FarRightCheckPoint || currentCheckPointSelected == EnumCheckPoint.Store)
         {
             GameManager.Instance.TurnOnLight.TurnOff();
+            Debug.Log("Should turn off light");
+        }
+        else if (currentCheckPointSelected != EnumCheckPoint.DawnCheckPoint || currentCheckPointSelected != EnumCheckPoint.RespawnCheckpoint || currentCheckPointSelected != EnumCheckPoint.FarRightCheckPoint || currentCheckPointSelected != EnumCheckPoint.Store)
+        {
+            GameManager.Instance.TurnOnLight.TurnOn();
         }
 
         // Wait intill completely faded out

@@ -110,8 +110,38 @@ public class GameManager : PersistenSingleton<GameManager> {
     public void DeleteGameState() {
         PlayerPrefs.DeleteKey(ShopItemLookUp.PlayerShopItemsKey);
         ShopItemLookUp.Instance.ResetPlayerItems();
-        GameManager.Instance.Money = 0;
-    }
+        Money = 0;
+
+        startedGame = true;
+        startedGameFinished = false;
+
+        firstTreasureCollected = false;
+        firstTreasureFinished = false;
+
+        firstSuitUpgrade = false;
+        firstSuitUpgradeFinished = false;
+
+        firstDied = false;
+        firstDiedFinished = false;
+
+        firstStoryCollected = false;
+        firstStoryFinished = false;
+
+        secondStoryCollected = false;
+        secondStoryFinished = false;
+
+        thirdStoryCollected = false;
+        thirdStoryFinished = false;
+
+        fourthStoryCollected = false;
+        fourthStoryFinished = false;
+
+        secretDialougeTriggered = false;
+        secretDialougeActive = false;
+        secretDialougeFinished = false;
+
+        endingTriggered = false;
+}
 
     public void TeleportPlayer(Vector3 newLocation) {
         Rigidbody playerRigidBody = this.PlayerMovement.GetRigidbody();
