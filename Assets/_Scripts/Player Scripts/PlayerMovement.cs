@@ -63,7 +63,6 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float camTransitionSpeed = 0.1f;
 
     public bool zoomedOut = false;
-    public bool isSlowedDown = false;
 
     //[SerializeField] private InputActionReference moveActionRef; <-- This seems to be a cool way to do it for the new input system.
 
@@ -109,10 +108,6 @@ public class PlayerMovement : MonoBehaviour {
     private void FixedUpdate() {
         // Check if the movment is disabled
         if (!GameManager.Instance.IsPlayerMovementEnabled) return;
-
-        if (this.isSlowedDown && this.input.y > 0) {
-            this.input.y = 0;
-        }
 
         if (isGrounded) {
             rb.linearDamping = groundDrag;

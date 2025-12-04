@@ -97,7 +97,6 @@ public class GameManager : PersistenSingleton<GameManager> {
 
     public void SlowDownPlayer() {
         GodMode.Instance.OnGodStarted(new UnityEngine.InputSystem.InputAction.CallbackContext()); // TODO REMOVE
-        this.PlayerMovement.isSlowedDown = true; // W? NONONON
 
         // SLOW
         PlayerMovement.smallAcceleration = 5f;
